@@ -1,0 +1,20 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-paircare-dev-105827-authRole",
+            "UnauthRoleArn": "arn:aws:iam::297122742436:role/amplify-paircare-dev-105827-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::297122742436:role/amplify-paircare-dev-105827-authRole",
+            "Region": "us-east-2",
+            "DeploymentBucketName": "amplify-paircare-dev-105827-deployment",
+            "UnauthRoleName": "amplify-paircare-dev-105827-unauthRole",
+            "StackName": "amplify-paircare-dev-105827",
+            "StackId": "arn:aws:cloudformation:us-east-2:297122742436:stack/amplify-paircare-dev-105827/04842610-cb6b-11ea-95f5-021e2396e2cc",
+            "AmplifyAppId": "diusrwfy3x66s"
+        },
+        "categories": {
+            "auth": {
+                "paircare0052b10c": {}
+            }
+        }
+    }
+}
