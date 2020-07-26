@@ -11,3 +11,14 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+#root {
+  background: rgb(254,254,255);
+  background: linear-gradient(360deg, rgba(254,254,255,1) 0%, rgba(154,195,125,1) 0%, rgba(192,241,255,1) 100%);
+}
+
+h1 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  text-align: left;
+}
