@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import logo from "../src/logo.svg";
-import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
+import {  AmplifySignOut } from '@aws-amplify/ui-react';
 
 export class InternalApp extends Component {
   render() {

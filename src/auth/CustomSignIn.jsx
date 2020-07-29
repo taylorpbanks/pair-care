@@ -1,22 +1,23 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import { Auth } from "aws-amplify";
 import {
-  Container,
-  Paper,
   TextField,
   Button,
-  Box,
   Link,
   Grid,
   InputAdornment,
 } from '@material-ui/core';
-import {Person, Lock} from '@material-ui/icons';
+import { Alert } from '@material-ui/lab';
+import { Person, Lock } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
+import ResetPassword from './ResetPassword';
+import Register from './Register';
+import Verify from './Verify';
 
 const styles = {
   input: {
     width: '100%',
-    'margin-top': '5px',
+    'margin-top': '15px',
     'margin-bottom': '5px',
   },
   'btn-container': {
@@ -41,7 +42,16 @@ class CustomSignIn extends Component {
     this.signIn = this.signIn.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleFormSubmission = this.handleFormSubmission.bind(this);
-    this.state = {};
+    this.state = {
+      error: '',
+      username: "",
+      email: "",
+      password: "",
+      phone_number: "",
+      code: "",
+      user: null, // will contain our user data object when signed in
+      status: "SignUp"
+    };
   }
 
   handleFormSubmission(evt) {
@@ -62,10 +72,10 @@ class CustomSignIn extends Component {
         this.props.onStateChange("confirmSignUp", {});
       } else if (err.code === "NotAuthorizedException") {
         // The error happens when the incorrect password is provided
-        this.setState({ error: "Login failed." });
+        this.setState({ error: "Invalid username or password." });
       } else if (err.code === "UserNotFoundException") {
         // The error happens when the supplied username/email does not exist in the Cognito user pool
-        this.setState({ error: "Login failed." });
+        this.setState({ error: "Invalid username or password." });
       } else {
         this.setState({ error: "An error has occurred." });
         console.error(err);
@@ -82,109 +92,133 @@ class CustomSignIn extends Component {
     this.setState({ error: "" });
   }
 
+  // Handle changes to form inputs on sign-up, verification and sign-in
+  handleFormInput = event => {
+    console.log(event.target.name);
+    console.log(event.target.value);
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  };
+
   render() {
-    const { classes } = this.props;
+    const { classes, authState, onStateChange } = this.props;
+    const { error } = this.state;
+    console.log(this.props);
+    console.log(this.state);
     // const [isPasswordHidden, setIsPasswordHidden] = useState(false);
 
     return (
-      <>
-        {this._validAuthStates.includes(this.props.authState) && (
+      <div className="form-container">
+        {authState === 'forgotPassword' && (
+          <>
+            <ResetPassword classes={classes} onStateChange={onStateChange} />
+          </>
+        )}
+        {authState === 'verify' && (
+          <>
+            <Verify
+              onStateChange={onStateChange}
+              handleFormInput={this.handleFormInput}
+              inputs={this.state}
+              classes={classes}
+            />
+          </>
+        )}
+        {authState === 'register' && (
+          <>
+            <Register
+              onStateChange={onStateChange}
+              handleFormInput={this.handleFormInput}
+              inputs={this.state}
+              classes={classes}
+            />
+          </>
+        )}
+        {this._validAuthStates.includes(authState) && (
+          <>
+            <h1>
+              Welcome back to Pair Care!
+            </h1>
+            {error && (
+              <Alert severity="error"><strong>{error}</strong> Please try again.</Alert>
+            )}
+            <form onSubmit={this.handleFormSubmission}>
+              <TextField
+                id="username"
+                key="username"
+                name="username"
+                label="Username"
+                type="text"
+                className={classes.input}
+                onChange={this.handleInputChange}
+                autoComplete="off"
+                variant="outlined"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Person style={{ color: 'gray' }} />
+                    </InputAdornment>
+                  ),
+                }}
+              />
 
-          <Container maxWidth="sm">
-            <Paper elevation={3} p={2}>
-              <Box p={3}>
-                <div className={classes['logo-container']}>
-                  <img
-                    src={require("../img/paircare-logo-color.png")}
-                    alt="pair-card logo"
-                    style={{ maxWidth: '300px' }}
-                  />
-                </div>
-                <h1>
-                  Welcome back to Pair Care!
-                </h1>
-                <form onSubmit={this.handleFormSubmission}>
-                  <TextField
-                    id="username"
-                    key="username"
-                    name="username"
-                    label="Username"
-                    type="text"
-                    className={classes.input}
-                    onChange={this.handleInputChange}
-                    autoComplete="off"
-                    tabIndex="0"
-                    variant="outlined"
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <Person />
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
+              <TextField
+                id="password"
+                key="password"
+                name="password"
+                label="Password"
+                type="password"
+                className={classes.input}
+                onChange={this.handleInputChange}
+                variant="outlined"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Lock style={{ color: 'gray' }} />
+                    </InputAdornment>
+                  ),
+                }}
+              />
 
-                  <TextField
-                    id="password"
-                    key="password"
-                    name="password"
-                    label="Password"
-                    type="password"
-                    className={classes.input}
-                    onChange={this.handleInputChange}
-                    tabIndex="1"
-                    variant="outlined"
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <Lock />
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-
-                  <Link
-                    component="button"
-                    variant="body2"
-                    // onClick={() => onStateChange("forgotPassword")}
-                    style={{ float: 'right' }}
-                    tabIndex="5"
-                  >
-                    Forgot Password?
+              <Link
+                component="button"
+                variant="body2"
+                onClick={() => onStateChange("forgotPassword")}
+                style={{ float: 'right' }}
+              >
+                Forgot Password?
                   </Link>
 
-                  <Grid container  className={classes['btn-container']} spacing={3}>
-                    <Grid item xs={12} sm={6}>
-                      <Button
-                        style={{ width: '100%', borderRadius: '50px' }}
-                        className={classes['btn-primary']}
-                        onClick={() => this.handleFormSubmission()}
-                        variant="contained"
-                        color="primary"
-                        tabIndex="3"
-                      >
-                        Login
+              <Grid container className={classes['btn-container']} spacing={3}>
+                <Grid item xs={12} sm={6}>
+                  <Button
+                    style={{ width: '100%', borderRadius: '50px' }}
+                    className={classes['btn-primary']}
+                    type="submit"
+                    onClick={(event) => this.handleFormSubmission(event)}
+                    variant="contained"
+                    color="primary"
+                  >
+                    Login
                       </Button>
-                    </Grid>
+                </Grid>
 
-                    <Grid item xs={12} sm={6}>
-                      <Button
-                        style={{ width: '100%', borderRadius: '50px' }}
-                        onClick={() => this.handleFormSubmission()}
-                        variant="outlined"
-                        color="primary"
-                        tabIndex="4"
-                      >
-                        Sign up
-                      </Button>
-                    </Grid>
-                  </Grid>
-                </form>
-              </Box>
-            </Paper>
-          </Container>
+                <Grid item xs={12} sm={6}>
+                  <Button
+                    style={{ width: '100%', borderRadius: '50px' }}
+                    onClick={() => onStateChange('register')}
+                    variant="outlined"
+                    color="primary"
+                  >
+                    Sign up
+                  </Button>
+                </Grid>
+              </Grid>
+            </form>
+          </>
         )}
-      </>
+      </div>
     );
   }
 }
