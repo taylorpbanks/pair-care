@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { InternalApp } from "../InternalApp";
 import CustomSignIn from "./CustomSignIn";
-import Footer from '../framework/Footer';
 import {
   Container,
   Paper,
@@ -27,6 +26,13 @@ const styles = {
   },
   'btn-primary': {
     color: 'white'
+  },
+  authContainer: {
+    minHeight: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
   }
 };
 
@@ -48,27 +54,28 @@ class AuthWrapper extends Component {
 
     return (
       <div className="flex-1">
-        <Container maxWidth="sm">
-          <Paper elevation={3} p={2}>
-            <Box p={3}>
-              <div className={classes['logo-container']}>
-                <img
-                  src={require("../img/paircare-logo-color.png")}
-                  alt="pair-card logo"
-                  style={{ maxWidth: '300px' }}
+        {this.props.authState !== 'signedIn' && (
+          <Container maxWidth="sm" className={classes.authContainer}>
+            <Paper elevation={3} p={2}>
+              <Box p={3}>
+                <div className={classes['logo-container']}>
+                  <img
+                    src={require("../img/paircare-logo-color.png")}
+                    alt="pair-card logo"
+                    style={{ maxWidth: '300px' }}
+                  />
+                </div>
+                <CustomSignIn
+                  authState={this.props.authState}
+                  updateUsername={this.updateUsername}
+                  onStateChange={this.props.onStateChange}
+                  classes={this.props.classes}
                 />
-              </div>
-              <CustomSignIn
-                authState={this.props.authState}
-                updateUsername={this.updateUsername}
-                onStateChange={this.props.onStateChange}
-                classes={this.props.classes}
-              />
-            </Box>
-          </Paper>
-        </Container>
+              </Box>
+            </Paper>
+          </Container>
+        )}
 
-        <Footer />
         <InternalApp authState={this.props.authState} onStateChange={this.props.onStateChange} />
       </div>
     );

@@ -1,16 +1,21 @@
 import React, { Component } from "react";
-import logo from "../src/logo.svg";
-import {  AmplifySignOut } from '@aws-amplify/ui-react';
+import Content from './framework/Content';
+import Header from './framework/Header';
+import {
+  BrowserRouter as Router,
+} from "react-router-dom";
 
 export class InternalApp extends Component {
   render() {
-    if (this.props.authState === "signedIn") {
+    if (this.props.authState === 'signedIn') {
       return (
-        <>
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>Internal Application behind Login</p>
-          <AmplifySignOut />
-        </>
+        <Router>
+          <Header />
+          <div className="container">
+            <Content />
+            <p>Internal Application behind Login</p>
+          </div>
+        </Router>
       );
     } else {
       return null;
