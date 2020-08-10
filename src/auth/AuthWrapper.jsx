@@ -1,11 +1,5 @@
-import React, { Component } from "react";
-import { InternalApp } from "../InternalApp";
-import CustomSignIn from "./CustomSignIn";
-import {
-  Container,
-  Paper,
-  Box,
-} from '@material-ui/core';
+import React, { Component } from 'react';
+import InternalApp from '../InternalApp';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
@@ -50,32 +44,9 @@ class AuthWrapper extends Component {
   }
 
   render() {
-    const { classes } = this.props;
 
     return (
-      <div className="flex-1">
-        {this.props.authState !== 'signedIn' && (
-          <Container maxWidth="sm" className={classes.authContainer}>
-            <Paper elevation={3} p={2}>
-              <Box p={3}>
-                <div className={classes['logo-container']}>
-                  <img
-                    src={require("../img/paircare-logo-color.png")}
-                    alt="pair-card logo"
-                    style={{ maxWidth: '300px' }}
-                  />
-                </div>
-                <CustomSignIn
-                  authState={this.props.authState}
-                  updateUsername={this.updateUsername}
-                  onStateChange={this.props.onStateChange}
-                  classes={this.props.classes}
-                />
-              </Box>
-            </Paper>
-          </Container>
-        )}
-
+      <div className="flex-1 height-100">
         <InternalApp authState={this.props.authState} onStateChange={this.props.onStateChange} />
       </div>
     );

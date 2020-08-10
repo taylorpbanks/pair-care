@@ -10,8 +10,8 @@ Amplify.configure(awsconfig);
 function App() {
   return (
     <div className="App">
-      <Authenticator hideDefault={true} amplifyConfig={awsconfig}>
-        <AuthWrapper />
+      <Authenticator className="height-100" hideDefault={true} amplifyConfig={awsconfig}>
+        <AuthWrapper className="height-100" />
       </Authenticator>
     </div>
   );

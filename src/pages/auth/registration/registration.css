@@ -1,0 +1,22 @@
+.register .option {
+    text-align: center;
+    font-size: 1.5em;
+    padding: 50px 10px;
+    border: 2px solid #e0e0e0;
+    cursor: pointer;
+    color: #545454;
+}
+
+.register .option:hover {
+    background-color: #e6e6e6;
+}
+
+.register .option.selected {
+    border: 2px solid #96bf7a;
+    color: #96bf7a;
+}
+
+.register .MuiTextField-root {
+    margin-bottom: 30px;
+    width: 100%;
+}

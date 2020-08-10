@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Auth } from "aws-amplify";
+import { Auth } from 'aws-amplify';
 import {
   AppBar,
   Toolbar,
@@ -14,8 +14,6 @@ import {
   ListItemText,
 } from '@material-ui/core';
 import {
-  Switch,
-  Route,
   Link
 } from "react-router-dom";
 import {
@@ -25,6 +23,9 @@ import {
   Group,
   Home,
   Info,
+  ListAlt,
+  Share,
+  ImportContacts,
 } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
@@ -33,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     backgroundColor: 'white',
     color: '#545454',
+    marginBottom: '2px',
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -47,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Header() {
+export default function Header({authState}) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -55,8 +57,10 @@ export default function Header() {
 
   const navigation = [
     { label: 'Home', path: '/', icon: <Home /> },
-    { label: 'Users', path: '/users', icon: <Group /> },
+    { label: 'My List', path: '/my-list', icon: <ListAlt /> },
+    { label: 'Shared Lists', path: '/shared-lists', icon: <Share /> },
     { label: 'About', path: '/about', icon: <Info /> },
+    { label: 'Resources', path: '/resources', icon: <ImportContacts /> },
   ]
 
   const handleMenu = (event) => {
@@ -81,7 +85,7 @@ export default function Header() {
         <Drawer anchor="left" open={isDrawerOpen} onClose={(event) => toggleDrawer(event)}>
           <List>
             {navigation.map((nav, index) => (
-              <Link to={nav.path} className={classes.navLink} onClick={(event) => toggleDrawer(event)}>
+              <Link key={nav.path} to={nav.path} className={classes.navLink} onClick={(event) => toggleDrawer(event)}>
                 <ListItem button key={nav.label}>
                   <ListItemIcon>{nav.icon}</ListItemIcon>
                   <ListItemText primary={nav.label} />
