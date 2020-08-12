@@ -115,6 +115,7 @@ const Login = () => {
                 onClick={() => signInClick()}
                 variant="contained"
                 color="primary"
+                className="double-submit-btn"
               >
                 Login
                 </Button>
@@ -123,6 +124,7 @@ const Login = () => {
                 onClick={() => goToRegister()}
                 variant="outlined"
                 color="primary"
+                className="double-submit-btn"
               >
                 Sign up
               </Button>

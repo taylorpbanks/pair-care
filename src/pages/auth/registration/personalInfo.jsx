@@ -140,13 +140,13 @@ const PersonalInfo = ({ setStep, data, handleDataChange }) => {
           />
 
           <Grid container spacing={3}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} className="text-center">
               <Button
-                style={{ width: '100%', borderRadius: '50px' }}
                 onClick={(event) => handleSignUp(event)}
                 variant="contained"
                 color="primary"
-              >
+                className="single-submit-btn"
+                >
                 Sign up
             </Button>
             </Grid>

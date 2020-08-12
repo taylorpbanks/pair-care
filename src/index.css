@@ -59,17 +59,23 @@ a {
   color: white;
 }
 
-.btn-container button {
-  width: 47%;
-  margin-left: 5px;
-}
-
 .single-submit-btn {
   width: 50%;
 }
 
+.double-submit-btn {
+  width: 47%;
+  margin-left: 5px !important;
+}
+
 @media screen and (max-width: 600px) {
-  .single-submit-btn {
+  .single-submit-btn, .double-submit-btn {
     width: 100%;
+    margin-top: 15px !important;
+    margin-left: 0px;
+  }
+
+  .container {
+    padding: 0px;
   }
 }
