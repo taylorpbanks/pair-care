@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import { Auth } from 'aws-amplify';
-import {
+import React from "react";
+/*import {
   Container,
   TextField,
   Button,
@@ -16,7 +15,6 @@ import {
   faMars,
   faMagic,
   faUserFriends,
-
 } from '@fortawesome/free-solid-svg-icons'
 
 const lists = [
@@ -30,12 +28,12 @@ const lists = [
   { id: 7, label: 'Changing Station', icon: <FontAwesomeIcon icon={faBaby} /> },
   { id: 8, label: 'Cleaning Supplies', icon: <FontAwesomeIcon icon={faBaby} /> },
   { id: 9, label: 'For the Parent', icon: <FontAwesomeIcon icon={faBaby} /> },
-];
+];*/
 
 const MyLists = () => {
   return (
     <div>
-      <h1>My Lists</h1>
+      <h1>My List</h1>
 
       {/* <Grid container spacing={3}>
         {lists.map((list) => (

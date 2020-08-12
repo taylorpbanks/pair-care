@@ -7,6 +7,7 @@ import Unauthorized from '../pages/unauthorized/unauthorized';
 import Login from '../pages/auth/login';
 import Registration from '../pages/auth/registration/registration';
 import MyLists from '../pages/my-lists/MyLists';
+import Profile from '../pages/Profile/Profile';
 
 export default function Content({authState, onStateChange}) {
   const isLoggedIn = authState === 'signedIn';
@@ -37,11 +38,15 @@ export default function Content({authState, onStateChange}) {
           {isLoggedIn ? <Resources /> : <UnauthorizedPage /> }
         </Route>
 
-        <Route path="/">
-          {isLoggedIn ? <MyLists /> : <UnauthorizedPage /> }
+        <Route path="/profile">
+          {isLoggedIn ? <Profile /> : <UnauthorizedPage /> }
         </Route>
 
         <Route path="/my-list">
+          {isLoggedIn ? <MyLists /> : <UnauthorizedPage /> }
+        </Route>
+
+        <Route path="/">
           {isLoggedIn ? <MyLists /> : <UnauthorizedPage /> }
         </Route>
       </Switch>

@@ -28,6 +28,10 @@ h2 {
   color: #96bf7a;
 }
 
+.text-center {
+  text-align: center;
+}
+
 html, body, #root {
   height: 100%;
 }
@@ -39,6 +43,10 @@ html, body, #root {
 
 .height-100, .App > div {
   height: 100%; 
+}
+
+.margin-auto {
+  margin: auto;
 }
 
 a {
@@ -54,4 +62,14 @@ a {
 .btn-container button {
   width: 47%;
   margin-left: 5px;
+}
+
+.single-submit-btn {
+  width: 50%;
+}
+
+@media screen and (max-width: 600px) {
+  .single-submit-btn {
+    width: 100%;
+  }
 }

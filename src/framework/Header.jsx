@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Auth } from 'aws-amplify';
 import {
@@ -14,18 +14,18 @@ import {
   ListItemText,
 } from '@material-ui/core';
 import {
-  Link
+  Link,
 } from "react-router-dom";
 import {
   Menu as MenuIcon,
   AccountCircle,
   ExitToApp,
-  Group,
   Home,
   Info,
   ListAlt,
   Share,
   ImportContacts,
+  Person,
 } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
@@ -61,6 +61,7 @@ export default function Header({authState}) {
     { label: 'Shared Lists', path: '/shared-lists', icon: <Share /> },
     { label: 'About', path: '/about', icon: <Info /> },
     { label: 'Resources', path: '/resources', icon: <ImportContacts /> },
+    { label: 'Profile', path: '/profile', icon: <Person /> },
   ]
 
   const handleMenu = (event) => {
@@ -110,7 +111,7 @@ export default function Header({authState}) {
             alt="pair-card logo"
             style={{ maxWidth: '100px', margin: 'auto' }}
           />
-          <div>
+          {authState !== 'signIn' && (<div>
             <IconButton
               aria-label="account of current user"
               aria-controls="menu-appbar"
@@ -135,8 +136,11 @@ export default function Header({authState}) {
               open={open}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
-              <MenuItem onClick={handleClose}>My account</MenuItem>
+              <MenuItem onClick={handleClose}>
+                <Link to="/profile" className={classes.navLink}>
+                  Profile
+                </Link>
+              </MenuItem>
             </Menu>
 
             <IconButton
@@ -147,6 +151,7 @@ export default function Header({authState}) {
               <ExitToApp />
             </IconButton>
           </div>
+        )}
         </Toolbar>
       </AppBar>
     </div>

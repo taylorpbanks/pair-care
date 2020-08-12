@@ -5,10 +5,9 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import Amplify from 'aws-amplify';
 import config from './aws-exports';
-import { Authenticator, SignIn, SignUp, ConfirmSignUp, Greetings } from 'aws-amplify-react';
+import { Authenticator } from 'aws-amplify-react';
 
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
-import Login from './auth/Login';
 Amplify.configure(config);
 
 const theme = createMuiTheme({
@@ -17,7 +16,7 @@ const theme = createMuiTheme({
       main: '#96bf7a',
     },
     secondary: {
-      main: '#662113',
+      main: '#cbe63f',
     },
   },
 });

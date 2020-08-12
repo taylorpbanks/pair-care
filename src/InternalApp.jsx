@@ -6,7 +6,6 @@ import {
 } from "react-router-dom";
 
 function InternalApp({ authState, onStateChange }) {
-  console.log(authState);
   return (
     <Router>
       <Header authState={authState} onStateChange={onStateChange} />
