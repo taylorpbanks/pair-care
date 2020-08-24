@@ -20,7 +20,13 @@ const ConfirmEmail = ({ data, handleDataChange }) => {
     event.preventDefault();
     // After retrieving the confirmation code from the user
     Auth.confirmSignUp(data.email, data.code)
-      .then(() => setRedirect('/login'))
+      .then(() => {
+        Auth.signIn(data.email, data.password)
+          .then(() => {
+            setRedirect('/');
+          })
+          .catch(err => setError('You successfully confirmed your email, however, an error occurred when trying to login you in.  Please try to login manually.'))
+      })
       .catch(err => setError('Invalid confirmation code.'));
   };
 

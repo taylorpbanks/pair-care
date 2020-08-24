@@ -6,7 +6,13 @@ import {
   Button,
   Box,
   Link,
+  InputAdornment,
+  IconButton,
 } from '@material-ui/core';
+import {
+  Visibility,
+  VisibilityOff,
+} from '@material-ui/icons';
 import { Alert } from '@material-ui/lab';
 import { Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
@@ -26,6 +32,7 @@ const Login = () => {
   const classes = useStyles();
   const [redirect, setRedirect] = useState(undefined);
   const [error, setError] = useState(undefined);
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -96,9 +103,21 @@ const Login = () => {
               key="password"
               name="password"
               label="Password"
-              type="password"
+              type={showPassword ? 'text': 'password'}
               className={classes.input}
               onChange={(e) => handleInputChange(e, 'password')}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={() => {setShowPassword(!showPassword)}}
+                    >
+                      {showPassword ? <Visibility style={{ color: 'gray' }} /> : <VisibilityOff style={{ color: 'gray' }} />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
 
             <Link

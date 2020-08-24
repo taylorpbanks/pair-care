@@ -41,6 +41,8 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
+    maxWidth: '100px',
+    margin: 'auto'
   },
   navLink: {
     textDecoration: 'none',
@@ -105,12 +107,13 @@ export default function Header({authState}) {
           >
             <MenuIcon />
           </IconButton>
-          <img
-            className={classes.title}
-            src={require("../img/paircare-logo-color.png")}
-            alt="pair-card logo"
-            style={{ maxWidth: '100px', margin: 'auto' }}
-          />
+          <a className={classes.title} href="/">
+            <img
+              src={require("../img/paircare-logo-color.png")}
+              alt="pair-care logo"
+              style={{ maxWidth: '100px' }}
+            />
+          </a>
           {authState !== 'signIn' && (<div>
             <IconButton
               aria-label="account of current user"
