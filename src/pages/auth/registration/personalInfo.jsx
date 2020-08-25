@@ -34,6 +34,8 @@ const PersonalInfo = ({ setStep, data, handleDataChange }) => {
       lastName,
     } = data;
 
+    const randomNumber = Math.floor(Math.random() * Math.floor(10));
+
     Auth.signUp({
       username: email,
       password,
@@ -44,6 +46,7 @@ const PersonalInfo = ({ setStep, data, handleDataChange }) => {
         'custom:parentType': parentType,
         'custom:firstName': firstName,
         'custom:lastName': lastName,
+        'custom:color': randomNumber,
       },
       validationData: [] //optional
     })
