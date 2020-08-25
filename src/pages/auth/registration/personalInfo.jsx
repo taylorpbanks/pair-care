@@ -46,7 +46,7 @@ const PersonalInfo = ({ setStep, data, handleDataChange }) => {
         'custom:parentType': parentType,
         'custom:firstName': firstName,
         'custom:lastName': lastName,
-        'custom:color': randomNumber,
+        'custom:colorNum': randomNumber,
       },
       validationData: [] //optional
     })

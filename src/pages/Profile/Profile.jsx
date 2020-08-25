@@ -146,7 +146,7 @@ const Profile = () => {
           <form onSubmit={handleUpdate}>
             <Grid container spacing={3}>
               <Grid item xs={12} className="text-center">
-                <Avatar className={`${user['custom:color'] ? colors[user['custom:color']] : classes.purple} margin-auto`}>{user.initials}</Avatar>
+                <Avatar className={`${user['custom:colorNum'] ? colors[user['custom:colorNum']] : classes.purple} margin-auto`}>{user.initials}</Avatar>
                 <span>{user.email}</span>
               </Grid>
 
