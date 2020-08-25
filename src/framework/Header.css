@@ -1,0 +1,31 @@
+.logo-container {
+    flex-grow: 1;
+    max-width: 100px;
+}
+
+.header-logo {
+    max-width: 100px;
+}
+
+.mobile-menu {
+    display: none !important;
+}
+
+.tabs { 
+    margin: auto;
+}
+
+/* mobile responsive */
+@media screen and (max-width: 600px) {
+    .logo-container {
+        margin: auto;
+    }
+
+    .mobile-menu { 
+        display: inline-flex !important;
+    }
+
+    .tabs { 
+        display: none !important;
+    }
+}

@@ -20,76 +20,88 @@ import './registration.css';
 
 const BabyInfo = ({ setStep, data, handleDataChange }) => {
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="lg">
       <p style={{ textAlign: 'left' }}>
-        Tell us a little bit about your baby.
+        Tell us a little bit about you and your baby.
       </p>
-      <h2>I am...</h2>
-      <Grid container spacing={3}>
-        <Grid item xs={6} sm={3}>
-          <Paper elevation={1} className={`option ${data.parentType === 'N' ? 'selected' : ''}`} onClick={() => { handleDataChange('parentType', 'N') }}>
-            <div className="box-content">
-              New Parent
-            <br />
-              <FontAwesomeIcon icon={faBaby} size="2x" />
-            </div>
-          </Paper>
+      <Grid container spacing={6}>
+        <Grid item xs={12} sm={6}>
+          <Grid item xs={12}>
+            <h2>I am...</h2>
+          </Grid>
+          <Grid container spacing={3}>
+
+            <Grid item xs={6} sm={6}>
+              <Paper elevation={1} className={`option ${data.parentType === 'N' ? 'selected' : ''}`} onClick={() => { handleDataChange('parentType', 'N') }}>
+                <div className="box-content">
+                  New Parent
+                  <br />
+                  <FontAwesomeIcon icon={faBaby} size="2x" />
+                </div>
+              </Paper>
+            </Grid>
+
+            <Grid item xs={6} sm={6}>
+              <Paper elevation={1} className={`option ${data.parentType === 'S' ? 'selected' : ''}`} onClick={() => { handleDataChange('parentType', 'S') }}>
+                <div className="box-content">
+                  Seasoned Parent
+                  <br />
+                  <FontAwesomeIcon icon={faChild} size="2x" />
+                </div>
+              </Paper>
+            </Grid>
+          </Grid>
         </Grid>
 
-        <Grid item xs={6} sm={3}>
-          <Paper elevation={1} className={`option ${data.parentType === 'S' ? 'selected' : ''}`} onClick={() => { handleDataChange('parentType', 'S') }}>
-            <div className="box-content">
-              Seasoned Parent
-            <br />
-              <FontAwesomeIcon icon={faChild} size="2x" />
-            </div>
-          </Paper>
-        </Grid>
-      </Grid>
+        <Grid item xs={12} sm={6}>
+          <Grid item xs={12}>
+            <h2>It's...</h2>
+          </Grid>
+          <Grid container spacing={3}>
 
-      <br />
-      <h2>It's...</h2>
-      <Grid container spacing={3}>
-        <Grid item xs={6} sm={3}>
-          <Paper elevation={1} className={`option ${data.childGender === 'M' ? 'selected' : ''}`} onClick={() => { handleDataChange('childGender', 'M') }}>
-            <div className="box-content">
-              A Boy
-            <br />
-              <FontAwesomeIcon icon={faMars} size="2x" />
-            </div>
-          </Paper>
-        </Grid>
+            <Grid item xs={6} sm={6}>
+              <Paper elevation={1} className={`option ${data.childGender === 'M' ? 'selected' : ''}`} onClick={() => { handleDataChange('childGender', 'M') }}>
+                <div className="box-content">
+                  A Boy
+                  <br />
+                  <FontAwesomeIcon icon={faMars} size="2x" />
+                </div>
+              </Paper>
+            </Grid>
 
-        <Grid item xs={6} sm={3}>
-          <Paper elevation={1} className={`option ${data.childGender === 'F' ? 'selected' : ''}`} onClick={() => { handleDataChange('childGender', 'F') }}>
-            <div className="box-content">
-              A Girl
-            <br />
-              <FontAwesomeIcon icon={faVenus} size="2x" />
-            </div>
-          </Paper>
-        </Grid>
+            <Grid item xs={6} sm={6}>
+              <Paper elevation={1} className={`option ${data.childGender === 'F' ? 'selected' : ''}`} onClick={() => { handleDataChange('childGender', 'F') }}>
+                <div className="box-content">
+                  A Girl
+                  <br />
+                  <FontAwesomeIcon icon={faVenus} size="2x" />
+                </div>
+              </Paper>
+            </Grid>
 
-        <Grid item xs={6} sm={3}>
-          <Paper elevation={1} className={`option ${data.childGender === 'S' ? 'selected' : ''}`} onClick={() => { handleDataChange('childGender', 'S') }}>
-            <div className="box-content">
-              A Surprise
+            <Grid item xs={6} sm={6}>
+              <Paper elevation={1} className={`option ${data.childGender === 'S' ? 'selected' : ''}`} onClick={() => { handleDataChange('childGender', 'S') }}>
+                <div className="box-content">
+                  A Surprise
               <br />
-              <FontAwesomeIcon icon={faMagic} size="2x" />
-            </div>
-          </Paper>
-        </Grid>
+                  <FontAwesomeIcon icon={faMagic} size="2x" />
+                </div>
+              </Paper>
+            </Grid>
 
-        <Grid item xs={6} sm={3}>
-          <Paper elevation={1} className={`option ${data.childGender === 'T' ? 'selected' : ''}`} onClick={() => { handleDataChange('childGender', 'T') }}>
-            <div className="box-content">
-              More Than One
-            <br />
-              <FontAwesomeIcon icon={faUserFriends} size="2x" />
-            </div>
-          </Paper>
+            <Grid item xs={6} sm={6}>
+              <Paper elevation={1} className={`option ${data.childGender === 'T' ? 'selected' : ''}`} onClick={() => { handleDataChange('childGender', 'T') }}>
+                <div className="box-content">
+                  More Than One
+                  <br />
+                  <FontAwesomeIcon icon={faUserFriends} size="2x" />
+                </div>
+              </Paper>
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
+
 
       <br />
       <h2>The birth date of my child/ren</h2>

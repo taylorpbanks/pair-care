@@ -49,6 +49,10 @@ html, body, #root {
   margin: auto;
 }
 
+.mt-30 {
+  margin-top: 30px;
+}
+
 a {
   font-family: 'Roboto', sans-serif;
   color: #96bf7a;

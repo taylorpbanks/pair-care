@@ -5,7 +5,6 @@ import {
   TextField,
   Button,
   Box,
-  Link,
   InputAdornment,
   IconButton,
 } from '@material-ui/core';
@@ -14,7 +13,7 @@ import {
   VisibilityOff,
 } from '@material-ui/icons';
 import { Alert } from '@material-ui/lab';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
@@ -51,7 +50,7 @@ const Login = () => {
   const signInClick = async () => {
     try {
       await Auth.signIn(formData.username, formData.password);
-      setRedirect('/');
+      setRedirect('/my-list');
     }
     catch (err) {
       if (err.code === "UserNotConfirmedException") {
@@ -81,7 +80,7 @@ const Login = () => {
     <div>
       <Container maxWidth="sm">
         <Box p={3}>
-          <h1>Login</h1>
+          <h1>Sign In</h1>
           <p>Welcome back to Pair Care, where sharing your items just got easier.</p>
             {error && (
               <Alert style={{marginBottom: '15px'}} severity="error"><strong>{error}</strong> Please try again.</Alert>
@@ -121,13 +120,11 @@ const Login = () => {
             />
 
             <Link
-              component="button"
-              variant="body2"
-              onClick={() => {}}
-              style={{ float: 'right' }}
+              to="/forgot-password"
+              style={{ float: 'right', fontSize: '.8em' }}
             >
               Forgot Password?
-              </Link>
+            </Link>
 
             <div className={`${classes['btn-container']} btn-container`}>
               <Button
@@ -136,7 +133,7 @@ const Login = () => {
                 color="primary"
                 className="double-submit-btn"
               >
-                Login
+                Sign In
                 </Button>
 
               <Button

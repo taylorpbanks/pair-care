@@ -12,21 +12,21 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  Tabs,
+  Tab,
+  Button,
 } from '@material-ui/core';
-import {
-  Link,
-} from "react-router-dom";
+import { Link } from 'react-router-dom';
 import {
   Menu as MenuIcon,
   AccountCircle,
   ExitToApp,
-  Home,
   Info,
   ListAlt,
   Share,
   ImportContacts,
-  Person,
 } from '@material-ui/icons';
+import './Header.css';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,34 +36,29 @@ const useStyles = makeStyles((theme) => ({
     color: '#545454',
     marginBottom: '2px',
   },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-    maxWidth: '100px',
-    margin: 'auto'
-  },
   navLink: {
     textDecoration: 'none',
     color: '#545454',
     paddingRight: '30px',
   },
+  desktopLink: {
+    textDecoration: 'none',
+    color: '#545454',
+  }
 }));
 
 export default function Header({authState}) {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [selectedTab, setSelectedTab] = useState(0);
   const open = Boolean(anchorEl);
   const [isDrawerOpen, toggleIsDrawerOpen] = React.useState();
 
   const navigation = [
-    { label: 'Home', path: '/', icon: <Home /> },
-    { label: 'My List', path: '/my-list', icon: <ListAlt /> },
-    { label: 'Shared Lists', path: '/shared-lists', icon: <Share /> },
-    { label: 'About', path: '/about', icon: <Info /> },
-    { label: 'Resources', path: '/resources', icon: <ImportContacts /> },
-    { label: 'Profile', path: '/profile', icon: <Person /> },
+    { id: 0, label: 'My List', path: '/my-list', icon: <ListAlt />, requiredAuth: true },
+    { id: 1, label: 'Shared Lists', path: '/shared-lists', icon: <Share />, requiredAuth: true },
+    { id: 2, label: 'About', path: '/about', icon: <Info />, requiredAuth: false },
+    { id: 3, label: 'Resources', path: '/resources', icon: <ImportContacts />, requiredAuth: false },
   ]
 
   const handleMenu = (event) => {
@@ -87,33 +82,74 @@ export default function Header({authState}) {
       <AppBar position="static" className={classes.root}>
         <Drawer anchor="left" open={isDrawerOpen} onClose={(event) => toggleDrawer(event)}>
           <List>
-            {navigation.map((nav, index) => (
-              <Link key={nav.path} to={nav.path} className={classes.navLink} onClick={(event) => toggleDrawer(event)}>
+            {navigation.map((nav, index) => (!nav.requiredAuth || (nav.requiredAuth && authState !== 'signIn')) ? (
+              <Link
+                key={nav.path}
+                to={nav.path}
+                className={classes.navLink}
+                onClick={(event) => {toggleDrawer(event);setSelectedTab(nav.id);}}
+              >
                 <ListItem button key={nav.label}>
                   <ListItemIcon>{nav.icon}</ListItemIcon>
                   <ListItemText primary={nav.label} />
                 </ListItem>
               </Link>
-            ))}
+              ) : (<div/>)
+            )}
           </List>
         </Drawer>
         <Toolbar>
           <IconButton
+            className="mobile-menu"
             edge="start"
             onClick={(event) => toggleDrawer(event)}
-            className={classes.menuButton}
             color="inherit"
             aria-label="menu"
           >
             <MenuIcon />
           </IconButton>
-          <a className={classes.title} href="/">
+          <a className="logo-container" href="/">
             <img
               src={require("../img/paircare-logo-color.png")}
               alt="pair-care logo"
-              style={{ maxWidth: '100px' }}
+              className="header-logo"
             />
           </a>
+          <Tabs
+            className="tabs"
+            value={selectedTab}
+            indicatorColor="primary"
+            textColor="primary"
+            aria-label="menu navigation"
+          >
+
+          {navigation.map((nav, index) => (!nav.requiredAuth || (nav.requiredAuth && authState !== 'signIn')) ? (
+            <Link
+              key={nav.id}
+              to={nav.path}
+              className={classes.desktopLink}
+              onClick={(event) => {setSelectedTab(nav.id);}}
+            >
+              <Tab
+                key={nav.id}
+                label={nav.label}
+              />
+            </Link>
+            ) : (<div/>)
+          )}
+          </Tabs>
+          {authState === 'signIn' && (
+          <Link to="/login">
+            <Button
+              style={{ borderRadius: '50px', color: 'white' }}
+              size="small"
+              variant="contained"
+              color="primary"
+            >
+              Sign In
+            </Button>
+            </Link>
+          )}
           {authState !== 'signIn' && (<div>
             <IconButton
               aria-label="account of current user"
@@ -140,7 +176,8 @@ export default function Header({authState}) {
               onClose={handleClose}
             >
               <MenuItem onClick={handleClose}>
-                <Link to="/profile" className={classes.navLink}>
+                <Link to="/profile" className={classes.navLink} onClick={(event) => {setSelectedTab(null);}}
+>
                   Profile
                 </Link>
               </MenuItem>
