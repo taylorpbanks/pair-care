@@ -19,6 +19,7 @@ import {
 } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import { Alert } from '@material-ui/lab';
+import { Link } from 'react-router-dom';
 import {
   deepOrange,
   deepPurple,
@@ -147,7 +148,11 @@ const Profile = () => {
             <Grid container spacing={3}>
               <Grid item xs={12} className="text-center">
                 <Avatar className={`${user['custom:color'] ? classes[user['custom:color']] : classes.purple} margin-auto`}>{user.initials}</Avatar>
-                <span>{user.email}</span>
+                <p>
+                  {user.email}
+                  <br />
+                  <small><Link to="/change-password">Change Password</Link></small>
+                </p>
               </Grid>
 
               {error && (

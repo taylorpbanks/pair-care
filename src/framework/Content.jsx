@@ -9,6 +9,7 @@ import Registration from '../pages/auth/registration/registration';
 import MyLists from '../pages/my-lists/MyLists';
 import Profile from '../pages/Profile/Profile';
 import ForgotPassword from '../pages/auth/forgotPassword/forgotPassword';
+import ChangePassword from '../pages/Profile/ChangePassword';
 
 export default function Content({authState, onStateChange}) {
   const isLoggedIn = authState === 'signedIn';
@@ -20,15 +21,15 @@ export default function Content({authState, onStateChange}) {
     <>
       <Switch>
         <Route path="/login">
-          {isLoggedIn ? <MyLists /> : <Login /> }
+          <Login />
         </Route>
 
         <Route path="/register">
-          {isLoggedIn ? <MyLists /> : <Registration /> }
+          <Registration />
         </Route>
 
         <Route path="/forgot-password">
-          {isLoggedIn ? <MyLists /> : <ForgotPassword /> }
+          <ForgotPassword />
         </Route>
 
         <Route path="/about">
@@ -49,6 +50,10 @@ export default function Content({authState, onStateChange}) {
 
         <Route path="/my-list">
           {isLoggedIn ? <MyLists /> : <UnauthorizedPage /> }
+        </Route>
+
+        <Route path="/change-password">
+          {isLoggedIn ? <ChangePassword /> : <UnauthorizedPage /> }
         </Route>
 
         <Route path="/">
