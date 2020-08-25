@@ -17,6 +17,7 @@ import {
 } from '@material-ui/icons';
 import { Alert } from '@material-ui/lab';
 import './registration.css';
+import colors from '../../../constants/colors';
 
 const PersonalInfo = ({ setStep, data, handleDataChange }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -46,7 +47,7 @@ const PersonalInfo = ({ setStep, data, handleDataChange }) => {
         'custom:parentType': parentType,
         'custom:firstName': firstName,
         'custom:lastName': lastName,
-        'custom:colorNum': randomNumber,
+        'custom:color': colors[randomNumber],
       },
       validationData: [] //optional
     })
