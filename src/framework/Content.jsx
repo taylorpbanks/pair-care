@@ -10,6 +10,7 @@ import MyLists from '../pages/my-lists/MyLists';
 import Profile from '../pages/Profile/Profile';
 import ForgotPassword from '../pages/auth/forgotPassword/forgotPassword';
 import ChangePassword from '../pages/Profile/ChangePassword';
+// import App from '../NotesTest';
 
 export default function Content({authState, onStateChange}) {
   const isLoggedIn = authState === 'signedIn';

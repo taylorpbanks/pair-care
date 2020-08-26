@@ -47,7 +47,9 @@ const Login = () => {
     });
   };
 
-  const signInClick = async () => {
+  const signInClick = async (e) => {
+    e.preventDefault();
+
     try {
       await Auth.signIn(formData.username, formData.password);
       setRedirect('/my-list');
@@ -128,10 +130,11 @@ const Login = () => {
 
             <div className={`${classes['btn-container']} btn-container`}>
               <Button
-                onClick={() => signInClick()}
+                onClick={(e) => signInClick(e)}
                 variant="contained"
                 color="primary"
                 className="double-submit-btn"
+                type="submit"
               >
                 Sign In
                 </Button>
