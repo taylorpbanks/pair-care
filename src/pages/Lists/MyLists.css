@@ -1,0 +1,83 @@
+.list-row {
+    padding: 5px;
+    border: 2px solid #f2f2f2;
+    margin-bottom: 10px;
+    border-radius: 15px;
+    position: relative;
+}
+
+.category-chip { 
+    margin: 5px !important;
+}
+
+.first-col {
+    flex-basis: 33.33%;
+    flex-shrink: 0;
+}
+
+.row-brand {
+    font-weight: 300;
+    color: grey;
+}
+
+.wrap-container {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border-top: 1px solid #f0f0f0;
+    padding: 20px;
+}
+
+.recommended-text {
+    position: relative;
+    top: -4px;
+}
+
+.floating-action-btns {
+    position: fixed !important;
+    bottom: 15px;
+    left: 50%;
+}
+
+.floating-action-container {
+    position: fixed !important;
+    bottom: 15px;
+    left: 50%;
+}
+
+.floating-action-container > button,
+.floating-action-container > a > button {
+    margin: 5px;
+}
+
+.edit-row {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    display: flex;
+    padding: 15px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.edit-row:nth-child(even) {
+    background:#f9f9f9;
+}
+
+.field-container {
+    width: 100%;
+    margin-top: 15px !important;
+}
+
+.row-footer {
+    border-top: 1px solid #f0f0f0;
+    margin-top: 15px;
+    text-align: right;
+}
+
+.MuiInputBase-root {
+    background-color: white;
+}
+
+@media screen and (max-width: 600px) {
+    .col-4 {
+        margin-top: 20px;
+    }
+  }

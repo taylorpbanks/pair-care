@@ -6,7 +6,8 @@ import {
 import Unauthorized from '../pages/unauthorized/unauthorized';
 import Login from '../pages/auth/login';
 import Registration from '../pages/auth/registration/registration';
-import MyLists from '../pages/my-lists/MyLists';
+import MyLists from '../pages/Lists/MyLists';
+import EditList from '../pages/Lists/EditList';
 import Profile from '../pages/Profile/Profile';
 import ForgotPassword from '../pages/auth/forgotPassword/forgotPassword';
 import ChangePassword from '../pages/Profile/ChangePassword';
@@ -49,8 +50,12 @@ export default function Content({authState, onStateChange}) {
           {isLoggedIn ? <Profile /> : <UnauthorizedPage /> }
         </Route>
 
+        <Route path="/my-list/edit">
+          {isLoggedIn ? <MockPage /> : <UnauthorizedPage /> }
+        </Route>
+
         <Route path="/my-list">
-          {isLoggedIn ? <MyLists /> : <UnauthorizedPage /> }
+          {isLoggedIn ? <MockPage /> : <UnauthorizedPage /> }
         </Route>
 
         <Route path="/change-password">
@@ -58,7 +63,7 @@ export default function Content({authState, onStateChange}) {
         </Route>
 
         <Route path="/">
-          {isLoggedIn ? <MyLists /> : <UnauthorizedPage /> }
+          {isLoggedIn ? <MockPage /> : <UnauthorizedPage /> }
         </Route>
       </Switch>
     </>
@@ -75,4 +80,8 @@ function SharedList() {
 
 function Resources() {
   return <h1>Resources</h1>;
+}
+
+function MockPage() {
+  return <h1>My List</h1>;
 }

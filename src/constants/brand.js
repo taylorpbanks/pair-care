@@ -1,0 +1,20 @@
+export default [
+    '4 Moms',
+    'Amazon',
+    'Baby Brezza',
+    'Baby Einstein',
+    'Baby Sense',
+    'buybuyBaby',
+    'Chicco',
+    'Ergobaby',
+    'Etsy',
+    'Fisher',
+    'Gerber',
+    'Graco',
+    'Huggies',
+    'Johnson & Johnson',
+    'Owlet',
+    'Pampers',
+    'Target',
+    'Vtech'
+  ];

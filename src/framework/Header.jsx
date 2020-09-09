@@ -119,7 +119,6 @@ export default function Header({authState}) {
             className="tabs"
             value={selectedTab}
             indicatorColor="primary"
-            textColor="primary"
             aria-label="menu navigation"
           >
 
@@ -176,8 +175,7 @@ export default function Header({authState}) {
               onClose={handleClose}
             >
               <MenuItem onClick={handleClose}>
-                <Link to="/profile" className={classes.navLink} onClick={(event) => {setSelectedTab(null);}}
->
+                <Link to="/profile" className={classes.navLink} onClick={(event) => {setSelectedTab(null);}}>
                   Profile
                 </Link>
               </MenuItem>
