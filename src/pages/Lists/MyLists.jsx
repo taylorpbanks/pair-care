@@ -69,6 +69,7 @@ const MyLists = () => {
 
   const handleChange = (event, newValue) => {
     setSelectedStage(newValue);
+    setListContent(newValue === 2 ? mockContent : []);
     setSelectedChip(0);
   };
 

@@ -13,11 +13,10 @@ code {
 }
 
 #root {
-  background: rgb(254,254,255);
-  background: linear-gradient(360deg, rgba(254,254,255,1) 0%, rgba(154,195,125,1) 0%, rgba(192,241,255,1) 100%);
+  background: #eef6f9;
+  /*#background: linear-gradient(360deg, rgba(254,254,255,1) 0%, rgba(154,195,125,1) 0%, rgba(192,241,255,1) 100%);*/
 }
 
-/* typography */
 h1 {
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
@@ -26,7 +25,7 @@ h1 {
 h2 {
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
-  color: #96bf7a;
+  color: #226d77;
 }
 
 h3 {
@@ -41,7 +40,7 @@ h4 {
 
 a {
   font-family: 'Roboto', sans-serif;
-  color: #96bf7a;
+  color: #8cc5be;
 }
 
 .text-center {

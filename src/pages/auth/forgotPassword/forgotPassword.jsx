@@ -87,7 +87,7 @@ const ForgotPassword = () => {
           {step !== 0 && (
             <div className="mt-30 code-box">
             <p>
-              <span style={{fontWeight: 'bold', color: '#96bf7a'}}>Email Sent!</span>
+              <span style={{fontWeight: 'bold', color: '#226d77'}}>Email Sent!</span>
               &nbsp;&nbsp;
               Please enter the code that was sent to your email, along with a new password for security purposes.
             </p>

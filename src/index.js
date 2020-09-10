@@ -9,15 +9,20 @@ import { Authenticator } from 'aws-amplify-react';
 
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 Amplify.configure(config);
+//blue - #226d77
+//blue-green - #8cc5be
+//extremely light blue - #eef6f9
+//light peach - #fcddd2
+// dark peach - #dc9577
 
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#96bf7a',
+      main: '#226d77',
       contrastText: '#fff',
     },
     secondary: {
-      main: '#5f9ea0',
+      main: '#dc9577',
     },
     purple: {
       main: '#3f50b5',

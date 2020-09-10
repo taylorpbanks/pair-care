@@ -108,12 +108,8 @@ export default function Header({authState}) {
           >
             <MenuIcon />
           </IconButton>
-          <a className="logo-container" href="/">
-            <img
-              src={require("../img/paircare-logo-color.png")}
-              alt="pair-care logo"
-              className="header-logo"
-            />
+          <a className="logo-container" href="/" style={{textDecoration: 'none', fontSize: '1.5em'}}>
+            <span style={{color: '#226d77'}}>pair</span><span style={{color: '#dc9577'}}>care</span>
           </a>
           <Tabs
             className="tabs"

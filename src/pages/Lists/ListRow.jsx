@@ -82,8 +82,8 @@ const ListRow = ({ row, categories, selectedChip, stages, setSelectedRow, index,
           <div>
             {row.age}
             <span className="float-right">{row.isRecommended === 'Y' ?
-              <ThumbUpAltOutlined style={{color: '#8e8e8e'}} /> :
-              <ThumbDownAltOutlined style={{color: '#8e8e8e'}} />}
+              <ThumbUpAltOutlined style={{color: '#8cc5be'}} /> :
+              <ThumbDownAltOutlined style={{color: '#dc9577'}} />}
             </span>
           </div>
           <hr />
