@@ -61,6 +61,15 @@ a {
   padding: 15px;
 }
 
+/* alignment */
+.float-right {
+  float: right;
+}
+
+.d-inline-blk {
+  display: inline-block;
+}
+
 /* spacing */
 
 .margin-auto {
@@ -104,6 +113,13 @@ html, body {
   height: 100%; 
 }
 
+/* Components */
+hr {
+  background-color: #f0f0f0;
+  height: 1px;
+  border: none;
+}
+
 /* inputs */
 textarea {
   font-family: 'Roboto', sans-serif;
@@ -127,6 +143,10 @@ textarea {
 }
 
 /*Flex box*/
+.flex {
+  display: flex;
+}
+
 .standard-flex-box {
   flex-wrap: wrap;
   justify-content: space-between;
@@ -146,7 +166,7 @@ textarea {
 }
 
 .col-6 {
-  width: 50%;
+  width: 49%;
 }
 
 .col-8 {
@@ -173,5 +193,18 @@ textarea {
 
   .container {
     padding: 0px;
+  }
+
+  /*mobile spacing*/
+  .m-mb-15 {
+    margin-bottom: 15px;
+  }
+
+  .m-mt-15 {
+    margin-top: 15px;
+  }
+
+  .m-text-center {
+    text-align: center;
   }
 }

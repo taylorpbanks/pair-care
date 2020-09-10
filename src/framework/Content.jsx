@@ -50,12 +50,8 @@ export default function Content({authState, onStateChange}) {
           {isLoggedIn ? <Profile /> : <UnauthorizedPage /> }
         </Route>
 
-        <Route path="/my-list/edit">
-          {isLoggedIn ? <MockPage /> : <UnauthorizedPage /> }
-        </Route>
-
         <Route path="/my-list">
-          {isLoggedIn ? <MockPage /> : <UnauthorizedPage /> }
+          {isLoggedIn ? <MyLists /> : <UnauthorizedPage /> }
         </Route>
 
         <Route path="/change-password">
@@ -63,7 +59,7 @@ export default function Content({authState, onStateChange}) {
         </Route>
 
         <Route path="/">
-          {isLoggedIn ? <MockPage /> : <UnauthorizedPage /> }
+          {isLoggedIn ? <MyLists /> : <UnauthorizedPage /> }
         </Route>
       </Switch>
     </>
@@ -80,8 +76,4 @@ function SharedList() {
 
 function Resources() {
   return <h1>Resources</h1>;
-}
-
-function MockPage() {
-  return <h1>My List</h1>;
 }

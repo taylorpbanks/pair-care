@@ -8,26 +8,26 @@ import {
   Fab,
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import { Edit } from '@material-ui/icons';
+import { Add } from '@material-ui/icons';
 import './MyLists.css'
-import { Link } from 'react-router-dom';
 import ListRow from './ListRow';
 import stages from '../../constants/stages';
 import mockContent from '../../constants/mockContent';
 import categories from '../../constants/categories';
+import AddRow from './AddRow';
 
 function TabPanel(props) {
-  const { children, value, index, ...other } = props;
+  const { children, selectedStage, index, ...other } = props;
 
   return (
     <div
       role="tabpanel"
-      hidden={value !== index}
+      hidden={selectedStage !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && (
+      {selectedStage === index && (
         <Box p={3}>
           {children}
         </Box>
@@ -39,7 +39,7 @@ function TabPanel(props) {
 TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
+  selectedStage: PropTypes.any.isRequired,
 };
 
 function a11yProps(index) {
@@ -50,37 +50,85 @@ function a11yProps(index) {
 }
 
 const MyLists = () => {
-  const [value, setValue] = React.useState(2);
+  const [selectedStage, setSelectedStage] = React.useState(2);
+  const [selectedRow, setSelectedRow] = React.useState(null);
   const [selectedChip, setSelectedChip] = React.useState(0);
-  const listContent = value === 2 ? mockContent : [];
+  const [listContent, setListContent] = React.useState(selectedStage === 2 ? mockContent : []);
+
+  const emptyRow = {
+    stageId: '',
+    categoryId: '',
+    type: '',
+    brand: '',
+    link: '',
+    item: '',
+    age: '',
+    isRecommended: undefined,
+    comments: ''
+  }
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
-    //setSelectedChip(0);
+    setSelectedStage(newValue);
+    setSelectedChip(0);
   };
 
-  categories[value].forEach(category => {
+  const addItem = (item) => {
+    //TODO: add item service integration
+    if (item.stageId === '') {
+      item.stageId = selectedStage;
+    }
+
+    let copyArray = [...listContent];
+    copyArray.push(item);
+    setListContent(copyArray);
+
+    //TODO: after add service is successful
+    setSelectedRow(null);
+  };
+
+  const updateItem = (index, item) => {
+    //TODO: update item service integration
+    let copyArray = [...listContent];
+    copyArray[index] = {...item};
+    setListContent(copyArray);
+
+    //TODO: after update service is successful
+    setSelectedRow(null);
+  };
+
+  const onDeleteItem = (index) => {
+    //TODO: integrate delete item service
+    let copyArray = [...listContent];
+    if (index > -1) {
+      copyArray.splice(index, 1);
+    }
+    setListContent(copyArray);
+  }
+
+  const addEntryRow = () => {
+    setSelectedRow(10000);
+  }
+
+  categories[selectedStage].forEach(category => {
     const numOfItems = listContent.filter((item) => item.categoryId === category.id);
     category.numOfItems = numOfItems.length;
   });
 
-  categories[value][0].numOfItems = listContent.length;
-  const hasNoRecommendedItems = listContent.filter(row => row.isRecommended === 'Y' && (selectedChip === 0 || selectedChip === row.categoryId)).length === 0;
-  const hasNoUnrecommendedItems =  listContent.filter(row => row.isRecommended === 'N' && (selectedChip === 0 || selectedChip === row.categoryId)).length === 0;
+  categories[selectedStage][0].numOfItems = listContent.length;
 
   return (
     <div>
       <h1>My List</h1>
       <AppBar position="static">
-        <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
+        <Tabs value={selectedStage} onChange={handleChange} aria-label="simple tabs example">
           {stages.map(tab => (
             <Tab key={tab.label} label={tab.label} {...a11yProps(tab.id)} />
           ))}
         </Tabs>
       </AppBar>
       {stages.map(stage => (
-        <TabPanel value={value} index={stage.id} key={stage.id}>
-         {categories[value].map(list => (
+        <TabPanel selectedStage={selectedStage} index={stage.id} key={stage.id}>
+         {categories[selectedStage].map(list => (
             <Chip
               className="category-chip"
               color={selectedChip === list.id ? 'primary' : undefined}
@@ -92,56 +140,49 @@ const MyLists = () => {
             />
           ))}
 
-          {categories[value][selectedChip].numOfItems > 0 && (
-            <>
-              <h3>Recommended</h3>
-              {listContent.map((item, index) => (
-                <ListRow
-                  key={`${item.id}-${index}`}
-                  row={item}
-                  stages={stages}
-                  categories={categories[value]}
-                  selectedChip={selectedChip}
-                  showRecommended={true}
-                  index={index}
-                />
-              ))}
-              {hasNoRecommendedItems ? (
-                <p>You currently don't have any items fitting this category.  Click the "Edit" icon below to add more items.</p>
-              ) : null}
-
-              <h3 className="mt-30">Not Recommended</h3>
-              {listContent.map((item, index) => (
-                <ListRow
-                  key={`${item.id}-${index}`}
-                  row={item}
-                  stages={stages}
-                  categories={categories[value]}
-                  selectedChip={selectedChip}
-                  showRecommended={false}
-                  index={index}
-                />
-              ))}
-              {hasNoUnrecommendedItems ? (
-                <p>You currently don't have any items fitting this category.  Click the "Edit" icon below to add more items.</p>
-              ) : null}
-            </>
-          )}
-          {categories[value][selectedChip].numOfItems === 0 && (
-            <div className="text-center">
-              <h3>You currently don't have any items fitting this category.</h3>
-              <p>Start building your list!  Click the "Edit" icon below to get started.</p>
-            </div>
-          )}
+          <div className="mt-30">
+            {categories[selectedStage][selectedChip].numOfItems > 0 && (
+              <>
+                {listContent.map((item, index) => (
+                  <ListRow
+                    key={`${item.id}-${index}`}
+                    row={item}
+                    stages={stages}
+                    categories={categories[selectedStage]}
+                    selectedChip={selectedChip}
+                    index={index}
+                    setSelectedRow={setSelectedRow}
+                    selectedRow={selectedRow}
+                    onDeleteItem={onDeleteItem}
+                    updateItem={updateItem}
+                  />
+                ))}
+              </>
+            )}
+            {(categories[selectedStage][selectedChip].numOfItems === 0 && !selectedRow) && (
+              <div className="text-center">
+                <h3>You currently don't have any items fitting this category.</h3>
+                <p>Start building your list!  Click the "Add" icon below to get started.</p>
+              </div>
+            )}
+          </div>
         </TabPanel>
       ))}
 
-      <div className="floating-action-container">
-        <Link to="/my-list/edit">
-          <Fab className="add-btn floating-action-btns" color="primary" aria-label="add">
-            <Edit />
-          </Fab>
-        </Link>
+      {selectedRow === 10000 && (<AddRow
+        row={emptyRow}
+        stages={stages}
+        categories={categories[selectedStage]}
+        onCancel={() => setSelectedRow(null)}
+        onSave={addItem}
+        selectedStage={selectedStage}
+        selectedChip={selectedChip}
+      />)}
+
+      <div className="text-center">
+        <Fab className="add-btn" color="primary" aria-label="add" disabled={!!selectedRow} onClick={() => {addEntryRow();}}>
+          <Add />
+        </Fab>
       </div>
     </div >
   );
