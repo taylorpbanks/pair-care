@@ -33,7 +33,6 @@ import {
   grey,
   green,
 } from '@material-ui/core/colors';
-import colors from '../../constants/colors';
 import './Profile.css';
 
 const useStyles = makeStyles((theme) => ({
@@ -87,14 +86,30 @@ const Profile = () => {
   const [data, setData] = useState({});
 
   useEffect(() => {
-    Auth.currentUserInfo().then(response => {
-      const initials = response.attributes['custom:firstName'] ?
-      response.attributes['custom:firstName'].charAt(0).toUpperCase() + response.attributes['custom:lastName'].charAt(0).toUpperCase() :
-      '';
+    const { userDataKey } = localStorage;
+    if (!localStorage[userDataKey]) {
+      Auth.currentUserInfo().then(response => {
+        const initials = response.attributes['custom:firstName'] ?
+        response.attributes['custom:firstName'].charAt(0).toUpperCase() + response.attributes['custom:lastName'].charAt(0).toUpperCase() : '';
+  
+        setUser({ ...response.attributes, initials });
+        setData({ ...response.attributes, initials });
+      });
+    } else {
+      const localStorageObj = JSON.parse(localStorage[userDataKey])
+      const { UserAttributes } = localStorageObj;
+      const storageData = {};
 
-      setUser({ ...response.attributes, initials });
-      setData({ ...response.attributes, initials });
-    });
+      UserAttributes.forEach(attribute => {
+        storageData[attribute.Name] = attribute.Value;
+      });
+
+      const initials = storageData['custom:firstName'] ?
+      storageData['custom:firstName'].charAt(0).toUpperCase() + storageData['custom:lastName'].charAt(0).toUpperCase() : '';
+
+
+      setUser({ ...storageData, initials });
+      setData({ ...storageData, initials });    }
   }, []);
 
   const handleDataChange = (id, value) => {

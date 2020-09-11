@@ -51,8 +51,25 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      await Auth.signIn(formData.username, formData.password);
-      setRedirect('/my-list');
+      Auth.signIn(formData.username, formData.password).then(() => {
+        Auth.currentAuthenticatedUser().then(user => {
+          localStorage.setItem('userDataKey', user.userDataKey);
+          localStorage.setItem('sub', user.attributes.sub);
+          setRedirect('/my-list');
+        });
+      }).catch(err => {
+        if (err.code === "UserNotConfirmedException") {
+          setError('You have not confirmed this email address.');
+        } else if (err.code === "NotAuthorizedException") {
+          // The error happens when the incorrect password is provided
+          setError('Invalid username or password.');
+        } else if (err.code === "UserNotFoundException") {
+          // The error happens when the supplied username/email does not exist in the Cognito user pool
+          setError('Invalid username or password.');
+        } else {
+          setError('An unexpected error has occurred.');
+        }
+      })
     }
     catch (err) {
       if (err.code === "UserNotConfirmedException") {
