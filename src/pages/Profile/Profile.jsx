@@ -16,6 +16,7 @@ import {
 import {
   Person,
   Cake,
+  LocationOn,
 } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import { Alert } from '@material-ui/lab';
@@ -94,7 +95,6 @@ const Profile = () => {
 
       setUser({ ...response.attributes, initials });
       setData({ ...response.attributes, initials });
-      console.log(response.attributes)
     });
   }, []);
 
@@ -103,7 +103,7 @@ const Profile = () => {
   };
 
   const changedFields = () => {
-    const keys = Object.keys(user);
+    const keys = Object.keys(data);
     var changes = {};
 
     keys.forEach((key) => {
@@ -169,7 +169,7 @@ const Profile = () => {
                 </Grid>
               )}
 
-              <Grid item xs={12}>
+              <Grid item xs={12} sm={6}>
                 <TextField
                   id="firstName"
                   key="firstName"
@@ -179,17 +179,19 @@ const Profile = () => {
                   onChange={(e) => { handleDataChange('custom:firstName', e.target.value); setError(undefined); }}
                   variant="outlined"
                   value={data['custom:firstName']}
+                  InputLabelProps={{ required: false }}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <Person style={{ color: 'gray' }} />
+                        <Person style={{ color: '#226d77' }} />
                       </InputAdornment>
                     ),
                   }}
+                  required
                 />
               </Grid>
 
-              <Grid item xs={12}>
+              <Grid item xs={12} sm={6}>
                 <TextField
                   id="lastName"
                   key="lastName"
@@ -199,19 +201,19 @@ const Profile = () => {
                   onChange={(e) => { handleDataChange('custom:lastName', e.target.value); setError(undefined); }}
                   variant="outlined"
                   value={data['custom:lastName']}
+                  InputLabelProps={{ required: false }}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <Person style={{ color: 'gray' }} />
+                        <Person style={{ color: '#226d77' }} />
                       </InputAdornment>
                     ),
                   }}
+                  required
                 />
-
               </Grid>
 
               <Grid item xs={12}>
-
                 <TextField
                   id="date"
                   aria-label="Birthday"
@@ -222,14 +224,38 @@ const Profile = () => {
                   onChange={(e) => { handleDataChange('custom:childBirthday', e.target.value) }}
                   InputLabelProps={{
                     shrink: true,
+                    required: false,
                   }}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <Cake style={{ color: 'gray' }} />
+                        <Cake style={{ color: '#226d77' }} />
                       </InputAdornment>
                     ),
                   }}
+                  required
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                  id="zipcode"
+                  key="zipcode"
+                  name="zipcode"
+                  label="Zip Code"
+                  type="zipcode"
+                  onChange={(e) => { handleDataChange('custom:zipcode', e.target.value); setError(undefined); }}
+                  variant="outlined"
+                  value={data['custom:zipcode']}
+                  InputLabelProps={{ required: false }}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <LocationOn style={{ color: '#226d77' }} />
+                      </InputAdornment>
+                    ),
+                  }}
+                  required
                 />
               </Grid>
 
@@ -273,7 +299,7 @@ const Profile = () => {
                 <Button
                   className="single-submit-btn"
                   style={{ borderRadius: '50px' }}
-                  onClick={(event) => handleUpdate(event)}
+                  type="submit"
                   variant="contained"
                   color="primary"
                   disabled={!isChanged()}

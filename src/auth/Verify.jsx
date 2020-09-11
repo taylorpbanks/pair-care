@@ -51,7 +51,7 @@ export default class Verify extends Component {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <VerifiedUser style={{ color: 'gray' }} />
+                  <VerifiedUser style={{ color: '#226d77' }} />
                 </InputAdornment>
               ),
             }}

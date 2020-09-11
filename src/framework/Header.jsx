@@ -109,32 +109,27 @@ export default function Header({authState}) {
             <MenuIcon />
           </IconButton>
           <a className="logo-container" href="/" style={{textDecoration: 'none', fontSize: '1.5em'}}>
-            <span style={{color: '#226d77'}}>pair</span><span style={{color: '#dc9577'}}>care</span>
+            <span style={{color: '#226d77'}}>PAIR</span><span style={{color: '#dc9577'}}>CARE</span>
           </a>
-          <Tabs
-            className="tabs"
-            value={selectedTab}
-            indicatorColor="primary"
-            aria-label="menu navigation"
-          >
 
-          {navigation.map((nav, index) => (!nav.requiredAuth || (nav.requiredAuth && authState !== 'signIn')) ? (
-            <Link
-              key={nav.id}
-              to={nav.path}
-              className={classes.desktopLink}
-              onClick={(event) => {setSelectedTab(nav.id);}}
-            >
-              <Tab
-                key={nav.id}
-                label={nav.label}
-              />
-            </Link>
-            ) : (<div/>)
-          )}
-          </Tabs>
+          <div className="nav-wrapper">
+            {navigation.map((nav, index) => (!nav.requiredAuth || (nav.requiredAuth && authState !== 'signIn')) ? (
+              <div className="nav-item-wrapper">
+                <Link
+                  key={nav.id}
+                  to={nav.path}
+                  className={`${classes.desktopLink} ${selectedTab === nav.id ? 'active' : ''}`}
+                  onClick={(event) => {setSelectedTab(nav.id);}}
+                >
+                  {nav.label}
+                </Link>
+              </div>
+              ) : (null)
+            )}
+          </div>
+
           {authState === 'signIn' && (
-          <Link to="/login">
+          <Link to="/login" style={{textDecoration: 'none'}}>
             <Button
               style={{ borderRadius: '50px', color: 'white' }}
               size="small"
@@ -151,9 +146,8 @@ export default function Header({authState}) {
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleMenu}
-              color="inherit"
             >
-              <AccountCircle />
+              <AccountCircle style={{color: '#226d77'}} />
             </IconButton>
             <Menu
               id="menu-appbar"
@@ -182,7 +176,7 @@ export default function Header({authState}) {
               color="inherit"
               onClick={() => {Auth.signOut()}}
             >
-              <ExitToApp />
+              <ExitToApp style={{color: '#226d77'}} />
             </IconButton>
           </div>
         )}

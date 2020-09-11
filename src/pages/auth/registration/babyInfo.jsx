@@ -5,7 +5,13 @@ import {
   Button,
   Grid,
   Paper,
+  InputAdornment,
 } from '@material-ui/core';
+import {
+  Person,
+  Cake,
+  LocationOn,
+} from '@material-ui/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faBaby,
@@ -14,7 +20,6 @@ import {
   faMars,
   faMagic,
   faUserFriends,
-
 } from '@fortawesome/free-solid-svg-icons'
 import './registration.css';
 
@@ -27,7 +32,7 @@ const BabyInfo = ({ setStep, data, handleDataChange }) => {
       <Grid container spacing={6}>
         <Grid item xs={12} sm={6}>
           <Grid item xs={12}>
-            <h2>I am...</h2>
+            <h3>I am...</h3>
           </Grid>
           <Grid container spacing={3}>
 
@@ -55,7 +60,7 @@ const BabyInfo = ({ setStep, data, handleDataChange }) => {
 
         <Grid item xs={12} sm={6}>
           <Grid item xs={12}>
-            <h2>It's...</h2>
+            <h3>It's...</h3>
           </Grid>
           <Grid container spacing={3}>
 
@@ -102,23 +107,48 @@ const BabyInfo = ({ setStep, data, handleDataChange }) => {
         </Grid>
       </Grid>
 
-
-      <br />
-      <h2>The birth date of my child/ren</h2>
+      <hr className="mt-30 mb-30" />
       <Grid container spacing={3}>
-        <Grid item xs={6} sm={3}>
+        <Grid item xs={6} sm={6}>
           <TextField
             id="date"
-            aria-label="Birthday"
+            label="Birth date of my child/ren"
             type="date"
             onChange={(e) => { handleDataChange('childBirthday', e.target.value) }}
+            variant="outlined"
             InputLabelProps={{
               shrink: true,
+            }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Cake style={{ color: '#226d77' }} />
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Grid>
+
+        <Grid item xs={6} sm={6}>
+          <TextField
+            type="numeric"
+            min="99999"
+            id="zipcode"
+            key="zipcode"
+            name="zipcode"
+            label="Zip Code"
+            variant="outlined"
+            onChange={(e) => { handleDataChange('zipcode', e.target.value, {maxLength: 5});}}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <LocationOn style={{ color: '#226d77' }} />
+                </InputAdornment>
+              ),
             }}
           />
         </Grid>
       </Grid>
-
 
       <Grid style={{ textAlign: 'center', marginTop: '30px' }}>
         <Button
@@ -126,7 +156,7 @@ const BabyInfo = ({ setStep, data, handleDataChange }) => {
           variant="contained"
           color="primary"
           className="single-submit-btn"
-          disabled={!data.childGender || !data.childBirthday || !data.parentType}
+          disabled={!data.childGender || !data.childBirthday || !data.parentType || !data.zipcode}
         >
           Continue
         </Button>

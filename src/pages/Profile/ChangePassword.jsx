@@ -90,7 +90,7 @@ const ChangePassword = () => {
                     aria-label="toggle password visibility"
                     onClick={() => {setShowPassword(!showPassword)}}
                   >
-                    {showPassword ? <Visibility style={{ color: 'gray' }} /> : <VisibilityOff style={{ color: 'gray' }} />}
+                    {showPassword ? <Visibility style={{ color: '#dc9577' }} /> : <VisibilityOff style={{ color: '#dc9577' }} />}
                   </IconButton>
                 </InputAdornment>
               ),

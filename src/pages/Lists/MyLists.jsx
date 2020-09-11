@@ -180,7 +180,7 @@ const MyLists = () => {
         selectedChip={selectedChip}
       />)}
 
-      <div className="text-center">
+      <div className="text-center mt-15">
         <Fab className="add-btn" color="primary" aria-label="add" disabled={!!selectedRow} onClick={() => {addEntryRow();}}>
           <Add />
         </Fab>

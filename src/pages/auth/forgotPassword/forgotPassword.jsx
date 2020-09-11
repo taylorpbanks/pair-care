@@ -79,7 +79,7 @@ const ForgotPassword = () => {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <Email style={{ color: 'gray' }} />
+                  <Email style={{ color: '#226d77' }} />
                 </InputAdornment>
               ),
             }}
@@ -106,7 +106,7 @@ const ForgotPassword = () => {
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <VerifiedUser style={{ color: 'gray' }} />
+                    <VerifiedUser style={{ color: '#226d77' }} />
                   </InputAdornment>
                 ),
               }}
@@ -126,7 +126,7 @@ const ForgotPassword = () => {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <Lock style={{ color: 'gray' }} />
+                  <Lock style={{ color: '#226d77' }} />
                 </InputAdornment>
               ),
               endAdornment: (
@@ -135,7 +135,7 @@ const ForgotPassword = () => {
                     aria-label="toggle password visibility"
                     onClick={() => {setShowPassword(!showPassword)}}
                   >
-                    {showPassword ? <Visibility style={{ color: 'gray' }} /> : <VisibilityOff style={{ color: 'gray' }} />}
+                    {showPassword ? <Visibility style={{ color: '#dc9577' }} /> : <VisibilityOff style={{ color: '#dc9577' }} />}
                   </IconButton>
                 </InputAdornment>
               ),

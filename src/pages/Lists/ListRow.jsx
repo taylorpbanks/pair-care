@@ -49,7 +49,7 @@ const ListRow = ({ row, categories, selectedChip, stages, setSelectedRow, index,
       <div className="view-row">
         <div className="col-2 m-header-display">
           <div className="d-inline-blk">
-            <Avatar className="mr-15">{category.icon}</Avatar>
+            <Avatar className="mr-15" style={{backgroundColor: '#8cc5be'}}>{category.icon}</Avatar>
           </div>
 
           <div className="d-inline-blk">

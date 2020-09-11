@@ -38,7 +38,7 @@ const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage,
   }
 
   return (
-    <div className="edit-row">
+    <form onSubmit={() => onSave(values)} className="edit-row">
       <div className="col-2">
         <FormControl variant="outlined" className="field-container" size="small">
           <InputLabel id="life-stage-label">Life Stage</InputLabel>
@@ -69,7 +69,7 @@ const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage,
             disabled={selectedChip !== 0}
             required
           >
-          {categories.map(category => (
+          {categories.slice(1).map(category => (
             <MenuItem key={category.id} value={category.id}>{category.label}</MenuItem>
           ))}
           </Select>
@@ -114,6 +114,7 @@ const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage,
           variant="outlined"
           value={values.item}
           size="small"
+          InputLabelProps={{ required: false }}
           required
         />
 
@@ -125,6 +126,7 @@ const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage,
           variant="outlined"
           value={values.link}
           size="small"
+          InputLabelProps={{ required: false }}
           required
         />
       </div>
@@ -175,7 +177,7 @@ const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage,
       </div>
 
       <div className="col-12">
-        <Button onClick={() => onSave(values)} variant="contained" color="primary">
+        <Button type="submit" variant="contained" color="primary">
           {row.item ? 'Save' : 'Add Item'}
         </Button>
 
@@ -212,7 +214,7 @@ const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage,
       </DialogActions>
     </Dialog>
   
-    </div>
+    </form>
   );
 }
 

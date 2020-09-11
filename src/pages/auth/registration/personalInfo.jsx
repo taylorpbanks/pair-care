@@ -33,6 +33,7 @@ const PersonalInfo = ({ setStep, data, handleDataChange }) => {
       parentType,
       firstName,
       lastName,
+      zipcode,
     } = data;
 
     const randomNumber = Math.floor(Math.random() * Math.floor(10));
@@ -44,6 +45,7 @@ const PersonalInfo = ({ setStep, data, handleDataChange }) => {
         email,
         'custom:childGender': childGender,
         'custom:childBirthday': childBirthday,
+        'custom:zipcode': zipcode,
         'custom:parentType': parentType,
         'custom:firstName': firstName,
         'custom:lastName': lastName,
@@ -73,13 +75,15 @@ const PersonalInfo = ({ setStep, data, handleDataChange }) => {
             type="firstName"
             onChange={(e) => { handleDataChange('firstName', e.target.value); setError(undefined); }}
             variant="outlined"
+            InputLabelProps={{ required: false }}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <Person style={{ color: 'gray' }} />
+                  <Person style={{ color: '#226d77' }} />
                 </InputAdornment>
               ),
             }}
+            required
           />
 
           <TextField
@@ -90,13 +94,15 @@ const PersonalInfo = ({ setStep, data, handleDataChange }) => {
             type="lastName"
             onChange={(e) => { handleDataChange('lastName', e.target.value); setError(undefined); }}
             variant="outlined"
+            InputLabelProps={{ required: false }}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <Person style={{ color: 'gray' }} />
+                  <Person style={{ color: '#226d77' }} />
                 </InputAdornment>
               ),
             }}
+            required
           />
 
           <TextField
@@ -107,13 +113,15 @@ const PersonalInfo = ({ setStep, data, handleDataChange }) => {
             type="email"
             onChange={(e) => { handleDataChange('email', e.target.value); setError(undefined); }}
             variant="outlined"
+            InputLabelProps={{ required: false }}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <Email style={{ color: 'gray' }} />
+                  <Email style={{ color: '#226d77' }} />
                 </InputAdornment>
               ),
             }}
+            required
           />
 
           <TextField
@@ -124,10 +132,11 @@ const PersonalInfo = ({ setStep, data, handleDataChange }) => {
             type={showPassword ? 'text': 'password'}
             onChange={(e) => { handleDataChange('password', e.target.value); setError(undefined); }}
             variant="outlined"
+            InputLabelProps={{ required: false }}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <Lock style={{ color: 'gray' }} />
+                  <Lock style={{ color: '#226d77' }} />
                 </InputAdornment>
               ),
               endAdornment: (
@@ -136,20 +145,21 @@ const PersonalInfo = ({ setStep, data, handleDataChange }) => {
                     aria-label="toggle password visibility"
                     onClick={() => {setShowPassword(!showPassword)}}
                   >
-                    {showPassword ? <Visibility style={{ color: 'gray' }} /> : <VisibilityOff style={{ color: 'gray' }} />}
+                    {showPassword ? <Visibility style={{ color: '#dc9577' }} /> : <VisibilityOff style={{ color: '#dc9577' }} />}
                   </IconButton>
                 </InputAdornment>
               ),
             }}
+            required
           />
 
           <Grid container spacing={3}>
             <Grid item xs={12} className="text-center">
               <Button
-                onClick={(event) => handleSignUp(event)}
                 variant="contained"
                 color="primary"
                 className="single-submit-btn"
+                type="submit"
                 >
                 Sign up
             </Button>

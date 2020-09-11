@@ -87,7 +87,7 @@ const Login = () => {
             {error && (
               <Alert style={{marginBottom: '15px'}} severity="error"><strong>{error}</strong> Please try again.</Alert>
             )}
-          <form>
+          <form onSubmit={(e) => signInClick(e)}>
             <TextField
               id="username"
               key="username"
@@ -97,6 +97,9 @@ const Login = () => {
               className={classes.input}
               onChange={(e) => handleInputChange(e, 'username')}
               autoComplete="off"
+              variant="outlined"
+              InputLabelProps={{ required: false }}
+              required
             />
 
             <TextField
@@ -107,6 +110,7 @@ const Login = () => {
               type={showPassword ? 'text': 'password'}
               className={classes.input}
               onChange={(e) => handleInputChange(e, 'password')}
+              InputLabelProps={{ required: false }}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
@@ -114,11 +118,13 @@ const Login = () => {
                       aria-label="toggle password visibility"
                       onClick={() => {setShowPassword(!showPassword)}}
                     >
-                      {showPassword ? <Visibility style={{ color: 'gray' }} /> : <VisibilityOff style={{ color: 'gray' }} />}
+                      {showPassword ? <Visibility style={{ color: '#dc9577' }} /> : <VisibilityOff style={{ color: '#dc9577' }} />}
                     </IconButton>
                   </InputAdornment>
                 ),
               }}
+              variant="outlined"
+              required
             />
 
             <Link
@@ -130,7 +136,6 @@ const Login = () => {
 
             <div className={`${classes['btn-container']} btn-container`}>
               <Button
-                onClick={(e) => signInClick(e)}
                 variant="contained"
                 color="primary"
                 className="double-submit-btn"

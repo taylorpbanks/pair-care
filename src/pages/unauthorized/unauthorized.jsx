@@ -12,9 +12,9 @@ function Unauthorized({ authState, onStateChange }) {
     <div style={{textAlign: 'center'}}>
       <h1>Sharing your must-have items just got easier!</h1>
       <img
-        src={require("../../img/welcome-pair.png")}
+        src={require("../../img/pc-welcome.png")}
         alt="pair-care welcome"
-        style={{width: '300px'}}
+        style={{width: '400px'}}
       />
       <h2 style={{marginBottom: '5px'}}>Let's get started</h2>
 

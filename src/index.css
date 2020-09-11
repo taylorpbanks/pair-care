@@ -78,6 +78,19 @@ a {
 .mt-30 {
   margin-top: 30px;
 }
+
+.mb-30 {
+  margin-bottom: 30px;
+}
+
+.mt-15 {
+  margin-top: 15px;
+}
+
+.mb-15 {
+  margin-bottom: 15px;
+}
+
 .mr-15 {
   margin-right: 15px;
 }

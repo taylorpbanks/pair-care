@@ -57,7 +57,7 @@
     border-top: 1px solid #f0f0f0;
 }
 
-.view-row:hover {
+.edit-row, .view-row:hover {
     background-color: #eef6f9;
 }
 
