@@ -80,7 +80,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Profile = () => {
-  console.log(colors);
   const classes = useStyles();
   const [error, setError] = useState(undefined);
   const [confirmation, setConfirmation] = useState(undefined);

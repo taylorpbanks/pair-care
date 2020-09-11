@@ -24,9 +24,6 @@ import ages from '../../constants/ages';
 const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage, selectedChip, onCancel, onSave }) => {
   const [open, setOpen] = React.useState(false);
   const [values, setValues] = React.useState(row);
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
 
   const handleClose = () => {
     setOpen(false);

@@ -8,7 +8,6 @@ import {
   InputAdornment,
 } from '@material-ui/core';
 import {
-  Person,
   Cake,
   LocationOn,
 } from '@material-ui/icons';

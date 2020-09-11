@@ -7,7 +7,6 @@ import Unauthorized from '../pages/unauthorized/unauthorized';
 import Login from '../pages/auth/login';
 import Registration from '../pages/auth/registration/registration';
 import MyLists from '../pages/Lists/MyLists';
-import EditList from '../pages/Lists/EditList';
 import Profile from '../pages/Profile/Profile';
 import ForgotPassword from '../pages/auth/forgotPassword/forgotPassword';
 import ChangePassword from '../pages/Profile/ChangePassword';

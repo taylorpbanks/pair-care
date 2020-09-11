@@ -12,8 +12,6 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  Tabs,
-  Tab,
   Button,
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
@@ -114,9 +112,8 @@ export default function Header({authState}) {
 
           <div className="nav-wrapper">
             {navigation.map((nav, index) => (!nav.requiredAuth || (nav.requiredAuth && authState !== 'signIn')) ? (
-              <div className="nav-item-wrapper">
+              <div key={nav.id} className="nav-item-wrapper">
                 <Link
-                  key={nav.id}
                   to={nav.path}
                   className={`${classes.desktopLink} ${selectedTab === nav.id ? 'active' : ''}`}
                   onClick={(event) => {setSelectedTab(nav.id);}}
