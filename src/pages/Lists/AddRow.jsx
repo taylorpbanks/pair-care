@@ -22,9 +22,15 @@ import './MyLists.css'
 import brands from '../../constants/brand'
 import ages from '../../constants/ages';
 
-const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage, selectedChip, onCancel, onSave }) => {
+const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage, selectedChip, onCancel, onSave, isNewRow }) => {
   const [open, setOpen] = React.useState(false);
   const [values, setValues] = React.useState(row);
+
+  React.useEffect(() => {
+    if (isNewRow) {
+      window.scrollTo(0,document.body.scrollHeight);
+    }
+  }, [])
 
   const handleClose = () => {
     setOpen(false);
@@ -33,6 +39,11 @@ const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage,
   const handleChange = (e, field, newVal) => {
     const value = newVal || e.target.value;
     setValues({ ...values, [field]: value });
+  }
+
+  const getSubCategories = () => {
+    const categoryId = selectedChip === 0 ? values.categoryId : selectedChip;
+    return categories[categoryId] ? categories[categoryId].subCategories.map(category => category) : [];
   }
 
   return (
@@ -87,7 +98,7 @@ const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage,
                 freeSolo
                 value={values.type}
                 onChange={(e, newVal) => handleChange(e, 'type', newVal)}
-                options={categories[values.categoryId] ? categories[values.categoryId].subCategories.map(category => category) : []}
+                options={getSubCategories()}
                 renderInput={(params) => (
                   <TextField {...params} label="Sub-Category" margin="normal" variant="outlined" size="small" onBlur={(e) => {handleChange(e, 'type')}} />
                 )}

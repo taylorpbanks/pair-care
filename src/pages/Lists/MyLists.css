@@ -85,6 +85,10 @@
     background-color: white;
 }
 
+.MuiSnackbarContent-root {
+    background-color: #dc9577 !important;
+}
+
 /*responsive design*/
 @media screen and (max-width: 600px) {
     /* view row */

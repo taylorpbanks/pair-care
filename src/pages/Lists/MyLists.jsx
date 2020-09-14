@@ -6,7 +6,10 @@ import {
   Tab,
   Chip,
   Fab,
+  Snackbar,
+  IconButton,
 } from '@material-ui/core';
+import { Close } from '@material-ui/icons';
 import PropTypes from 'prop-types';
 import { Add } from '@material-ui/icons';
 import './MyLists.css'
@@ -56,13 +59,16 @@ function a11yProps(index) {
 }
 
 const MyLists = () => {
-  const [selectedStage, setSelectedStage] = React.useState(0);
+  const [selectedStage, setSelectedStage] = React.useState(2);
   const [selectedRow, setSelectedRow] = React.useState(null);
   const [selectedChip, setSelectedChip] = React.useState(0);
   const [listContent, setListContent] = React.useState([]);
+  const [allLists, setAllListContent] = React.useState({});
+  const [showSnackBar, setShowSnackBar] = React.useState(undefined);
+
 
   React.useEffect(() => {
-    fetchList(0);
+    fetchList(2);
   }, []);
 
   async function fetchList(id) {
@@ -70,7 +76,9 @@ const MyLists = () => {
       stageId: { eq: id },
       sub: {eq: localStorage.sub}
     }}));
+
     setListContent(apiData.data.listItems.items);
+    setAllListContent({...allLists, [`list${id}`]: apiData.data.listItems.items});
   }
 
   const emptyRow = {
@@ -86,7 +94,11 @@ const MyLists = () => {
   }
 
   const handleChange = (event, newValue) => {
-    fetchList(newValue);
+    if (!allLists[`list${newValue}`]) {
+      fetchList(newValue);
+    } else {
+      setListContent(allLists[`list${newValue}`]);
+    }
     setSelectedStage(newValue);
     setSelectedChip(0);
   };
@@ -96,6 +108,10 @@ const MyLists = () => {
 
     if (item.stageId === '') {
       item.stageId = selectedStage;
+    }
+
+    if (item.categoryId === '') {
+      item.categoryId = selectedChip;
     }
 
     item.sub = localStorage.sub;
@@ -108,6 +124,8 @@ const MyLists = () => {
       copyArray.push(item);
       setListContent(copyArray);
       setSelectedRow(null);
+      setAllListContent({...allLists, [`list${selectedStage}`]: undefined});
+      setShowSnackBar('Item added successfully!');
     });
   }
 
@@ -122,12 +140,16 @@ const MyLists = () => {
 
     setListContent(copyArray);
     setSelectedRow(null);
+    setAllListContent({...allLists, [`list${selectedStage}`]: undefined});
+    setShowSnackBar('Item updated successfully!');
   };
 
   async function deleteItem(id) {
     const listCopy = listContent.filter(item => item.id !== id);
     setListContent(listCopy);
     await API.graphql({ query: deleteItemMutation, variables: { input: { id } }});
+    setAllListContent({...allLists, [`list${selectedStage}`]: undefined});
+    setShowSnackBar('Item deleted successfully!');
   }
 
   const addEntryRow = () => {
@@ -202,6 +224,7 @@ const MyLists = () => {
         onSave={createItem}
         selectedStage={selectedStage}
         selectedChip={selectedChip}
+        isNewRow={true}
       />)}
 
       <div className="text-center mt-15">
@@ -209,6 +232,23 @@ const MyLists = () => {
           <Add />
         </Fab>
       </div>
+
+      <Snackbar
+        anchorOrigin={{ vertical: 'bottom', horizontal:'left' }}
+        open={showSnackBar}
+        onClose={() => {setShowSnackBar(undefined)}}
+        message={showSnackBar}
+        autoHideDuration={4000}
+        key="bottomleft"
+        severity="success"
+        action={
+          <React.Fragment>
+            <IconButton size="small" aria-label="close" color="inherit" onClick={() => {setShowSnackBar(undefined)}}>
+              <Close fontSize="small" />
+            </IconButton>
+          </React.Fragment>
+        }
+      />
     </div >
   );
 }

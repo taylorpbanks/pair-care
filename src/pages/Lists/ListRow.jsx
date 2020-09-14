@@ -40,12 +40,8 @@ const ListRow = ({ row, categories, selectedChip, stages, setSelectedRow, index,
   const category = categories.find(category => category.id === row.categoryId);
   const linkDisplay = row.link.substring(0, row.link.length >= maxLinkLength ? maxLinkLength : row.link.length);
   let link = row.link;
-  console.log(link);
-  console.log(link.startsWith === 'https://');
-  console.log(link.startsWith === 'http://');
 
   if(!link.startsWith('https://') && !link.startsWith('http://')) {
-    console.log('meets condition');
     link = `http://${row.link}`;
   }
 
