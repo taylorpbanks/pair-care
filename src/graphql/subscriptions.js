@@ -42,6 +42,7 @@ export const onCreateItem = /* GraphQL */ `
     onCreateItem {
       id
       sub
+      email
       stageId
       categoryId
       type
@@ -61,6 +62,7 @@ export const onUpdateItem = /* GraphQL */ `
     onUpdateItem {
       id
       sub
+      email
       stageId
       categoryId
       type
@@ -80,6 +82,7 @@ export const onDeleteItem = /* GraphQL */ `
     onDeleteItem {
       id
       sub
+      email
       stageId
       categoryId
       type

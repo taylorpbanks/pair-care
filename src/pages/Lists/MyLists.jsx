@@ -19,7 +19,7 @@ import {
   deleteItem as deleteItemMutation,
   updateItem as updateItemMutation,
 } from '../../graphql/mutations';
-import { listItems, getItem } from '../../graphql/queries';
+import { listItems } from '../../graphql/queries';
 import { API, graphqlOperation } from 'aws-amplify';
 
 function TabPanel(props) {
@@ -66,7 +66,10 @@ const MyLists = () => {
   }, []);
 
   async function fetchList(id) {
-    const apiData = await API.graphql(graphqlOperation(listItems, {filter: {stageId: { eq: id } }}));
+    const apiData = await API.graphql(graphqlOperation(listItems, {filter: {
+      stageId: { eq: id },
+      sub: {eq: localStorage.sub}
+    }}));
     setListContent(apiData.data.listItems.items);
   }
 
@@ -96,6 +99,7 @@ const MyLists = () => {
     }
 
     item.sub = localStorage.sub;
+    item.email = localStorage.email;
 
     await API.graphql({ query: createItemMutation, variables: { input: item } }).then(response => {
       let copyArray = [...listContent];

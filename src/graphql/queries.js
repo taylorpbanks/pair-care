@@ -37,6 +37,7 @@ export const getItem = /* GraphQL */ `
     getItem(id: $id) {
       id
       sub
+      email
       stageId
       categoryId
       type
@@ -61,6 +62,7 @@ export const listItems = /* GraphQL */ `
       items {
         id
         sub
+        email
         stageId
         categoryId
         type

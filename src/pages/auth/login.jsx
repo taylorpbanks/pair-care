@@ -55,6 +55,7 @@ const Login = () => {
         Auth.currentAuthenticatedUser().then(user => {
           localStorage.setItem('userDataKey', user.userDataKey);
           localStorage.setItem('sub', user.attributes.sub);
+          localStorage.setItem('email', user.attributes.email);
           setRedirect('/my-list');
         });
       }).catch(err => {

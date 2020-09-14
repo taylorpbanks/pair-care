@@ -54,6 +54,7 @@ export const createItem = /* GraphQL */ `
     createItem(input: $input, condition: $condition) {
       id
       sub
+      email
       stageId
       categoryId
       type
@@ -76,6 +77,7 @@ export const updateItem = /* GraphQL */ `
     updateItem(input: $input, condition: $condition) {
       id
       sub
+      email
       stageId
       categoryId
       type
@@ -98,6 +100,7 @@ export const deleteItem = /* GraphQL */ `
     deleteItem(input: $input, condition: $condition) {
       id
       sub
+      email
       stageId
       categoryId
       type
