@@ -4,3 +4,17 @@ type Note @model {
   description: String
   image: String
 }
+
+type Item @model {
+	id: ID!
+	sub: String!
+	stageId: Int!
+	categoryId: Int!
+	type: String
+	brand: String
+	item: String!
+	link: String!
+	age: String
+	isRecommended: String
+	comments: String
+}

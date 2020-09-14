@@ -12,9 +12,15 @@ import { Add } from '@material-ui/icons';
 import './MyLists.css'
 import ListRow from './ListRow';
 import stages from '../../constants/stages';
-import mockContent from '../../constants/mockContent';
 import categories from '../../constants/categories';
 import AddRow from './AddRow';
+import {
+  createItem as createItemMutation,
+  deleteItem as deleteItemMutation,
+  updateItem as updateItemMutation,
+} from '../../graphql/mutations';
+import { listItems, getItem } from '../../graphql/queries';
+import { API, graphqlOperation } from 'aws-amplify';
 
 function TabPanel(props) {
   const { children, selectedStage, index, ...other } = props;
@@ -50,10 +56,19 @@ function a11yProps(index) {
 }
 
 const MyLists = () => {
-  const [selectedStage, setSelectedStage] = React.useState(2);
+  const [selectedStage, setSelectedStage] = React.useState(0);
   const [selectedRow, setSelectedRow] = React.useState(null);
   const [selectedChip, setSelectedChip] = React.useState(0);
-  const [listContent, setListContent] = React.useState(selectedStage === 2 ? mockContent : []);
+  const [listContent, setListContent] = React.useState([]);
+
+  React.useEffect(() => {
+    fetchList(0);
+  }, []);
+
+  async function fetchList(id) {
+    const apiData = await API.graphql(graphqlOperation(listItems, {filter: {stageId: { eq: id } }}));
+    setListContent(apiData.data.listItems.items);
+  }
 
   const emptyRow = {
     stageId: '',
@@ -68,42 +83,47 @@ const MyLists = () => {
   }
 
   const handleChange = (event, newValue) => {
+    fetchList(newValue);
     setSelectedStage(newValue);
-    setListContent(newValue === 2 ? mockContent : []);
     setSelectedChip(0);
   };
 
-  const addItem = (item) => {
-    //TODO: add item service integration
+  async function createItem(item, e) {
+    e.preventDefault();
+
     if (item.stageId === '') {
       item.stageId = selectedStage;
     }
 
-    let copyArray = [...listContent];
-    copyArray.push(item);
-    setListContent(copyArray);
+    item.sub = localStorage.sub;
 
-    //TODO: after add service is successful
-    setSelectedRow(null);
-  };
+    await API.graphql({ query: createItemMutation, variables: { input: item } }).then(response => {
+      let copyArray = [...listContent];
+      item.id = response.data.createItem.id;
 
-  const updateItem = (index, item) => {
-    //TODO: update item service integration
+      copyArray.push(item);
+      setListContent(copyArray);
+      setSelectedRow(null);
+    });
+  }
+
+  async function updateItem (item, e, index) {
+    e.preventDefault();
     let copyArray = [...listContent];
     copyArray[index] = {...item};
-    setListContent(copyArray);
+    delete item.createdAt;
+    delete item.updatedAt;
 
-    //TODO: after update service is successful
+    await API.graphql({ query: updateItemMutation, variables: { input: item } });
+
+    setListContent(copyArray);
     setSelectedRow(null);
   };
 
-  const onDeleteItem = (index) => {
-    //TODO: integrate delete item service
-    let copyArray = [...listContent];
-    if (index > -1) {
-      copyArray.splice(index, 1);
-    }
-    setListContent(copyArray);
+  async function deleteItem(id) {
+    const listCopy = listContent.filter(item => item.id !== id);
+    setListContent(listCopy);
+    await API.graphql({ query: deleteItemMutation, variables: { input: { id } }});
   }
 
   const addEntryRow = () => {
@@ -154,7 +174,7 @@ const MyLists = () => {
                     index={index}
                     setSelectedRow={setSelectedRow}
                     selectedRow={selectedRow}
-                    onDeleteItem={onDeleteItem}
+                    onDeleteItem={deleteItem}
                     updateItem={updateItem}
                   />
                 ))}
@@ -175,7 +195,7 @@ const MyLists = () => {
         stages={stages}
         categories={categories[selectedStage]}
         onCancel={() => setSelectedRow(null)}
-        onSave={addItem}
+        onSave={createItem}
         selectedStage={selectedStage}
         selectedChip={selectedChip}
       />)}

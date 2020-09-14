@@ -37,3 +37,60 @@ export const onDeleteNote = /* GraphQL */ `
     }
   }
 `;
+export const onCreateItem = /* GraphQL */ `
+  subscription OnCreateItem {
+    onCreateItem {
+      id
+      sub
+      stageId
+      categoryId
+      type
+      brand
+      item
+      link
+      age
+      isRecommended
+      comments
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateItem = /* GraphQL */ `
+  subscription OnUpdateItem {
+    onUpdateItem {
+      id
+      sub
+      stageId
+      categoryId
+      type
+      brand
+      item
+      link
+      age
+      isRecommended
+      comments
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteItem = /* GraphQL */ `
+  subscription OnDeleteItem {
+    onDeleteItem {
+      id
+      sub
+      stageId
+      categoryId
+      type
+      brand
+      item
+      link
+      age
+      isRecommended
+      comments
+      createdAt
+      updatedAt
+    }
+  }
+`;

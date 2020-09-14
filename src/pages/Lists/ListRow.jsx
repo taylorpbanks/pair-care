@@ -32,13 +32,23 @@ const ListRow = ({ row, categories, selectedChip, stages, setSelectedRow, index,
     setIsViewMode(true);
   };
 
-  const onSave = (item) => {
-    updateItem(index, item);
+  const onSave = (item, e) => {
+    updateItem(item, e, index);
   };
 
   const stageId = stages.find(category => category.id === row.stageId);
   const category = categories.find(category => category.id === row.categoryId);
   const linkDisplay = row.link.substring(0, row.link.length >= maxLinkLength ? maxLinkLength : row.link.length);
+  let link = row.link;
+  console.log(link);
+  console.log(link.startsWith === 'https://');
+  console.log(link.startsWith === 'http://');
+
+  if(!link.startsWith('https://') && !link.startsWith('http://')) {
+    console.log('meets condition');
+    link = `http://${row.link}`;
+  }
+
   if (selectedChip !== 0 && selectedChip !== row.categoryId) {
     return (<div />);
   }
@@ -72,7 +82,7 @@ const ListRow = ({ row, categories, selectedChip, stages, setSelectedRow, index,
           <div className="row-brand m-text-center">{`${row.type} - ${row.brand}`}</div>
           <div className="row-item m-text-center m-mb-15">{row.item}</div>
           <div>
-            <a href={row.link} target="_blank" rel="noopener noreferrer">
+            <a href={link} target="_blank" rel="noopener noreferrer">
               {`${linkDisplay}...`} <FontAwesomeIcon icon={faExternalLinkAlt} />
             </a>
           </div>
@@ -127,7 +137,7 @@ const ListRow = ({ row, categories, selectedChip, stages, setSelectedRow, index,
           Cancel
         </Button>
 
-        <Button onClick={(e) => {handleClose(false);onDeleteItem(index);}} color="primary">
+        <Button onClick={(e) => {handleClose(false);onDeleteItem(row.id);}} color="primary">
           Delete Item
         </Button>
       </DialogActions>

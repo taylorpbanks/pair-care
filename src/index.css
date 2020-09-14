@@ -140,6 +140,10 @@ textarea {
   border-color: #c4c4c4;
 }
 
+.MuiInputBase-input.Mui-disabled {
+  background-color: #efefef;
+}
+
 /* Buttons */
 .MuiButton-containedPrimary .MuiButton-label {
   color: white;
