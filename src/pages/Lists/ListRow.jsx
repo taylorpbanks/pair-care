@@ -8,6 +8,7 @@ import {
   DialogContentText,
   DialogActions,
   IconButton,
+  Tooltip,
 } from '@material-ui/core';
 import { ThumbUpAltOutlined, ThumbDownAltOutlined, EditOutlined, DeleteOutlineOutlined } from '@material-ui/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -63,13 +64,17 @@ const ListRow = ({ row, categories, selectedChip, stages, setSelectedRow, index,
             <br />
             <span>{category.label}</span>
             <div className="tool-bar">
-              <IconButton aria-label="edit" onClick={() => {setSelectedRow(index);setIsViewMode(false);}} size="small">
-                <EditOutlined />
-              </IconButton>
+              <Tooltip title="Edit" aria-label="edit">
+                <IconButton aria-label="edit" onClick={() => {setSelectedRow(index);setIsViewMode(false);}} size="small">
+                  <EditOutlined />
+                </IconButton>
+              </Tooltip>
 
-              <IconButton aria-label="delete" onClick={() => handleClickOpen(false)} size="small">
-                <DeleteOutlineOutlined />
-              </IconButton>
+              <Tooltip title="Delete" aria-label="delete">
+                <IconButton aria-label="delete" onClick={() => handleClickOpen(false)} size="small">
+                  <DeleteOutlineOutlined />
+                </IconButton>
+              </Tooltip>
             </div>
           </div>
         </div>

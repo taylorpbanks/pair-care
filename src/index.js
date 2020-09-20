@@ -23,6 +23,7 @@ const theme = createMuiTheme({
     },
     secondary: {
       main: '#dc9577',
+      contrastText: '#fff',
     },
     purple: {
       main: '#3f50b5',

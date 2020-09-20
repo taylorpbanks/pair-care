@@ -32,21 +32,13 @@
     top: -4px;
 }
 
-.floating-action-btns {
-    position: fixed !important;
-    bottom: 15px;
-    left: 50%;
-}
-
-.floating-action-container {
-    position: fixed !important;
-    bottom: 15px;
-    left: 50%;
-}
-
-.floating-action-container > button,
-.floating-action-container > a > button {
-    margin: 5px;
+.floating-action-btn-container {
+    position: fixed;
+    bottom: 0px;
+    margin-bottom: 15px;
+    width: 100%;
+    text-align: center;
+    right: 0;
 }
 
 .edit-row, .view-row {
@@ -64,6 +56,16 @@
 .tool-bar {
     text-align: center;
     display: none;
+}
+
+.append-btm-margin {
+    margin-bottom: 80px;
+}
+
+.disabled-tooltip {
+    position: absolute;
+    right: 25px;
+    top: 8px;
 }
 
 .view-row:hover > div > div > .tool-bar {

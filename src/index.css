@@ -60,6 +60,12 @@ a {
   padding: 15px;
 }
 
+.error-text {
+  font-size: .9em;
+  float: right;
+  color: #f35757;
+}
+
 /* alignment */
 .float-right {
   float: right;
@@ -92,8 +98,17 @@ a {
 }
 
 .mr-15 {
-  margin-right: 15px;
+  margin-right: 15px !important;
 }
+
+.mr-5 {
+  margin-right: 5px;
+}
+
+.mt-5 {
+  margin-top: 5px;
+}
+
 .mb-0 {
   margin-bottom: 0;
 }
@@ -106,6 +121,10 @@ a {
   margin: 0;
 }
 
+.p-15 {
+  padding: 15px;
+}
+
 .break {
   flex-basis: 100%;
   height: 0;
@@ -113,16 +132,17 @@ a {
 
 /* sizing */
 
-html, body {
-  height: 100%;
+html {
+  min-height: 100%;
+  height: auto;
 }
 
 #root {
-  min-height: 100%;
+  min-height: 100vh;
 }
 
 .height-100, .App > div {
-  height: 100%; 
+  min-height: 100vh; 
 }
 
 /* Components */

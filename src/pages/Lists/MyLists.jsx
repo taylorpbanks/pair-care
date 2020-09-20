@@ -8,10 +8,10 @@ import {
   Fab,
   Snackbar,
   IconButton,
+  Tooltip,
 } from '@material-ui/core';
-import { Close } from '@material-ui/icons';
+import { Close, Share, Add } from '@material-ui/icons';
 import PropTypes from 'prop-types';
-import { Add } from '@material-ui/icons';
 import './MyLists.css'
 import ListRow from './ListRow';
 import stages from '../../constants/stages';
@@ -23,6 +23,7 @@ import {
   updateItem as updateItemMutation,
 } from '../../graphql/mutations';
 import { listItems } from '../../graphql/queries';
+import { Link as RouterLink } from 'react-router-dom';
 import { API, graphqlOperation } from 'aws-amplify';
 
 function TabPanel(props) {
@@ -94,6 +95,8 @@ const MyLists = () => {
   }
 
   const handleChange = (event, newValue) => {
+    setListContent([]);
+
     if (!allLists[`list${newValue}`]) {
       fetchList(newValue);
     } else {
@@ -174,16 +177,21 @@ const MyLists = () => {
         </Tabs>
       </AppBar>
       {stages.map(stage => (
-        <TabPanel selectedStage={selectedStage} index={stage.id} key={stage.id}>
+        <TabPanel selectedStage={selectedStage} index={stage.id} key={stage.id} className={selectedRow === 10000 ? '' : 'append-btm-margin'}>
          {categories[selectedStage].map(list => (
             <Chip
               className="category-chip"
               color={selectedChip === list.id ? 'primary' : undefined}
               key={list.id}
-              size="small"
+              size="medium"
               icon={list.icon}
               label={`${list.label} (${list.numOfItems})`}
-              onClick={() => {setSelectedChip(list.id)}}
+              onClick={() => {
+                setSelectedChip(list.id)
+                if (selectedRow !== 10000) {
+                  setSelectedRow(null);
+                }
+              }}
             />
           ))}
 
@@ -227,10 +235,21 @@ const MyLists = () => {
         isNewRow={true}
       />)}
 
-      <div className="text-center mt-15">
-        <Fab className="add-btn" color="primary" aria-label="add" disabled={!!selectedRow} onClick={() => {addEntryRow();}}>
-          <Add />
-        </Fab>
+      <div className="floating-action-btn-container">
+        <div className="middle-action-btns">
+          <Tooltip title="Add Item" aria-label="add item">
+            <Fab className="add-btn mr-15" color="primary" aria-label="add" disabled={!!selectedRow} onClick={() => {addEntryRow();}}>
+              <Add />
+            </Fab>
+          </Tooltip>
+
+          <Tooltip title="Share List (Coming soon!)" aria-label="share list">
+            <Fab className="share-btn" color="secondary" aria-label="share" component={RouterLink} to="#">
+              {/*to="/share-my-list"*/}
+              <Share />
+            </Fab>
+          </Tooltip>
+        </div>
       </div>
 
       <Snackbar

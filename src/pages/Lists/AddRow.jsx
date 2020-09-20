@@ -16,7 +16,9 @@ import {
   DialogContentText,
   DialogActions,
   Grow,
+  Tooltip,
 } from '@material-ui/core';
+import { InfoOutlined } from '@material-ui/icons';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import './MyLists.css'
 import brands from '../../constants/brand'
@@ -52,7 +54,7 @@ const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage,
       style={{ transformOrigin: '0 0 0' }}
       {...(true ? { timeout: 1000 } : {})}
     >
-      <form onSubmit={(e) => onSave(values, e)} className="edit-row">
+      <form onSubmit={(e) => onSave(values, e)} className={`edit-row ${isNewRow ? 'append-btm-margin' : ''}`}>
         <div className="col-2">
           <FormControl variant="outlined" className="field-container" size="small">
             <InputLabel id="life-stage-label">Life Stage</InputLabel>
@@ -69,6 +71,13 @@ const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage,
                 <MenuItem key={stage.id} value={stage.id}>{stage.label}</MenuItem>
               ))}
             </Select>
+            {isNewRow && (
+              <div className="disabled-tooltip">
+                <Tooltip title="If you want to add to a different life stage, change your selection in the tabs above." aria-label="Stage Life Info">
+                  <InfoOutlined size="small" color="primary" />
+                </Tooltip>
+              </div>
+            )}
           </FormControl>
 
           <FormControl variant="outlined" className="field-container" size="small">
@@ -87,6 +96,13 @@ const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage,
                 <MenuItem key={category.id} value={category.id}>{category.label}</MenuItem>
               ))}
             </Select>
+            {selectedChip !== 0 && (
+              <div className="disabled-tooltip">
+                <Tooltip title="This field is disabled because you currently have a filter selected above.  To enable this field either select the filter &quot;All&quot; or you can select the category you are trying to add to in the filters." aria-label="Category Info">
+                  <InfoOutlined size="small" color="primary" />
+                </Tooltip>
+              </div>
+            )}
           </FormControl>
         </div>
 
@@ -172,8 +188,8 @@ const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage,
               onChange={(e) => handleChange(e, 'isRecommended')}
               style={{ flexDirection: 'initial' }}
             >
-              <FormControlLabel value="Y" control={<Radio />} label="Yes" />
-              <FormControlLabel value="N" control={<Radio />} label="No" />
+              <FormControlLabel value="Y" control={<Radio required />} label="Yes" />
+              <FormControlLabel value="N" control={<Radio required />} label="No" />
             </RadioGroup>
           </FormControl>
 

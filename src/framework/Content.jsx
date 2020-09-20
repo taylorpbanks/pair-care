@@ -8,6 +8,7 @@ import Login from '../pages/auth/login';
 import Registration from '../pages/auth/registration/registration';
 import MyLists from '../pages/Lists/MyLists';
 import Profile from '../pages/Profile/Profile';
+import ShareMyList from '../pages/ShareList/ShareMyList';
 import ForgotPassword from '../pages/auth/forgotPassword/forgotPassword';
 import ChangePassword from '../pages/Profile/ChangePassword';
 // import App from '../NotesTest';
@@ -55,6 +56,10 @@ export default function Content({authState, onStateChange}) {
 
         <Route path="/change-password">
           {isLoggedIn ? <ChangePassword /> : <UnauthorizedPage /> }
+        </Route>
+
+        <Route path="/share-my-list">
+          {isLoggedIn ? <ShareMyList /> : <UnauthorizedPage /> }
         </Route>
 
         <Route path="/">
