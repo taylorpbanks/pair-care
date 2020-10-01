@@ -19,3 +19,12 @@ type Item @model {
 	isRecommended: String
 	comments: String
 }
+
+type Shared @model {
+	id: ID!
+	fromName: String!
+    fromEmail: String!
+    fromSub: String!
+    toEmail: String!
+	toName: String!
+}

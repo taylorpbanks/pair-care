@@ -97,3 +97,45 @@ export const onDeleteItem = /* GraphQL */ `
     }
   }
 `;
+export const onCreateShared = /* GraphQL */ `
+  subscription OnCreateShared {
+    onCreateShared {
+      id
+      fromName
+      fromEmail
+      fromSub
+      toEmail
+      toName
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateShared = /* GraphQL */ `
+  subscription OnUpdateShared {
+    onUpdateShared {
+      id
+      fromName
+      fromEmail
+      fromSub
+      toEmail
+      toName
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteShared = /* GraphQL */ `
+  subscription OnDeleteShared {
+    onDeleteShared {
+      id
+      fromName
+      fromEmail
+      fromSub
+      toEmail
+      toName
+      createdAt
+      updatedAt
+    }
+  }
+`;

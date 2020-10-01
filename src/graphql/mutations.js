@@ -115,3 +115,54 @@ export const deleteItem = /* GraphQL */ `
     }
   }
 `;
+export const createShared = /* GraphQL */ `
+  mutation CreateShared(
+    $input: CreateSharedInput!
+    $condition: ModelSharedConditionInput
+  ) {
+    createShared(input: $input, condition: $condition) {
+      id
+      fromName
+      fromEmail
+      fromSub
+      toEmail
+      toName
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateShared = /* GraphQL */ `
+  mutation UpdateShared(
+    $input: UpdateSharedInput!
+    $condition: ModelSharedConditionInput
+  ) {
+    updateShared(input: $input, condition: $condition) {
+      id
+      fromName
+      fromEmail
+      fromSub
+      toEmail
+      toName
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteShared = /* GraphQL */ `
+  mutation DeleteShared(
+    $input: DeleteSharedInput!
+    $condition: ModelSharedConditionInput
+  ) {
+    deleteShared(input: $input, condition: $condition) {
+      id
+      fromName
+      fromEmail
+      fromSub
+      toEmail
+      toName
+      createdAt
+      updatedAt
+    }
+  }
+`;

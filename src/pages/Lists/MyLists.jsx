@@ -10,13 +10,19 @@ import {
   IconButton,
   Tooltip,
 } from '@material-ui/core';
-import { Close, Share, Add } from '@material-ui/icons';
+import {
+  Close,
+  Share,
+  Add,
+  LibraryAdd,
+} from '@material-ui/icons';
 import PropTypes from 'prop-types';
 import './MyLists.css'
 import ListRow from './ListRow';
 import stages from '../../constants/stages';
 import categories from '../../constants/categories';
 import AddRow from './AddRow';
+import AddManyItems from './AddManyItems';
 import {
   createItem as createItemMutation,
   deleteItem as deleteItemMutation,
@@ -25,6 +31,7 @@ import {
 import { listItems } from '../../graphql/queries';
 import { Link as RouterLink } from 'react-router-dom';
 import { API, graphqlOperation } from 'aws-amplify';
+import { cloneDeep } from 'lodash';
 
 function TabPanel(props) {
   const { children, selectedStage, index, ...other } = props;
@@ -59,14 +66,14 @@ function a11yProps(index) {
   };
 }
 
-const MyLists = () => {
+const MyLists = ({ sharedList, viewersList }) => {
   const [selectedStage, setSelectedStage] = React.useState(2);
   const [selectedRow, setSelectedRow] = React.useState(null);
   const [selectedChip, setSelectedChip] = React.useState(0);
   const [listContent, setListContent] = React.useState([]);
   const [allLists, setAllListContent] = React.useState({});
   const [showSnackBar, setShowSnackBar] = React.useState(undefined);
-
+  const [showManyItemAdd, setShowManyItemAdd] = React.useState(false);
 
   React.useEffect(() => {
     fetchList(2);
@@ -75,10 +82,18 @@ const MyLists = () => {
   async function fetchList(id) {
     const apiData = await API.graphql(graphqlOperation(listItems, {filter: {
       stageId: { eq: id },
-      sub: {eq: localStorage.sub}
+      sub: {eq: sharedList ? sharedList.fromSub : localStorage.sub}
     }}));
 
-    setListContent(apiData.data.listItems.items);
+    const { items } = apiData.data.listItems;
+
+    if (sharedList && viewersList) {
+      items.forEach(item => {
+        item.added = viewersList.find(myItem =>  myItem.link === item.link);
+      });
+    }
+
+    setListContent(items);
     setAllListContent({...allLists, [`list${id}`]: apiData.data.listItems.items});
   }
 
@@ -107,28 +122,39 @@ const MyLists = () => {
   };
 
   async function createItem(item, e) {
+    const requestItem = cloneDeep(item);
     e.preventDefault();
 
-    if (item.stageId === '') {
-      item.stageId = selectedStage;
+    if (requestItem.stageId === '') {
+      requestItem.stageId = selectedStage;
     }
 
-    if (item.categoryId === '') {
-      item.categoryId = selectedChip;
+    if (requestItem.categoryId === '') {
+      requestItem.categoryId = selectedChip;
     }
 
-    item.sub = localStorage.sub;
-    item.email = localStorage.email;
+    requestItem.sub = localStorage.sub;
+    requestItem.email = localStorage.email;
+    requestItem.updatedAt = undefined;
+    requestItem.createdAt = undefined;
+    requestItem.added = undefined;
+    requestItem.id = undefined;
 
-    await API.graphql({ query: createItemMutation, variables: { input: item } }).then(response => {
+    await API.graphql({ query: createItemMutation, variables: { input: requestItem } }).then(response => {
       let copyArray = [...listContent];
-      item.id = response.data.createItem.id;
 
-      copyArray.push(item);
-      setListContent(copyArray);
-      setSelectedRow(null);
-      setAllListContent({...allLists, [`list${selectedStage}`]: undefined});
-      setShowSnackBar('Item added successfully!');
+      if (sharedList) {
+        setShowSnackBar('Item added successfully to your list!');
+        const index = copyArray.findIndex(listItem => listItem.id === item.id);
+        copyArray[index].added = true;
+      } else {
+        requestItem.id = response.data.createItem.id;
+        copyArray.push(requestItem);
+        setListContent(copyArray);
+        setSelectedRow(null);
+        setAllListContent({...allLists, [`list${selectedStage}`]: undefined});
+        setShowSnackBar('Item added successfully!');
+      }
     });
   }
 
@@ -168,7 +194,7 @@ const MyLists = () => {
 
   return (
     <div>
-      <h1>My List</h1>
+      {!sharedList && (<h1>My List</h1>)}
       <AppBar position="static">
         <Tabs value={selectedStage} onChange={handleChange} aria-label="simple tabs example">
           {stages.map(tab => (
@@ -210,14 +236,26 @@ const MyLists = () => {
                     selectedRow={selectedRow}
                     onDeleteItem={deleteItem}
                     updateItem={updateItem}
+                    sharedList={sharedList}
+                    createItem={createItem}
                   />
                 ))}
               </>
             )}
             {(categories[selectedStage][selectedChip].numOfItems === 0 && !selectedRow) && (
               <div className="text-center">
-                <h3>You currently don't have any items fitting this category.</h3>
-                <p>Start building your list!  Click the "Add" icon below to get started.</p>
+                {!sharedList && (
+                  <>
+                    <h3>You currently don't have any items fitting this category.</h3>
+                    <p>Start building your list!  Click the "Add" icon below to get started.</p>  
+                  </>
+                )}
+
+                {sharedList && (
+                  <>
+                    <h3>{sharedList.fromName} has not added any items fitting this category.</h3>
+                  </>
+                )}
               </div>
             )}
           </div>
@@ -235,22 +273,35 @@ const MyLists = () => {
         isNewRow={true}
       />)}
 
-      <div className="floating-action-btn-container">
-        <div className="middle-action-btns">
-          <Tooltip title="Add Item" aria-label="add item">
-            <Fab className="add-btn mr-15" color="primary" aria-label="add" disabled={!!selectedRow} onClick={() => {addEntryRow();}}>
-              <Add />
-            </Fab>
-          </Tooltip>
+        <div className="floating-action-btn-container">
+          <div className="middle-action-btns">
+            {!sharedList && (
+              <>
+                <Tooltip title="Add Item" aria-label="add item">
+                  <Fab className="add-btn mr-15" color="primary" aria-label="add" disabled={!!selectedRow} onClick={() => {addEntryRow();}}>
+                    <Add />
+                  </Fab>
+                </Tooltip>
 
-          <Tooltip title="Share List (Coming soon!)" aria-label="share list">
-            <Fab className="share-btn" color="secondary" aria-label="share" component={RouterLink} to="#">
-              {/*to="/share-my-list"*/}
-              <Share />
-            </Fab>
-          </Tooltip>
+                <Tooltip title="Share List" aria-label="share list">
+                  <Fab className="share-btn" color="secondary" aria-label="share" component={RouterLink} to="/share-my-list">
+                    <Share />
+                  </Fab>
+                </Tooltip>
+              </>
+            )}
+
+            {sharedList && (
+              <>
+                <Tooltip title="Add Many Items" aria-label="add many item">
+                  <Fab className="add-btn mr-15" color="primary" aria-label="add" disabled={!listContent.length} onClick={() => {setShowManyItemAdd(true)}}>
+                    <LibraryAdd />
+                  </Fab>
+                </Tooltip>
+              </>
+            )}
+          </div>
         </div>
-      </div>
 
       <Snackbar
         anchorOrigin={{ vertical: 'bottom', horizontal:'left' }}
@@ -268,6 +319,18 @@ const MyLists = () => {
           </React.Fragment>
         }
       />
+
+      {sharedList && showManyItemAdd && (
+        <AddManyItems
+          open={showManyItemAdd}
+          setOpen={setShowManyItemAdd}
+          list={listContent}
+          shareInfo={sharedList}
+          stages={stages}
+          categories={categories}
+          setListContent={setListContent}
+        />
+      )}
     </div >
   );
 }

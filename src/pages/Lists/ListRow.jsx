@@ -10,15 +10,35 @@ import {
   IconButton,
   Tooltip,
 } from '@material-ui/core';
-import { ThumbUpAltOutlined, ThumbDownAltOutlined, EditOutlined, DeleteOutlineOutlined } from '@material-ui/icons';
+import {
+  ThumbUpAltOutlined,
+  ThumbDownAltOutlined,
+  EditOutlined,
+  DeleteOutlineOutlined,
+  AddCircleOutline,
+  CheckCircleOutline,
+} from '@material-ui/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 import './MyLists.css'
 import AddRow from './AddRow';
 
-const ListRow = ({ row, categories, selectedChip, stages, setSelectedRow, index, selectedRow, onDeleteItem, updateItem }) => {
+const ListRow = ({
+  row,
+  categories,
+  selectedChip,
+  stages,
+  setSelectedRow,
+  index,
+  selectedRow,
+  onDeleteItem,
+  updateItem,
+  sharedList,
+  createItem,
+}) => {
   const [deleteOpen, setDeleteOpen] = React.useState(false);
   const [isViewMode, setIsViewMode] = React.useState(true);
+
   const maxLinkLength = 40;
   const handleClickOpen = () => {
       setDeleteOpen(true);
@@ -63,20 +83,38 @@ const ListRow = ({ row, categories, selectedChip, stages, setSelectedRow, index,
             <span className="text-small">{stageId.label}</span>
             <br />
             <span>{category.label}</span>
-            <div className="tool-bar">
-              <Tooltip title="Edit" aria-label="edit">
-                <IconButton aria-label="edit" onClick={() => {setSelectedRow(index);setIsViewMode(false);}} size="small">
-                  <EditOutlined />
-                </IconButton>
-              </Tooltip>
+            {!sharedList && (
+              <div className="tool-bar">
+                <Tooltip title="Edit" aria-label="edit">
+                  <IconButton aria-label="edit" onClick={() => {setSelectedRow(index);setIsViewMode(false);}} size="small">
+                    <EditOutlined />
+                  </IconButton>
+                </Tooltip>
 
-              <Tooltip title="Delete" aria-label="delete">
-                <IconButton aria-label="delete" onClick={() => handleClickOpen(false)} size="small">
-                  <DeleteOutlineOutlined />
-                </IconButton>
-              </Tooltip>
-            </div>
+                <Tooltip title="Delete" aria-label="delete">
+                  <IconButton aria-label="delete" onClick={() => handleClickOpen(false)} size="small">
+                    <DeleteOutlineOutlined />
+                  </IconButton>
+                </Tooltip>
+              </div>
+            )}
+
+            {sharedList && !row.added && (
+              <div className="tool-bar">
+                <Tooltip title="Add Item" aria-label="Add">
+                  <IconButton aria-label="Add Item" onClick={(e) => {createItem(row, e)}} size="small">
+                    <AddCircleOutline />
+                  </IconButton>
+                </Tooltip>
+              </div>
+            )}
           </div>
+          
+          {sharedList && row.added && (
+            <div className="secondary-color mt-15">
+              <CheckCircleOutline color="secondary" style={{verticalAlign: 'middle'}} /> Item on your list
+            </div>
+          )}
         </div>
 
         <div className="col-6">

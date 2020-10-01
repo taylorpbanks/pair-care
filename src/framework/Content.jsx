@@ -9,6 +9,7 @@ import Registration from '../pages/auth/registration/registration';
 import MyLists from '../pages/Lists/MyLists';
 import Profile from '../pages/Profile/Profile';
 import ShareMyList from '../pages/ShareList/ShareMyList';
+import SharedLists from '../pages/ShareList/SharedLists';
 import ForgotPassword from '../pages/auth/forgotPassword/forgotPassword';
 import ChangePassword from '../pages/Profile/ChangePassword';
 // import App from '../NotesTest';
@@ -39,7 +40,7 @@ export default function Content({authState, onStateChange}) {
         </Route>
 
         <Route path="/shared-lists">
-          {isLoggedIn ? <SharedList /> : <UnauthorizedPage /> }
+          {isLoggedIn ? <SharedLists /> : <UnauthorizedPage /> }
         </Route>
 
         <Route path="/resources">
@@ -72,10 +73,6 @@ export default function Content({authState, onStateChange}) {
 
 function About() {
   return <h1>About</h1>;
-}
-
-function SharedList() {
-  return <h1>Shared Lists</h1>;
 }
 
 function Resources() {

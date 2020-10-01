@@ -7,37 +7,90 @@ import {
   Snackbar,
   IconButton
 } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 import { Person, Close, InfoOutlined } from '@material-ui/icons';
+import {
+  createShared,
+  deleteShared,
+} from '../../graphql/mutations';
+import { listShareds } from '../../graphql/queries';
+import { API, graphqlOperation } from 'aws-amplify';
 import './ShareMyList.css';
 
 function ShareMyList() {
-  const [showSnackBar, setShowSnackBar] = React.useState(undefined);
+  const [showSnackBar, setShowSnackBar] = useState(undefined);
+  const [error, setError] = useState(false);
+
   const emailRegex = '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$';
   const emptyDataObj = {name: '', email: ''}
+  const userData = JSON.parse(localStorage[localStorage.userDataKey]);
+  const firstName = userData.UserAttributes.find(data => data.Name === 'custom:firstName').Value;
+  const lastName = userData.UserAttributes.find(data => data.Name === 'custom:lastName').Value;
+  const fullName = `${firstName} ${lastName}`;
 
-  const mockList = [];
-  const [people, setPeople] = useState(mockList);
-  const [data, setData] = useState(emptyDataObj)
+  const [people, setPeople] = useState([]);
+  const [data, setData] = useState(emptyDataObj);
 
-  const addEmail = (e) => {
+  React.useEffect(() => {
+    fetchPeople();
+  }, []);
+
+  async function fetchPeople() {
+    const apiData = await API.graphql(graphqlOperation(listShareds, {filter: {
+      fromSub: { eq: localStorage.sub }
+    }}));
+
+    const { items } = apiData.data.listShareds;
+    console.log(items);
+    setPeople(items);
+  }
+
+  async function addEmail(e) {
     e.preventDefault();
+    setError(false);
 
-    const peopleArrayCopy = [...people];
-    peopleArrayCopy.push(data);
-    setPeople(peopleArrayCopy);
-    setShowSnackBar(`You have successfully shared your list with ${data.name}.`)
-    setData(emptyDataObj);
+    const request = {
+      fromName: fullName,
+      fromEmail: localStorage.email,
+      fromSub: localStorage.sub,
+      toEmail: data.email,
+      toName: data.name
+    };
+
+    await API.graphql({ query: createShared, variables: { input: request } })
+      .then(response => {
+        let copyArray = [...people];
+
+        request.id = response.data.createShared.id;
+        copyArray.push(request);
+        setPeople(copyArray);
+        setShowSnackBar(`You have successfully shared your list with ${data.name}.`)
+        setData(emptyDataObj);
+      })
+      .catch(() => {
+        setError(true);
+      });
   }
 
   const handleDataChange = (field, value) => {
-    setData({...data, [field]: value})
+    setError(false);
+    setData({...data, [field]: value});
   }
 
-  const deletePerson = (person) => {
-    const peopleArrayCopy = people.filter(people => people.email !== person.email);
-    setPeople(peopleArrayCopy);
-    setShowSnackBar(`You have successfully unshared your list with ${person.name}.`)
-  };
+  async function deletePerson(person) {
+    const peopleArrayCopy = people.filter(listPeople => listPeople.id !== person.id);
+    const { id } = person;
+
+    await API.graphql({ query: deleteShared, variables: { input: { id } }})
+      .then(() => {
+        setPeople(peopleArrayCopy);
+        setShowSnackBar(`You have successfully unshared your list with ${person.name}.`)
+      })
+      .catch(() => {
+        setError(true);
+      });
+
+  }
 
   return (
     <div>
@@ -52,6 +105,11 @@ function ShareMyList() {
         <Grid item xs={12} sm={6}>
           <form className="mt-30" onSubmit={(e) => {addEmail(e)}}>
             <h3 className="mb-0">Add new person to share with</h3>
+            {error && (
+              <Alert style={{marginTop: '15px'}} severity="error">
+                <strong>An unknown error occurred.</strong> Please try again.
+              </Alert>
+            )}
             <TextField
               id="name"
               label="Name"
@@ -102,11 +160,11 @@ function ShareMyList() {
 
             {people.map((person, index) => (
               <Chip
-                key={person.email}
+                key={person.toEmail}
                 icon={<Person />}
                 className="mr-5 mt-5"
                 size="small"
-                label={`${person.name} | ${person.email}`}
+                label={`${person.toName} | ${person.toEmail}`}
                 onDelete={() => deletePerson(person)}
                 color="secondary"
               />

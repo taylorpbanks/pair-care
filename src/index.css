@@ -66,6 +66,10 @@ a {
   color: #f35757;
 }
 
+.secondary-color {
+  color: #dc9577;
+}
+
 /* alignment */
 .float-right {
   float: right;

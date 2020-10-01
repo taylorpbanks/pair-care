@@ -79,3 +79,38 @@ export const listItems = /* GraphQL */ `
     }
   }
 `;
+export const getShared = /* GraphQL */ `
+  query GetShared($id: ID!) {
+    getShared(id: $id) {
+      id
+      fromName
+      fromEmail
+      fromSub
+      toEmail
+      toName
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listShareds = /* GraphQL */ `
+  query ListShareds(
+    $filter: ModelSharedFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listShareds(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        fromName
+        fromEmail
+        fromSub
+        toEmail
+        toName
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
