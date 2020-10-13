@@ -104,7 +104,8 @@ const MyLists = ({ sharedList, viewersList }) => {
     brand: '',
     link: '',
     item: '',
-    age: '',
+    age: 0,
+    toAge: 0,
     isRecommended: undefined,
     comments: ''
   }
@@ -140,7 +141,8 @@ const MyLists = ({ sharedList, viewersList }) => {
     requestItem.added = undefined;
     requestItem.id = undefined;
 
-    await API.graphql({ query: createItemMutation, variables: { input: requestItem } }).then(response => {
+    await API.graphql({ query: createItemMutation, variables: { input: requestItem } })
+    .then(response => {
       let copyArray = [...listContent];
 
       if (sharedList) {
@@ -155,6 +157,9 @@ const MyLists = ({ sharedList, viewersList }) => {
         setAllListContent({...allLists, [`list${selectedStage}`]: undefined});
         setShowSnackBar('Item added successfully!');
       }
+    })
+    .catch(() => {
+      setShowSnackBar('An unexpected error occurred.  Please try again.');
     });
   }
 
@@ -165,20 +170,30 @@ const MyLists = ({ sharedList, viewersList }) => {
     delete item.createdAt;
     delete item.updatedAt;
 
-    await API.graphql({ query: updateItemMutation, variables: { input: item } });
+    await API.graphql({ query: updateItemMutation, variables: { input: item } })
+    .then(() =>{
+      setListContent(copyArray);
+      setSelectedRow(null);
+      setAllListContent({...allLists, [`list${selectedStage}`]: undefined});
+      setShowSnackBar('Item updated successfully!');
+    })
+    .catch(() =>{
+      setShowSnackBar('An unexpected error occurred.  Please try again.');
+    });
 
-    setListContent(copyArray);
-    setSelectedRow(null);
-    setAllListContent({...allLists, [`list${selectedStage}`]: undefined});
-    setShowSnackBar('Item updated successfully!');
+
   };
 
   async function deleteItem(id) {
     const listCopy = listContent.filter(item => item.id !== id);
     setListContent(listCopy);
-    await API.graphql({ query: deleteItemMutation, variables: { input: { id } }});
-    setAllListContent({...allLists, [`list${selectedStage}`]: undefined});
-    setShowSnackBar('Item deleted successfully!');
+    await API.graphql({ query: deleteItemMutation, variables: { input: { id } }}).then(() =>{
+      setAllListContent({...allLists, [`list${selectedStage}`]: undefined});
+      setShowSnackBar('Item deleted successfully!');
+    })
+    .catch(() => {
+      setShowSnackBar('An unexpected error occurred.  Please try again.');
+    });
   }
 
   const addEntryRow = () => {

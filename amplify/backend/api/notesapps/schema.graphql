@@ -15,7 +15,8 @@ type Item @model {
 	brand: String
 	item: String!
 	link: String!
-	age: String
+	age: Int
+	toAge: Int
 	isRecommended: String
 	comments: String
 }

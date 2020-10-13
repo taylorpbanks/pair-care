@@ -17,6 +17,7 @@ import {
   DialogActions,
   Grow,
   Tooltip,
+  Slider,
 } from '@material-ui/core';
 import { InfoOutlined } from '@material-ui/icons';
 import Autocomplete from '@material-ui/lab/Autocomplete';
@@ -41,6 +42,10 @@ const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage,
   const handleChange = (e, field, newVal) => {
     const value = newVal || e.target.value;
     setValues({ ...values, [field]: value });
+  }
+
+  const handleSlider = (event, newValue) => {
+    setValues({...values, age: newValue[0], toAge: newValue[1]});
   }
 
   const getSubCategories = () => {
@@ -108,17 +113,26 @@ const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage,
 
         <div className="col-6">
           <div className="standard-flex-box">
-            <div className="col-6">
+            <div className="col-6" style={{position: 'relative'}}>
               <Autocomplete
                 id="sub-category-input"
                 freeSolo
                 value={values.type}
                 onChange={(e, newVal) => handleChange(e, 'type', newVal)}
                 options={getSubCategories()}
+                disabled={!values.categoryId && !selectedChip}
                 renderInput={(params) => (
                   <TextField {...params} label="Sub-Category" margin="normal" variant="outlined" size="small" onBlur={(e) => {handleChange(e, 'type')}} />
                 )}
               />
+
+              {!values.categoryId && !selectedChip && (
+                <div className="disabled-tooltip-2">
+                  <Tooltip title="This field is disabled because you have not picked a category yet." aria-label="Sub Category Info">
+                    <InfoOutlined size="small" color="primary" />
+                  </Tooltip>
+                </div>
+              )}
             </div>
 
             <div className="col-6">
@@ -163,20 +177,16 @@ const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage,
 
         <div className="col-3">
           <FormControl className="field-container" variant="outlined" size="small">
-            <InputLabel id="age-label">Age</InputLabel>
-            <Select
-              labelId="age-label"
-              id="age-input"
-              value={values.age}
-              onChange={(e) => handleChange(e, 'age')}
-              label="Life Stage"
-              size="small"
-              required
-            >
-              {ages.map(age => (
-                <MenuItem size="small" key={age} value={age}>{age}</MenuItem>
-              ))}
-            </Select>
+          <FormLabel component="legend">Age Range (in months)</FormLabel>
+            <Slider
+              value={[ Number(values.age), Number(values.toAge) ]}
+              onChange={handleSlider}
+              valueLabelDisplay="auto"
+              aria-labelledby="range-slider"
+              marks={ages}
+              max={36}
+              step={3}
+            />
           </FormControl>
 
           <FormControl component="fieldset" className="field-container" size="small">

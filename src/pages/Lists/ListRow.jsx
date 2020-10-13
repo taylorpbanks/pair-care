@@ -57,6 +57,24 @@ const ListRow = ({
     updateItem(item, e, index);
   };
 
+  const getAgeLabel = (age) => {
+    console.log(age);
+    switch(age) {
+      case '0':
+        return 'Newborn';
+      case 0:
+        return 'Newborn';
+      case 12: 
+        return '1Y';
+      case 24:
+        return '2Y';
+      case 36:
+        return '3Y';
+      default: 
+        return `${age}M`
+    }
+  };
+
   const stageId = stages.find(category => category.id === row.stageId);
   const category = categories.find(category => category.id === row.categoryId);
   const linkDisplay = row.link.substring(0, row.link.length >= maxLinkLength ? maxLinkLength : row.link.length);
@@ -129,7 +147,7 @@ const ListRow = ({
 
         <div className="col-3">
           <div>
-            {row.age}
+            {row.age || row.age === 0 ? getAgeLabel(row.age) : ''} {row.toAge && row.age !== row.toAge ? `to ${getAgeLabel(row.toAge)}` : ''}
             <span className="float-right">{row.isRecommended === 'Y' ?
               <ThumbUpAltOutlined style={{color: '#8cc5be'}} /> :
               <ThumbDownAltOutlined style={{color: '#dc9577'}} />}
@@ -143,7 +161,7 @@ const ListRow = ({
 
     {!isViewMode && selectedRow === index && (
       <AddRow
-        row={row}
+        row={{...row, toAge: (row.toAge || row.age)}}
         stages={stages}
         categories={categories}
         setSelectedRow={setSelectedRow}

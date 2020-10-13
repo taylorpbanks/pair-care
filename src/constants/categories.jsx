@@ -9,11 +9,11 @@ import {
     faBrain,
     faTshirt,
     faHandSparkles,
-    faMale,
     faInfinity,
-    faPills,
-    faEgg,
-    faVial,
+    faHandsHelping,
+    faShoppingBag,
+    faBook,
+    faHeart,
   } from '@fortawesome/free-solid-svg-icons';
   import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -22,30 +22,80 @@ export default {
       { id: 0, label: 'All', icon: <FontAwesomeIcon icon={faInfinity} /> },
       {
         id: 1,
-        label: 'Ovulation',
-        icon: <FontAwesomeIcon icon={faEgg} />,
-        subCategories: ['Kit', 'Test']
+        label: 'Guides',
+        icon: <FontAwesomeIcon icon={faHandsHelping} />,
+        subCategories: [
+          'Apps',
+          'Books',
+          'Classes & Groups',
+          'Doula',
+          'Social Media',
+          'Website',
+          'Other'
+        ]
       },
       {
         id: 2,
-        label: 'Pregnancy Tests',
-        icon: <FontAwesomeIcon icon={faVial} />,
-        subCategories: ['Early Detection']
+        label: 'Health',
+        icon: <FontAwesomeIcon icon={faHeartbeat} />,
+        subCategories: ['Vitamins and Supplements', 'Other']
       },
     ],
     1: [
       { id: 0, label: 'All', icon: <FontAwesomeIcon icon={faInfinity} /> },
       {
         id: 1,
-        label: 'Vitamins',
-        icon: <FontAwesomeIcon icon={faPills} />,
-        subCategories: ['Capsules', 'Gummies']
+        label: 'Health',
+        icon: <FontAwesomeIcon icon={faHeartbeat} />,
+        subCategories: [
+          'Bath and Lotions',
+          'Fitness',
+          'Makeup and Perfume',
+          'Vitamins and Supplements',
+          'Other',
+        ]
       },
       {
         id: 2,
-        label: 'Maternity Clothes',
+        label: 'Clothing',
         icon: <FontAwesomeIcon icon={faTshirt} />,
-        subCategories: ['Dress', 'Shirt', 'Pants', 'Shoes']
+        subCategories: [
+          'Belly Bands & Shapewear',
+          'Bottoms',
+          'Bras & Undergarments',
+          'Coats and Jackets',
+          'Dresses',
+          'Swimwear',
+          'Shoes',
+          'Tops',
+          'Other',
+        ]
+      },
+      {
+        id: 3,
+        label: 'Guides',
+        icon: <FontAwesomeIcon icon={faHandsHelping} />,
+        subCategories: [
+          'Apps',
+          'Books',
+          'Classes & Groups',
+          'Doula',
+          'Social Media',
+          'Website',
+          'Other'
+        ]
+      },
+      {
+        id: 4,
+        label: 'Hospital Bag',
+        icon: <FontAwesomeIcon icon={faShoppingBag} />,
+        subCategories: [
+          'Clothes', 
+          'Nursing Bra',
+          'Socks and Slippers',
+          'Toiletries',
+          'Other',
+        ]
       },
     ],
     2: [
@@ -53,62 +103,173 @@ export default {
       {     id: 1,
         label: 'On the Go',
         icon: <FontAwesomeIcon icon={faCar} />,
-        subCategories: ['Car Seat', 'Car Shade', 'Stroller']
+        subCategories: [
+          'Car Accessories',
+          'Car Seats',
+          'Diaper Bags and Mats',
+          'Scooters and Bikes',
+          'Stollers & Accessories',
+          'Travel Cribs',
+          'Wagons',
+          'Other',
+        ]
       },
       {
         id: 2,
         label: 'Sleeping',
         icon: <FontAwesomeIcon icon={faBed} />,
-        subCategories: ['Crib', 'Pillows', 'Sheets', 'Swaddle']
+        subCategories: [
+          'Bumpers',
+          'Cribs & Mattresses',
+          'Crib Sheets & Blankets',
+          'Nightlights and Sound Machines',
+          'Mobiles',
+          'Other',
+        ]
       },
       {
         id: 3,
         label: 'Feeding & Nursing',
         icon: <FontAwesomeIcon icon={faUtensils} />,
-        subCategories: ['Bib', 'Bottle', 'Utensils']
+        subCategories: [
+          'Baby Food Processor',
+          'Bibs',
+          'Bottles & Accessories',
+          'Formulas',
+          'High Chairs',
+          'Nursing Covers',
+          'Plates/Cups/Utensils',
+          'Pumps & Accessories',
+          'Purees and Snacks',
+          'Other',
+        ]
       },
       {
         id: 4,
         label: 'Bath time',
         icon: <FontAwesomeIcon icon={faBath} />,
-        subCategories: ['Bath', 'Shampoo', 'Towels']
+        subCategories: [
+          'Cleaning Devices',
+          'Shampoos and Body Washes',
+          'Bath Toys',
+          'Tub Accessories',
+          'Other',
+        ]
       },
       {
         id: 5,
         label: 'Health & Safety',
         icon: <FontAwesomeIcon icon={faHeartbeat} />,
-        subCategories: ['First Aid Kit', 'Medicine', 'Thermometer']
+        subCategories: [
+          'Baby Proofing',
+          'Ear Protection',
+          'First Aid',
+          'Grooming & Creams',
+          'Humidifiers', 
+          'Monitors',
+          'Pacifiers and Teethers',
+          'Other',
+        ]
       },
       {
         id: 6,
         label: 'Play & Learn',
         icon: <FontAwesomeIcon icon={faBrain} />,
-        subCategories: ['DVD', 'Toy']
+        subCategories: [
+          'Activity Centers & Mats',
+          'Bouncers & Swings',
+          'Playards & Accessories',
+          'Rattles',
+          'Stuffed Animals',
+          'Toys',
+          'Walkers',
+          'Other',
+        ]
       },
       {
         id: 7,
         label: 'Clothing',
         icon: <FontAwesomeIcon icon={faTshirt} />,
-        subCategories: ['Dress', 'Onesie', 'Pants', 'Shirt', 'Shoes']
+        subCategories: [
+          'Bottoms',
+          'Gloves',
+          'Gowns',
+          'Jackets', 
+          'Headwear',
+          'Onesie and Footies',
+          'Shoes',
+          'Socks',
+          'Swimwear',
+          'Tops and Sweaters',
+          'Other',
+        ]
       },
       {
         id: 8,
         label: 'Changing Station',
         icon: <FontAwesomeIcon icon={faBaby} />,
-        subCategories: ['Changing Station', 'Diapers', 'Wipes']
+        subCategories: [
+          'Changing Pad',
+          'Changing Pad Covers',
+          'Diaper Pail & Liners',
+          'Diapers',
+          'Wipes',
+          'Lotions and Ointments',
+          'Potty Training',
+          'Other',
+        ]
     
       },
       {
         id: 9,
         label: 'Cleaning Supplies',
         icon: <FontAwesomeIcon icon={faHandSparkles} />,
-        subCategories: ['Laundry Detergent', 'Multi-Surface Cleaner']
+        subCategories: [
+          'Brushes and Sponges',
+          'Dishwashing Soap',
+          'Laundry',
+          'Solutions and Spray',
+          'Other',
+        ]
       },
       {
         id: 10,
-        label: 'For the Parent',
-        icon: <FontAwesomeIcon icon={faMale} />,
-        subCategories: ['Book', 'Blog']
+        label: 'Guides',
+        icon: <FontAwesomeIcon icon={faHandsHelping} />,
+        subCategories: [
+          'Apps',
+          'Books',
+          'Classes & Groups',
+          'Doula',
+          'Social Media',
+          'Website',
+          'Other'
+        ]
+      },
+      {
+        id: 11,
+        label: 'Baby Books',
+        icon: <FontAwesomeIcon icon={faBook} />,
+        subCategories: [
+          'Black and White',
+          'Board Book',
+          'Pop-up',
+          'Touch and Feel',
+          'Other',
+        ]
+      },
+      {
+        id: 12,
+        label: 'Memories',
+        icon: <FontAwesomeIcon icon={faHeart} />,
+        subCategories: [
+          'Journals',
+          'Keepsake',
+          'Letter Board',
+          'Milestone Marker',
+          'Photos & Accessories',
+          'Other',
+        ]
       },
     ]
 }

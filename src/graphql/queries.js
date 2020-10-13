@@ -45,6 +45,7 @@ export const getItem = /* GraphQL */ `
       item
       link
       age
+      toAge
       isRecommended
       comments
       createdAt
@@ -70,6 +71,7 @@ export const listItems = /* GraphQL */ `
         item
         link
         age
+        toAge
         isRecommended
         comments
         createdAt

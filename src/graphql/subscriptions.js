@@ -50,6 +50,7 @@ export const onCreateItem = /* GraphQL */ `
       item
       link
       age
+      toAge
       isRecommended
       comments
       createdAt
@@ -70,6 +71,7 @@ export const onUpdateItem = /* GraphQL */ `
       item
       link
       age
+      toAge
       isRecommended
       comments
       createdAt
@@ -90,6 +92,7 @@ export const onDeleteItem = /* GraphQL */ `
       item
       link
       age
+      toAge
       isRecommended
       comments
       createdAt

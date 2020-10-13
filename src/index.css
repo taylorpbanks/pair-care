@@ -164,7 +164,8 @@ textarea {
   border-color: #c4c4c4;
 }
 
-.MuiInputBase-input.Mui-disabled {
+.MuiInputBase-input.Mui-disabled,
+.MuiAutocomplete-inputRoot.Mui-disabled {
   background-color: #efefef;
 }
 
