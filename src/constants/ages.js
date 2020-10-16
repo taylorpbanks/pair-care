@@ -18,5 +18,13 @@ export default [
   {
     value: 36,
     label: '3Y',
+  },
+  {
+    value: 48,
+    label: '4Y',
+  },
+  {
+    value: 60,
+    label: '5Y',
   }
 ];

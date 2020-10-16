@@ -39,9 +39,12 @@ const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage,
     setOpen(false);
   };
 
-  const handleChange = (e, field, newVal) => {
+  const handleChange = (e, field, newVal, rules) => {
     const value = newVal || e.target.value;
-    setValues({ ...values, [field]: value });
+
+    if (!rules || (rules && rules.maxLength && rules.maxLength >= value.length)) {
+      setValues({ ...values, [field]: value });
+    }
   }
 
   const handleSlider = (event, newValue) => {
@@ -122,7 +125,7 @@ const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage,
                 options={getSubCategories()}
                 disabled={!values.categoryId && !selectedChip}
                 renderInput={(params) => (
-                  <TextField {...params} label="Sub-Category" margin="normal" variant="outlined" size="small" onBlur={(e) => {handleChange(e, 'type')}} />
+                  <TextField {...params} label="Sub-Category" margin="normal" variant="outlined" size="small" onBlur={(e) => {handleChange(e, 'type', undefined, {maxLength: 100})}} />
                 )}
               />
 
@@ -144,7 +147,7 @@ const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage,
                 options={brands}
                 getOptionLabel={option => typeof option === 'string' ? option : option}
                 renderInput={(params) => (
-                  <TextField {...params} label="Brand" margin="normal" variant="outlined" size="small" onBlur={(e) => {handleChange(e, 'brand')}} />
+                  <TextField {...params} label="Brand" margin="normal" variant="outlined" size="small" onBlur={(e) => {handleChange(e, 'brand', undefined, {maxLength: 100})}} />
                 )}
               />
             </div>
@@ -152,7 +155,7 @@ const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage,
 
           <TextField
             className="field-container"
-            onChange={(e) => handleChange(e, 'item')}
+            onChange={(e) => handleChange(e, 'item', undefined, {maxLength: 100})}
             id="item-input"
             label="Item Name"
             variant="outlined"
@@ -164,7 +167,7 @@ const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage,
 
           <TextField
             className="field-container"
-            onChange={(e) => handleChange(e, 'link')}
+            onChange={(e) => handleChange(e, 'link', undefined, {maxLength: 300})}
             id="link-input"
             label="Link"
             variant="outlined"
@@ -173,22 +176,22 @@ const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage,
             InputLabelProps={{ required: false }}
             required
           />
-        </div>
 
-        <div className="col-3">
           <FormControl className="field-container" variant="outlined" size="small">
-          <FormLabel component="legend">Age Range (in months)</FormLabel>
+            <FormLabel component="legend">Recommended Age Range (in months)</FormLabel>
             <Slider
               value={[ Number(values.age), Number(values.toAge) ]}
               onChange={handleSlider}
               valueLabelDisplay="auto"
               aria-labelledby="range-slider"
               marks={ages}
-              max={36}
+              max={60}
               step={3}
             />
           </FormControl>
+        </div>
 
+        <div className="col-3">
           <FormControl component="fieldset" className="field-container" size="small">
             <FormLabel component="legend">Do you recommend this item?</FormLabel>
             <RadioGroup
@@ -208,9 +211,9 @@ const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage,
             id="outlined-multiline-flexible"
             label="Additional Comments"
             multiline
-            rowsMax={4}
+            rowsMax={6}
             value={values.comments}
-            onChange={(e) => handleChange(e, 'comments')}
+            onChange={(e) => handleChange(e, 'comments', undefined, {maxLength: 500})}
             variant="outlined"
             size="small"
           />
@@ -236,7 +239,7 @@ const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage,
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
               The following item will be deleted:
-          <br />
+              <br />
               <strong>{values.brand} - {values.item}</strong>
               <br />
               <br />
@@ -246,11 +249,11 @@ const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage,
           <DialogActions>
             <Button onClick={handleClose} color="primary" autoFocus>
               Cancel
-        </Button>
+            </Button>
 
             <Button onClick={(e) => { handleChange(e, index, 'delete'); handleClose(); }} color="primary">
               Delete Item
-        </Button>
+            </Button>
           </DialogActions>
         </Dialog>
 

@@ -9,6 +9,10 @@ import {
   Snackbar,
   IconButton,
   Tooltip,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
 } from '@material-ui/core';
 import {
   Close,
@@ -32,6 +36,7 @@ import { listItems } from '../../graphql/queries';
 import { Link as RouterLink } from 'react-router-dom';
 import { API, graphqlOperation } from 'aws-amplify';
 import { cloneDeep } from 'lodash';
+import { compareStrings } from '../../tools/services';
 
 function TabPanel(props) {
   const { children, selectedStage, index, ...other } = props;
@@ -74,10 +79,21 @@ const MyLists = ({ sharedList, viewersList }) => {
   const [allLists, setAllListContent] = React.useState({});
   const [showSnackBar, setShowSnackBar] = React.useState(undefined);
   const [showManyItemAdd, setShowManyItemAdd] = React.useState(false);
+  const [sortBy, setSortBy] = React.useState('isRecommended');
 
   React.useEffect(() => {
     fetchList(2);
   }, []);
+
+  React.useEffect(() => {
+    const copy = cloneDeep(listContent);
+    if (sortBy) {
+      copy.sort(compareStrings('categoryId'));
+    }
+
+    copy.sort(compareStrings(sortBy, sortBy === 'isRecommended' ? 'desc' : 'asc'));
+    setListContent(copy);
+  }, [sortBy]);
 
   async function fetchList(id) {
     const apiData = await API.graphql(graphqlOperation(listItems, {filter: {
@@ -93,7 +109,8 @@ const MyLists = ({ sharedList, viewersList }) => {
       });
     }
 
-    setListContent(items);
+    const sortedItems = items.sort(compareStrings('categoryId')).sort(compareStrings('isRecommended', 'desc'));
+    setListContent(sortedItems);
     setAllListContent({...allLists, [`list${id}`]: apiData.data.listItems.items});
   }
 
@@ -210,7 +227,7 @@ const MyLists = ({ sharedList, viewersList }) => {
   return (
     <div>
       {!sharedList && (<h1>My List</h1>)}
-      <AppBar position="static">
+      <AppBar position="sticky">
         <Tabs value={selectedStage} onChange={handleChange} aria-label="simple tabs example">
           {stages.map(tab => (
             <Tab key={tab.label} label={tab.label} {...a11yProps(tab.id)} />
@@ -219,22 +236,40 @@ const MyLists = ({ sharedList, viewersList }) => {
       </AppBar>
       {stages.map(stage => (
         <TabPanel selectedStage={selectedStage} index={stage.id} key={stage.id} className={selectedRow === 10000 ? '' : 'append-btm-margin'}>
-         {categories[selectedStage].map(list => (
-            <Chip
-              className="category-chip"
-              color={selectedChip === list.id ? 'primary' : undefined}
-              key={list.id}
-              size="medium"
-              icon={list.icon}
-              label={`${list.label} (${list.numOfItems})`}
-              onClick={() => {
-                setSelectedChip(list.id)
-                if (selectedRow !== 10000) {
-                  setSelectedRow(null);
-                }
-              }}
-            />
-          ))}
+          <FormControl variant="outlined" size="small">
+            <InputLabel id="sort-by-label">Sort By</InputLabel>
+            <Select
+              labelId="sort-by-label"
+              id="sort-by-label"
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+                label="Sort By"
+              size="small"
+            >
+              <MenuItem value="isRecommended">Recommended</MenuItem>
+              <MenuItem value="brand">Brand</MenuItem>
+              <MenuItem value="age">Age</MenuItem>
+            </Select>
+          </FormControl>
+
+          <div style={{display: 'inline'}}>
+            {categories[selectedStage].map(list => (
+              <Chip
+                className="category-chip"
+                color={selectedChip === list.id ? 'primary' : undefined}
+                key={list.id}
+                size="medium"
+                icon={list.icon}
+                label={`${list.label} (${list.numOfItems})`}
+                onClick={() => {
+                  setSelectedChip(list.id)
+                  if (selectedRow !== 10000) {
+                    setSelectedRow(null);
+                  }
+                }}
+              />
+            ))}
+          </div>
 
           <div className="mt-30">
             {categories[selectedStage][selectedChip].numOfItems > 0 && (

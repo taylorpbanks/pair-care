@@ -107,7 +107,11 @@ export default function Header({authState}) {
             <MenuIcon />
           </IconButton>
           <a className="logo-container" href="/" style={{textDecoration: 'none', fontSize: '1.5em'}}>
-            <span style={{color: '#226d77'}}>PAIR</span><span style={{color: '#dc9577'}}>CARE</span>
+            <img
+              src={require("../img/pc-logo.png")}
+              alt="pair-card logo"
+              style={{maxWidth: '150px'}}
+            />
           </a>
 
           <div className="nav-wrapper">

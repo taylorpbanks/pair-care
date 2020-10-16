@@ -58,7 +58,6 @@ const ListRow = ({
   };
 
   const getAgeLabel = (age) => {
-    console.log(age);
     switch(age) {
       case '0':
         return 'Newborn';
