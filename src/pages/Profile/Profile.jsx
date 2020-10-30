@@ -6,7 +6,6 @@ import {
   Button,
   Grid,
   InputAdornment,
-  Avatar,
   RadioGroup,
   FormControlLabel,
   FormControl,
@@ -18,68 +17,12 @@ import {
   Cake,
   LocationOn,
 } from '@material-ui/icons';
-import { makeStyles } from '@material-ui/core/styles';
 import { Alert } from '@material-ui/lab';
 import { Link } from 'react-router-dom';
-import {
-  deepOrange,
-  deepPurple,
-  red,
-  pink,
-  indigo,
-  cyan,
-  teal,
-  brown,
-  grey,
-  green,
-} from '@material-ui/core/colors';
 import './Profile.css';
-
-const useStyles = makeStyles((theme) => ({
-  red: {
-    color: theme.palette.getContrastText(red[500]),
-    backgroundColor: red[500],
-  },
-  green: {
-    color: theme.palette.getContrastText(green[500]),
-    backgroundColor: green[500],
-  },
-  pink: {
-    color: theme.palette.getContrastText(pink[500]),
-    backgroundColor: pink[500],
-  },
-  indigo: {
-    color: theme.palette.getContrastText(indigo[500]),
-    backgroundColor: indigo[500],
-  },
-  teal: {
-    color: theme.palette.getContrastText(teal[500]),
-    backgroundColor: teal[500],
-  },
-  brown: {
-    color: theme.palette.getContrastText(brown[500]),
-    backgroundColor: brown[500],
-  },
-  grey: {
-    color: theme.palette.getContrastText(grey[500]),
-    backgroundColor: grey[500],
-  },
-  cyan: {
-    color: theme.palette.getContrastText(cyan[500]),
-    backgroundColor: cyan[500],
-  },
-  orange: {
-    color: theme.palette.getContrastText(deepOrange[500]),
-    backgroundColor: deepOrange[500],
-  },
-  purple: {
-    color: theme.palette.getContrastText(deepPurple[500]),
-    backgroundColor: deepPurple[500],
-  },
-}));
+import ProfilePic from './ProfilePic.jsx';
 
 const Profile = () => {
-  const classes = useStyles();
   const [error, setError] = useState(undefined);
   const [confirmation, setConfirmation] = useState(undefined);
   const [user, setUser] = useState(undefined);
@@ -161,7 +104,7 @@ const Profile = () => {
           <form onSubmit={handleUpdate}>
             <Grid container spacing={3}>
               <Grid item xs={12} className="text-center">
-                <Avatar className={`${user['custom:color'] ? classes[user['custom:color']] : classes.purple} margin-auto`}>{user.initials}</Avatar>
+                <ProfilePic color={user['custom:color']}  initials={user.initials} picture={data['custom:pic']} />
                 <p>
                   {user.email}
                   <br />

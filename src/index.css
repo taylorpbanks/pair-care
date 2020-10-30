@@ -218,6 +218,10 @@ textarea {
   width: 100%
 }
 
+.MuiListItemText-multiline {
+  overflow-wrap: break-word;
+}
+
 /*responsive design*/
 @media screen and (max-width: 600px) {
   /*flex box*/

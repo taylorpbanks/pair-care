@@ -1,3 +1,28 @@
 .parent .MuiFormControl-root {
     width: 100%;
 }
+
+.upload-profile-pic {
+    position: relative;
+}
+
+.upload-profile-pic .MuiAvatar-root {
+    width: 80px;
+    height: 80px;
+    font-size: 2em;
+}
+
+.upload-profile-pic .upload-btn {
+    position: absolute;
+    bottom: -12px;
+    color: white;
+    background-color: #226d77;
+    border: 2px solid;
+    padding: 5px;
+    margin-left: 15px;
+}
+
+.upload-profile-pic .upload-btn:hover {
+    background-color: white;
+    color: #226d77;
+}

@@ -8,11 +8,6 @@ const SuccessConfirmation = () => {
       <h1>
         Password Successfully Reset!
       </h1>
-      <img
-        src={require("../../../img/unlock-pair.png")}
-        alt="pair-care logo"
-        style={{width: '300px'}}
-      />
       <p>Head over to the <Link to="/login">Sign In</Link> page to get back to your lists!</p>
     </div>
   );
