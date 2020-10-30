@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   List,
   ListItem,
@@ -7,7 +7,9 @@ import {
   Grid,
   Slide,
   Button,
+  Avatar,
 } from '@material-ui/core';
+import { Storage } from 'aws-amplify';
 import { Link } from 'react-router-dom';
 import { AccountCircle, ArrowForwardIos, InfoOutlined } from '@material-ui/icons';
 import { listItems, listShareds } from '../../graphql/queries';
@@ -19,15 +21,23 @@ function SharedLists() {
   const [selected, setSelected] = useState(undefined);
   const [myList, setMyList] = useState({});
   const [sharedLists, setSharedLists] = useState([]);
+  const [pictures, setPictures] = useState({});
 
-  React.useEffect(() => {
-    fetchPeople();
-  }, []);
-
-  React.useEffect(() => {
+  useEffect(() => {
     fetchList();
     fetchPeople();
   }, []);
+
+  useEffect(() => {
+    sharedLists.forEach((list) => {
+      Storage.get(list.fromSub)
+        .then(response => {
+          setPictures({...pictures, [list.fromSub]: response})
+        });
+    });
+  }, [sharedLists]);
+
+  console.log(pictures);
 
   async function fetchList() {
     const apiData = await API.graphql(graphqlOperation(listItems, {filter: {
@@ -61,9 +71,13 @@ function SharedLists() {
                 {sharedLists.length > 0 && (
                   <List component="nav" className="list-container" aria-label="contacts">
                     {sharedLists.map((list) => (
-                      <ListItem button onClick={() => setSelected(list)}>
+                      <ListItem key={list.id} button onClick={() => setSelected(list)}>
                         <ListItemIcon>
-                          <AccountCircle fontSize="large" />
+                          {pictures[list.fromSub] ? 
+                              <Avatar src={pictures[list.fromSub]} />
+                              :
+                              <AccountCircle fontSize="large" />
+                          }
                         </ListItemIcon>
                         <ListItemText primary={list.fromName} secondary={list.fromEmail} style={{wordBreak: 'word-break'}} />
                         <ListItemIcon>

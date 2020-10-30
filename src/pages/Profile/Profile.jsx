@@ -104,7 +104,12 @@ const Profile = () => {
           <form onSubmit={handleUpdate}>
             <Grid container spacing={3}>
               <Grid item xs={12} className="text-center">
-                <ProfilePic color={user['custom:color']}  initials={user.initials} picture={data['custom:pic']} />
+                <ProfilePic
+                  color={user['custom:color']}
+                  initials={user.initials}
+                  picture={data['custom:pic']}
+                  sub={user.sub}
+                />
                 <p>
                   {user.email}
                   <br />

@@ -167,7 +167,7 @@ const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage,
 
           <TextField
             className="field-container"
-            onChange={(e) => handleChange(e, 'link', undefined, {maxLength: 300})}
+            onChange={(e) => handleChange(e, 'link', undefined, {maxLength: 750})}
             id="link-input"
             label="Link"
             variant="outlined"

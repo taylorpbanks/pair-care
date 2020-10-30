@@ -1,10 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Auth, Storage } from 'aws-amplify';
 import {
-  Container,
-  TextField,
-  Button,
-  InputAdornment,
   Grid,
   Avatar,
   IconButton,
@@ -68,9 +64,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProfilePic = ({ color, initials, picture }) => {
+const ProfilePic = ({ color, initials, picture, sub }) => {
   const classes = useStyles();
-  const [fileName, setFileName] = useState(undefined);
   const displayColor = color ? classes[color] : classes.purple;
   const [error, setError] = useState(undefined);
   const hiddenFileInput = useRef(null);
@@ -107,7 +102,7 @@ const ProfilePic = ({ color, initials, picture }) => {
   async function onChange(e) {
     if (!e.target.files[0]) return
     const file = e.target.files[0];
-    await Storage.put(file.name, file)
+    await Storage.put(sub, file)
       .then(response => savePicture(response.key))
       .catch(() => setError(errorMessage));
   }
