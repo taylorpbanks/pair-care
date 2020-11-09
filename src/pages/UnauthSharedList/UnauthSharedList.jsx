@@ -23,6 +23,7 @@ import './UnauthSharedList.css';
 
 const UnauthSharedList = ({ id, name }) => {
   const [list, setList] = useState([]);
+  const possessiveName = `${name}${name.charAt(name.length-1) === 's' ? '\'' : '\'s'}`
   const maxLinkLength = 40;
 
   React.useEffect(() => {
@@ -38,18 +39,13 @@ const UnauthSharedList = ({ id, name }) => {
     const { items } = apiData.data.listItems;
     const firstThree = items ? items.slice(0, 3) : items;
     setList(firstThree);
-    console.log(list);
   };
 
   const getCategory = (categoryId) => {
-    console.log(categories);
-    console.log(categoryId);
-    console.log(categories[2].find(category => category.id === categoryId));
     return categories[2].find(category => category.id === categoryId);
   }
 
   const getStage = (stageId) => {
-    console.log(stages.find(category => category.id === stageId))
     return stages.find(category => category.id === stageId);
   }
 
@@ -117,7 +113,6 @@ const UnauthSharedList = ({ id, name }) => {
     );
   }
 
-console.log(list);
   return (
     <div>
       <h1>{name} shared their must have items with you!</h1>
@@ -127,8 +122,8 @@ console.log(list);
 
       <div className="locked-content">
         <LockOutlined fontSize="large" color="primary" />
-        <h2>Currently sharing the first 3 items of {name}{name.charAt(name.length-1) === 's' ? '\'' : '\'s'} list with you.</h2>
-        <h3 className="mb-30">Sign up to make reap the benefits of Pair Care!</h3>
+        <h2>Currently sharing the first 3 items of {possessiveName} list with you.</h2>
+        <h3 className="mb-30">Sign up to see the rest of the items and reap the benefits of Pair Care!</h3>
 
         <div className="standard-flex-box mb-30">
           <div className="col-4">
