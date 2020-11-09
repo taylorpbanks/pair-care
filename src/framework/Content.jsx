@@ -12,14 +12,25 @@ import ShareMyList from '../pages/ShareList/ShareMyList';
 import SharedLists from '../pages/ShareList/SharedLists';
 import ForgotPassword from '../pages/auth/forgotPassword/forgotPassword';
 import ChangePassword from '../pages/Profile/ChangePassword';
+import UnauthSharedList from '../pages/UnauthSharedList/UnauthSharedList';
 // import App from '../NotesTest';
 
 export default function Content({authState, onStateChange}) {
   const isLoggedIn = authState === 'signedIn';
+  const params = new URLSearchParams(window.location.search);
+  let id;
+  let name;
+
+  if (params && params.has('id') && params.get('name')) {
+    id = params.get('id');
+    name = params.get('name');
+  }
+
   function UnauthorizedPage() {
     return <Unauthorized onStateChange={onStateChange} />
   }
 
+  console.log(id);
   return (
     <>
       <Switch>
@@ -40,7 +51,11 @@ export default function Content({authState, onStateChange}) {
         </Route>
 
         <Route path="/shared-lists">
-          {isLoggedIn ? <SharedLists /> : <UnauthorizedPage /> }
+          {
+            isLoggedIn ?
+            <SharedLists /> :
+            (id ? <UnauthSharedList id={id} name={name} /> : <UnauthorizedPage />)
+          }
         </Route>
 
         <Route path="/resources">

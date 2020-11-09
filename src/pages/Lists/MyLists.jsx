@@ -259,7 +259,7 @@ const MyLists = ({ sharedList, viewersList }) => {
                 color={selectedChip === list.id ? 'primary' : undefined}
                 key={list.id}
                 size="medium"
-                icon={list.icon}
+                icon={selectedChip === list.id && list.highlighted ? list.highlighted : list.icon}
                 label={`${list.label} (${list.numOfItems})`}
                 onClick={() => {
                   setSelectedChip(list.id)

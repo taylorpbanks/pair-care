@@ -102,6 +102,8 @@ export default {
       { id: 0, label: 'All', icon: <FontAwesomeIcon icon={faInfinity} /> },
       {     id: 1,
         label: 'On the Go',
+        //icon: <img src={require("../img/icons/Stroller-disabled.jpg")} alt="stroller" width="25px" />,
+        //highlighted: <img src={require("../img/icons/Stroller-highlighted.jpg")} alt="stroller"  width="25px" />,
         icon: <FontAwesomeIcon icon={faCar} />,
         subCategories: [
           'Car Accessories',
@@ -117,6 +119,8 @@ export default {
       {
         id: 2,
         label: 'Sleeping',
+        //icon: <img src={require("../img/icons/Bassinet-disabled.jpg")} alt="bassinet" width="25px" />,
+        //highlighted: <img src={require("../img/icons/Bassinet-highlighted.jpg")} alt="bassinet" width="25px" />,
         icon: <FontAwesomeIcon icon={faBed} />,
         subCategories: [
           'Bumpers',
@@ -130,6 +134,8 @@ export default {
       {
         id: 3,
         label: 'Feeding & Nursing',
+        //icon: <img src={require("../img/icons/Bottles-disabled.jpg")} alt="bottle" width="25px" />,
+        //highlighted: <img src={require("../img/icons/Bottles-highlighted.jpg")} alt="bottle"  width="25px" />,
         icon: <FontAwesomeIcon icon={faUtensils} />,
         subCategories: [
           'Baby Food Processor',
@@ -174,6 +180,8 @@ export default {
       {
         id: 6,
         label: 'Play & Learn',
+        //icon: <img src={require("../img/icons/Rattle-disabled.jpg")} alt="rattle" width="25px" />,
+        //highlighted: <img src={require("../img/icons/Rattle-highlighted.jpg")} alt="rattle" width="25px" />,
         icon: <FontAwesomeIcon icon={faBrain} />,
         subCategories: [
           'Activity Centers & Mats',
@@ -189,7 +197,8 @@ export default {
       {
         id: 7,
         label: 'Clothing',
-        icon: <FontAwesomeIcon icon={faTshirt} />,
+        icon: <img src={require("../img/icons/onesie-disabled.jpg")} alt="onesie" width="25px" />,
+        highlighted: <img src={require("../img/icons/onesie-highlighted.jpg")} alt="onesie" width="25px" />,
         subCategories: [
           'Bottoms',
           'Gloves',

@@ -93,7 +93,10 @@ const ListRow = ({
       <div className="view-row">
         <div className="col-2 m-header-display">
           <div className="d-inline-blk">
-            <Avatar className="mr-15" style={{backgroundColor: '#8cc5be'}}>{category.icon}</Avatar>
+          {category.highlighted ?
+            <div className="img-icon-avatar">{category.highlighted}</div> :
+            <Avatar className="mr-15" style={{backgroundColor: '#226d77'}}>{category.icon}</Avatar>
+          }
           </div>
 
           <div className="d-inline-blk">
