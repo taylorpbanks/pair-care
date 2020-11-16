@@ -67,6 +67,11 @@ export default function Header({authState}) {
     setAnchorEl(null);
   };
 
+  const handleSignOut = () => {
+    Auth.signOut();
+    localStorage.clear();
+  };
+
   const toggleDrawer = (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
@@ -82,7 +87,7 @@ export default function Header({authState}) {
           <List>
             {navigation.map((nav, index) => (!nav.requiredAuth || (nav.requiredAuth && authState !== 'signIn')) ? (
               <Link
-                key={nav.path}
+                key={`nav-${nav.path}-${index}`}
                 to={nav.path}
                 className={classes.navLink}
                 onClick={(event) => {toggleDrawer(event);setSelectedTab(nav.id);}}
@@ -116,7 +121,7 @@ export default function Header({authState}) {
 
           <div className="nav-wrapper">
             {navigation.map((nav, index) => (!nav.requiredAuth || (nav.requiredAuth && authState !== 'signIn')) ? (
-              <div key={nav.id} className="nav-item-wrapper">
+              <div key={`wrapper-${nav.path}-${index}`} className="nav-item-wrapper">
                 <Link
                   to={nav.path}
                   className={`${classes.desktopLink} ${selectedTab === nav.id ? 'active' : ''}`}
@@ -175,7 +180,7 @@ export default function Header({authState}) {
             <IconButton
               aria-label="log out"
               color="inherit"
-              onClick={() => {Auth.signOut()}}
+              onClick={() => {handleSignOut()}}
             >
               <ExitToApp style={{color: '#226d77'}} />
             </IconButton>

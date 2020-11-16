@@ -8,7 +8,12 @@ import {
   IconButton
 } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
-import { Person, Close, InfoOutlined } from '@material-ui/icons';
+import {
+  Person,
+  Close,
+  InfoOutlined,
+  Edit,
+} from '@material-ui/icons';
 import {
   createShared,
   deleteShared,
@@ -30,6 +35,7 @@ function ShareMyList() {
 
   const [people, setPeople] = useState([]);
   const [data, setData] = useState(emptyDataObj);
+  const [isEdit, setIsEdit] = useState(false)
 
   React.useEffect(() => {
     fetchPeople();
@@ -54,7 +60,8 @@ function ShareMyList() {
       fromEmail: localStorage.email,
       fromSub: localStorage.sub,
       toEmail: data.email,
-      toName: data.name
+      toName: data.name,
+      customMessage: data.customMessage
     };
 
     await API.graphql({ query: createShared, variables: { input: request } })
@@ -84,7 +91,7 @@ function ShareMyList() {
     await API.graphql({ query: deleteShared, variables: { input: { id } }})
       .then(() => {
         setPeople(peopleArrayCopy);
-        setShowSnackBar(`You have successfully unshared your list with ${person.name}.`)
+        setShowSnackBar(`You have successfully unshared your list.`)
       })
       .catch(() => {
         setError(true);
@@ -140,6 +147,22 @@ function ShareMyList() {
             />
             {data.email !== '' && !data.email.match(emailRegex) && <span className="error-text">Enter a valid email address.</span>}
 
+            <TextField
+              id="customMessage"
+              label="Custom Message"
+              type="textarea"
+              className="field-container"
+              onChange={(e) => { handleDataChange('customMessage', e.target.value) }}
+              variant="outlined"
+              InputLabelProps={{ required: false }}
+              size="small"
+              autoComplete="off"
+              value={data.customMessage}
+              multiline
+              rowsMax={6}
+              placeholder="Check out my list on pair care!"
+            />
+
             <div className="mt-30">
               <Button variant="contained" color="primary" className="single-submit-btn" type="submit">
                 Add
@@ -149,7 +172,12 @@ function ShareMyList() {
 
           <hr className="mt-30 mb-30" />
 
-          <h3>People you are sharing with</h3>
+          <h3>
+            People you are sharing with
+            &nbsp;
+            {people.length && !isEdit && <Edit style={{ verticalAlign: 'middle', cursor: 'pointer' }} color="secondary" onClick={() => setIsEdit(true)} />}
+            {people.length && isEdit && <Close style={{ verticalAlign: 'middle', cursor: 'pointer' }} color="secondary" onClick={() => setIsEdit(false)} />}
+          </h3>
           <div className="email-container">
             {!people.length && (
               <div className="text-small">
@@ -158,7 +186,7 @@ function ShareMyList() {
               </div>
             )}
 
-            {people.map((person, index) => (
+            {isEdit && people.map((person, index) => (
               <Chip
                 key={person.toEmail}
                 icon={<Person />}
@@ -166,6 +194,17 @@ function ShareMyList() {
                 size="small"
                 label={`${person.toName} | ${person.toEmail}`}
                 onDelete={() => deletePerson(person)}
+                color="secondary"
+              />
+            ))}
+
+          {!isEdit && people.map((person, index) => (
+              <Chip
+                key={person.toEmail}
+                icon={<Person />}
+                className="mr-5 mt-5"
+                size="small"
+                label={`${person.toName} | ${person.toEmail}`}
                 color="secondary"
               />
             ))}

@@ -18,9 +18,15 @@ import MyList from '../Lists/MyLists';
 import './SharedLists.css';
 
 function SharedLists() {
+  const pairCareContact = {
+    fromEmail: 'paircarecontact@gmail.com',
+    fromName: 'Pair Care',
+    fromSub: '512bfff3-eb83-4645-864f-1e1f5f5b87fe'
+  };
+
   const [selected, setSelected] = useState(undefined);
   const [myList, setMyList] = useState({});
-  const [sharedLists, setSharedLists] = useState([]);
+  const [sharedLists, setSharedLists] = useState([pairCareContact]);
   const [pictures, setPictures] = useState({});
 
   useEffect(() => {
@@ -37,8 +43,6 @@ function SharedLists() {
     });
   }, [sharedLists]);
 
-  console.log(pictures);
-
   async function fetchList() {
     const apiData = await API.graphql(graphqlOperation(listItems, {filter: {
       sub: {eq: localStorage.sub}
@@ -54,6 +58,7 @@ function SharedLists() {
     }}));
 
     const { items } = apiData.data.listShareds;
+    items.unshift(pairCareContact);
     setSharedLists(items);
   }
 

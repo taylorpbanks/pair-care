@@ -30,7 +30,6 @@ export default function Content({authState, onStateChange}) {
     return <Unauthorized onStateChange={onStateChange} />
   }
 
-  console.log(id);
   return (
     <>
       <Switch>

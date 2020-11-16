@@ -64,13 +64,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProfilePic = ({ color, initials, picture, sub }) => {
+const ProfilePic = ({ color, user, picture, sub }) => {
   const classes = useStyles();
   const displayColor = color ? classes[color] : classes.purple;
   const [error, setError] = useState(undefined);
   const hiddenFileInput = useRef(null);
   const [pic, setPic] = useState(null);
   const errorMessage = 'An error has occurred when trying to upload your profile picture.';
+  const initials = user['custom:firstName'] && user['custom:lastName'] ?
+  user['custom:firstName'].charAt(0).toUpperCase() + user['custom:lastName'].charAt(0).toUpperCase() : '';
 
   useEffect(() => {
     if (picture) {

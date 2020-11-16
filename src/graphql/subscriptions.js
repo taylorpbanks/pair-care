@@ -109,6 +109,7 @@ export const onCreateShared = /* GraphQL */ `
       fromSub
       toEmail
       toName
+      customMessage
       createdAt
       updatedAt
     }
@@ -123,6 +124,7 @@ export const onUpdateShared = /* GraphQL */ `
       fromSub
       toEmail
       toName
+      customMessage
       createdAt
       updatedAt
     }
@@ -137,6 +139,7 @@ export const onDeleteShared = /* GraphQL */ `
       fromSub
       toEmail
       toName
+      customMessage
       createdAt
       updatedAt
     }

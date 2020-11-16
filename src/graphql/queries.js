@@ -90,6 +90,7 @@ export const getShared = /* GraphQL */ `
       fromSub
       toEmail
       toName
+      customMessage
       createdAt
       updatedAt
     }
@@ -109,6 +110,7 @@ export const listShareds = /* GraphQL */ `
         fromSub
         toEmail
         toName
+        customMessage
         createdAt
         updatedAt
       }

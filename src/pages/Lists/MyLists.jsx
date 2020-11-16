@@ -334,7 +334,7 @@ const MyLists = ({ sharedList, viewersList }) => {
                 </Tooltip>
 
                 <Tooltip title="Share List" aria-label="share list">
-                  <Fab className="share-btn" color="secondary" aria-label="share" component={RouterLink} to="/share-my-list">
+                  <Fab className="share-btn" color="secondary" aria-label="share" disabled={!listContent.length} component={RouterLink} to="/share-my-list">
                     <Share />
                   </Fab>
                 </Tooltip>

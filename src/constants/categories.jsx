@@ -1,12 +1,12 @@
 import React from "react";
 import {
     faBaby,
-    faCar,
-    faBed,
+    //faCar,
+    //faBed,
     faHeartbeat,
-    faUtensils,
+    //faUtensils,
     faBath,
-    faBrain,
+    //faBrain,
     faTshirt,
     faHandSparkles,
     faInfinity,
@@ -102,9 +102,9 @@ export default {
       { id: 0, label: 'All', icon: <FontAwesomeIcon icon={faInfinity} /> },
       {     id: 1,
         label: 'On the Go',
-        //icon: <img src={require("../img/icons/Stroller-disabled.jpg")} alt="stroller" width="25px" />,
-        //highlighted: <img src={require("../img/icons/Stroller-highlighted.jpg")} alt="stroller"  width="25px" />,
-        icon: <FontAwesomeIcon icon={faCar} />,
+        icon: <img src={require("../img/t-icons/Stroller-d.png")} alt="stroller" width="25px" />,
+        highlighted: <img src={require("../img/t-icons/Stroller-h.png")} alt="stroller"  width="25px" />,
+        //icon: <FontAwesomeIcon icon={faCar} />,
         subCategories: [
           'Car Accessories',
           'Car Seats',
@@ -119,9 +119,9 @@ export default {
       {
         id: 2,
         label: 'Sleeping',
-        //icon: <img src={require("../img/icons/Bassinet-disabled.jpg")} alt="bassinet" width="25px" />,
-        //highlighted: <img src={require("../img/icons/Bassinet-highlighted.jpg")} alt="bassinet" width="25px" />,
-        icon: <FontAwesomeIcon icon={faBed} />,
+        icon: <img src={require("../img/t-icons/Bassinet-d.png")} alt="bassinet" width="25px" />,
+        highlighted: <img src={require("../img/t-icons/Bassinet-h.png")} alt="bassinet" width="25px" />,
+        //icon: <FontAwesomeIcon icon={faBed} />,
         subCategories: [
           'Bumpers',
           'Cribs & Mattresses',
@@ -134,9 +134,9 @@ export default {
       {
         id: 3,
         label: 'Feeding & Nursing',
-        //icon: <img src={require("../img/icons/Bottles-disabled.jpg")} alt="bottle" width="25px" />,
-        //highlighted: <img src={require("../img/icons/Bottles-highlighted.jpg")} alt="bottle"  width="25px" />,
-        icon: <FontAwesomeIcon icon={faUtensils} />,
+        icon: <img src={require("../img/t-icons/Bottles-d.png")} alt="bottle" width="25px" />,
+        highlighted: <img src={require("../img/t-icons/Bottles-h.png")} alt="bottle"  width="25px" />,
+        //icon: <FontAwesomeIcon icon={faUtensils} />,
         subCategories: [
           'Baby Food Processor',
           'Bibs',
@@ -180,9 +180,9 @@ export default {
       {
         id: 6,
         label: 'Play & Learn',
-        //icon: <img src={require("../img/icons/Rattle-disabled.jpg")} alt="rattle" width="25px" />,
-        //highlighted: <img src={require("../img/icons/Rattle-highlighted.jpg")} alt="rattle" width="25px" />,
-        icon: <FontAwesomeIcon icon={faBrain} />,
+        icon: <img src={require("../img/t-icons/Rattle-d.png")} alt="rattle" width="25px" />,
+        highlighted: <img src={require("../img/t-icons/Rattle-h.png")} alt="rattle" width="25px" />,
+        //icon: <FontAwesomeIcon icon={faBrain} />,
         subCategories: [
           'Activity Centers & Mats',
           'Bouncers & Swings',
@@ -197,8 +197,8 @@ export default {
       {
         id: 7,
         label: 'Clothing',
-        icon: <img src={require("../img/icons/onesie-disabled.jpg")} alt="onesie" width="25px" />,
-        highlighted: <img src={require("../img/icons/onesie-highlighted.jpg")} alt="onesie" width="25px" />,
+        icon: <img src={require("../img/t-icons/onesie-d.png")} alt="onesie" width="25px" />,
+        highlighted: <img src={require("../img/t-icons/onesie-h.png")} alt="onesie" width="25px" />,
         subCategories: [
           'Bottoms',
           'Gloves',

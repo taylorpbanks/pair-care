@@ -28,4 +28,5 @@ type Shared @model {
     fromSub: String!
     toEmail: String!
 	toName: String!
+	customMessage: String
 }

@@ -23,6 +23,20 @@ import {
 import './registration.css';
 
 const BabyInfo = ({ setStep, data, handleDataChange }) => {
+  const isDisabled = () => {
+    const maxZipCodeLength = 5;
+
+    if (!data.childGender || !data.childBirthday || !data.parentType || !data.zipcode) {
+      return true;
+    }
+
+    if (data.zipcode.length < maxZipCodeLength) {
+      return true;
+    }
+
+    return false;
+  };
+
   return (
     <Container maxWidth="lg">
       <p style={{ textAlign: 'left' }}>
@@ -113,8 +127,9 @@ const BabyInfo = ({ setStep, data, handleDataChange }) => {
             id="date"
             label="Birth date of my child/ren"
             type="date"
-            onChange={(e) => { handleDataChange('childBirthday', e.target.value) }}
+            onChange={(e) => { handleDataChange('childBirthday', e.target.value, {maxLength: 10}) }}
             variant="outlined"
+            value={data.childBirthday}
             InputLabelProps={{
               shrink: true,
             }}
@@ -137,7 +152,9 @@ const BabyInfo = ({ setStep, data, handleDataChange }) => {
             name="zipcode"
             label="Zip Code"
             variant="outlined"
-            onChange={(e) => { handleDataChange('zipcode', e.target.value, {maxLength: 5});}}
+            placeholder="Zip Code"
+            value={data.zipcode}
+            onChange={(e) => { handleDataChange('zipcode', e.target.value, {maxLength: 5, numericOnly: true});}}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -155,7 +172,7 @@ const BabyInfo = ({ setStep, data, handleDataChange }) => {
           variant="contained"
           color="primary"
           className="single-submit-btn"
-          disabled={!data.childGender || !data.childBirthday || !data.parentType || !data.zipcode}
+          disabled={isDisabled()}
         >
           Continue
         </Button>

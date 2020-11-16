@@ -8,11 +8,21 @@ const Registration = () => {
   const [step, setStep] = useState(0);
   const [data, setData] = useState({});
 
-  const handleDataChange = (id, value) => {
-    setData({
-      ...data,
-      [id]: value,
-    })
+  const handleDataChange = (id, value, rules) => {
+    if (rules && value) {
+      if (rules.maxLength && value.length <= rules.maxLength) {
+        const { numericOnly } = rules;
+        const onlyDigits = /^\d*$/;
+
+        if (numericOnly && onlyDigits.test(value)) {
+          setData({ ...data, [id]: value });
+        } else if (!numericOnly) {
+          setData({ ...data, [id]: value });
+        }
+      }      
+    } else if (!rules) {
+      setData({ ...data, [id]: value });
+    }
   };
 
   return (

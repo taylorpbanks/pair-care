@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 import {
   Avatar,
   Button,
-  Link,
 } from '@material-ui/core';
 import { Link as RouterLink } from 'react-router-dom';
 import {
@@ -75,10 +74,12 @@ const UnauthSharedList = ({ id, name }) => {
       <div id={item.id} className="view-row">
         <div className="col-2 m-header-display">
           <div className="d-inline-blk">
-          {getCategory(item.categoryId).highlighted ?
-            <div className="img-icon-avatar">{getCategory(item.categoryId).highlighted}</div> :
-            <Avatar className="mr-15" style={{backgroundColor: '#226d77'}}>{getCategory(item.categoryId).icon}</Avatar>
-          }
+            <Avatar className="mr-15" style={{backgroundColor: '#226d77'}}>{
+              getCategory(item.categoryId).highlighted ? 
+              getCategory(item.categoryId).highlighted :
+              getCategory(item.categoryId).icon
+            }
+            </Avatar>
           </div>
 
           <div className="d-inline-blk">
@@ -114,34 +115,33 @@ const UnauthSharedList = ({ id, name }) => {
   }
 
   return (
-    <div>
+    <div className="unauth-list">
       <h1>{name} shared their must have items with you!</h1>
-      {list && list.map(item => (
-        row(item)
-      ))}
-
-      <div className="locked-content">
+      <div className="locked-content mb-15">
         <LockOutlined fontSize="large" color="primary" />
         <h2>Currently sharing the first 3 items of {possessiveName} list with you.</h2>
         <h3 className="mb-30">Sign up to see the rest of the items and reap the benefits of Pair Care!</h3>
 
         <div className="standard-flex-box mb-30">
-          <div className="col-4">
-            <ListAltOutlined fontSize="large" color="secondary" />
+          <div className="col-4 ">
+            <ListAltOutlined fontSize="large" color="secondary" className="icons-highlights" />
             <br />
-            Create a list of your must-have baby items
+            <div className="icons-text">Create Lists</div>
+            <p>Create a list of your own must-have baby items</p>
           </div>
 
           <div className="col-4">
-            <ShareOutlined fontSize="large" color="secondary" />
+            <ShareOutlined fontSize="large" color="secondary" className="icons-highlights" />
             <br />
-            Share your list with friends
+            <div className="icons-text">Share Lists</div>
+            <p>Easily share your list with your friends</p>
           </div>
 
           <div className="col-4">
-            <PeopleOutline fontSize="large" color="secondary" />
+            <PeopleOutline fontSize="large" color="secondary" className="icons-highlights" />
             <br />
-            View other people's list to get ideas for your own
+            <div className="icons-text">Get Help</div>
+            <p>View lists created by others to get ideas for your own list</p>
           </div>
         </div>
         <Button variant="outlined" color="primary" to="/register" component={RouterLink}>
@@ -155,6 +155,12 @@ const UnauthSharedList = ({ id, name }) => {
           </RouterLink>
         </p>
       </div>
+
+      {list && list.map(item => (
+        <Fragment key={`frag-${item.id}`}>
+          {row(item)}
+        </Fragment>
+      ))}
     </div>
   );
 }

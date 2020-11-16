@@ -32,11 +32,8 @@ const Profile = () => {
     const { userDataKey } = localStorage;
     if (!localStorage[userDataKey]) {
       Auth.currentUserInfo().then(response => {
-        const initials = response.attributes['custom:firstName'] ?
-        response.attributes['custom:firstName'].charAt(0).toUpperCase() + response.attributes['custom:lastName'].charAt(0).toUpperCase() : '';
-  
-        setUser({ ...response.attributes, initials });
-        setData({ ...response.attributes, initials });
+        setUser({ ...response.attributes });
+        setData({ ...response.attributes });
       });
     } else {
       const localStorageObj = JSON.parse(localStorage[userDataKey])
@@ -47,12 +44,8 @@ const Profile = () => {
         storageData[attribute.Name] = attribute.Value;
       });
 
-      const initials = storageData['custom:firstName'] ?
-      storageData['custom:firstName'].charAt(0).toUpperCase() + storageData['custom:lastName'].charAt(0).toUpperCase() : '';
-
-
-      setUser({ ...storageData, initials });
-      setData({ ...storageData, initials });    }
+      setUser({ ...storageData });
+      setData({ ...storageData });    }
   }, []);
 
   const handleDataChange = (id, value) => {
@@ -106,7 +99,7 @@ const Profile = () => {
               <Grid item xs={12} className="text-center">
                 <ProfilePic
                   color={user['custom:color']}
-                  initials={user.initials}
+                  user={user}
                   picture={data['custom:pic']}
                   sub={user.sub}
                 />
