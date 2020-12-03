@@ -6,15 +6,13 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
   footer: {
-    position: 'fixed',
     left: 0,
     bottom: 0,
-    width: '100%',
-    'background-color': 'white',
     color: '#676868',
     'font-size': '12px',
     padding: '10px',
-    visibility: 'hidden'
+    borderTop: '2px solid #eef6f9',
+    textAlign: 'center',
   }
 });
 
@@ -23,12 +21,9 @@ const Footer = () => {
 
   return (
     <div className={classes.footer}>
-      <span style={{float: 'left'}}>
-        &copy; 2020 Pair Care
-      </span>
-      <Link href="#">Privacy Policy</Link>&nbsp;|&nbsp;
-      <Link href="#">Security</Link>&nbsp;|&nbsp;
-      <Link href="#">Terms & Conditions</Link>
+      &copy; 2020 Paircare
+      &nbsp;&nbsp;&nbsp;
+      <Link href="mailto:paircarecontact@gmail.com">Contact Us</Link>
     </div>
   );
 }

@@ -11,6 +11,7 @@ import {
   ShareOutlined,
   ListAltOutlined,
   PeopleOutline,
+  BuildOutlined,
 } from '@material-ui/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
@@ -126,22 +127,22 @@ const UnauthSharedList = ({ id, name }) => {
           <div className="col-4 ">
             <ListAltOutlined fontSize="large" color="secondary" className="icons-highlights" />
             <br />
-            <div className="icons-text">Create Lists</div>
-            <p>Create a list of your own must-have baby items</p>
+            <div className="icons-text">Create</div>
+            <p>Create a list of your own recommended items</p>
           </div>
 
           <div className="col-4">
             <ShareOutlined fontSize="large" color="secondary" className="icons-highlights" />
             <br />
-            <div className="icons-text">Share Lists</div>
-            <p>Easily share your list with your friends</p>
+            <div className="icons-text">Share</div>
+            <p>Share your list with other parents</p>
           </div>
 
           <div className="col-4">
-            <PeopleOutline fontSize="large" color="secondary" className="icons-highlights" />
+            <BuildOutlined fontSize="large" color="secondary" className="icons-highlights" />
             <br />
-            <div className="icons-text">Get Help</div>
-            <p>View lists created by others to get ideas for your own list</p>
+            <div className="icons-text">Manage</div>
+            <p>Manage your list as you discover new products</p>
           </div>
         </div>
         <Button variant="outlined" color="primary" to="/register" component={RouterLink}>
