@@ -6,4 +6,28 @@
     border: 2px solid #8cc5be;
     border-radius: 15px;
     padding: 15px;
+    background-color: white;
+}
+
+.shared-list-container {
+    position: absolute;
+    top: 0;
+    width: 70%;
+}
+
+.para-container {
+    border-top: 1px solid #eef6f9;
+    padding-top: 16px;
+}
+
+/*responsive design*/
+@media screen and (max-width: 960px) {
+    .shared-list-container {
+        position: initial;
+    }
+
+    .shared-list-container {
+        margin-bottom: 30px;
+        width: 100%;
+    }
 }

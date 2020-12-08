@@ -106,7 +106,7 @@ function ShareMyList() {
 
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
-          <img src={require("../../img/pc-share.png")} alt="pair-care share" style={{ maxWidth: '100%' }} />
+          <img src={require("../../img/stock2.jpg")} alt="pair-care share" style={{ maxWidth: '100%' }} />
         </Grid>
 
         <Grid item xs={12} sm={6}>

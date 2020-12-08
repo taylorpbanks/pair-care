@@ -224,6 +224,15 @@ const MyLists = ({ sharedList, viewersList }) => {
 
   categories[selectedStage][0].numOfItems = listContent.length;
 
+  /*
+      {!sharedList && (
+        <div>
+          <img src={require("../../img/my-list-bg.jpg.png")} alt="list" />
+          <h1>My List</h1>
+        </div>
+      )}
+  */
+
   return (
     <div>
       {!sharedList && (<h1>My List</h1>)}

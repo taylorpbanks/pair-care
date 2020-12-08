@@ -65,6 +65,10 @@ const UnauthSharedList = ({ id, name }) => {
         return '2Y';
       case 36:
         return '3Y';
+      case 48:
+        return '4Y';
+      case 60:
+        return '5Y';
       default: 
         return `${age}M`
     }

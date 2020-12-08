@@ -1,5 +1,9 @@
 export default [
   {
+    value: 0,
+    label: 'NB',
+  },
+  {
     value: 6,
     label: '6M',
   },

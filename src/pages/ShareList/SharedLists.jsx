@@ -67,16 +67,16 @@ function SharedLists() {
     <div>
       {!selected && (
         <Slide direction="right" in={true} mountOnEnter unmountOnExit>
-          <div>
-            <h1>Shared lists</h1>
-            <h3>You currently have <strong className="secondary-color">{sharedLists.length}</strong> list{sharedLists.length === 1 ? '' : 's'} shared with you.</h3>
-            <Grid container spacing={3}>
-              <Grid item xs={12} sm={6}>
+          <div style={{position: 'relative'}}>
+            <div className="shared-list-container">
+              <h1>Shared lists</h1>
+              <h3>You currently have <strong className="secondary-color">{sharedLists.length}</strong> list{sharedLists.length === 1 ? '' : 's'} shared with you.</h3>
+              <div>
                 <h3>People sharing with you</h3>
                 {sharedLists.length > 0 && (
                   <List component="nav" className="list-container" aria-label="contacts">
                     {sharedLists.map((list) => (
-                      <ListItem key={list.id} button onClick={() => setSelected(list)}>
+                      <ListItem key={list.id || 'paircare'} button onClick={() => setSelected(list)}>
                         <ListItemIcon>
                           {pictures[list.fromSub] ? 
                               <Avatar src={pictures[list.fromSub]} />
@@ -90,8 +90,11 @@ function SharedLists() {
                         </ListItemIcon>
                       </ListItem>
                     ))}
+                    <p className="secondary-color text-center para-container">
+                      Don't forget to <Link to="/share-my-list">share your list</Link> too!
+                    </p>
                   </List>
-                )}
+                  )}
 
                 {!sharedLists.length && (
                   <div className="list-container text-small">
@@ -99,12 +102,11 @@ function SharedLists() {
                     <div className="no-share-msg">No one is currently sharing their list with you.</div>
                   </div>
                 )}
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <img src={require("../../img/pc-shared.png")} alt="pair-care shared" style={{ maxWidth: '100%' }} />
-                <p className="secondary-color text-center">Don't forget to <Link to="/share-my-list">share your list</Link> too!</p>
-              </Grid>
-            </Grid>
+              </div>
+            </div>
+            <div>
+              <img src={require("../../img/stock1.jpg")} alt="stock" style={{ maxWidth: '100%' }} />
+            </div>
           </div>
         </Slide>
       )}

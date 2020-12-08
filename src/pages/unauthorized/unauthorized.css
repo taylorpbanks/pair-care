@@ -39,7 +39,7 @@
 }
 
 .avatar-container {
-    display: inline-block;
+    display: inline-grid;
     font-size: 11px;
     text-align: center;
     width: 92px;
