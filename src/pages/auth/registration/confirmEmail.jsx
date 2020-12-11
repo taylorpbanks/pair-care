@@ -18,12 +18,19 @@ const ConfirmEmail = ({ data, handleDataChange }) => {
 
   const handleVerification = event => {
     event.preventDefault();
-    // After retrieving the confirmation code from the user
+    // After retrieving the confirmation code from the user log them in
     Auth.confirmSignUp(data.email, data.code)
       .then(() => {
         Auth.signIn(data.email, data.password)
           .then(() => {
-            setRedirect('/');
+            Auth.currentAuthenticatedUser().then(user => {
+              localStorage.setItem('userDataKey', user.userDataKey);
+              localStorage.setItem('sub', user.attributes.sub);
+              localStorage.setItem('email', user.attributes.email);
+              setRedirect('/');
+            }).catch(() => {
+              setRedirect('/');
+            });
           })
           .catch(err => setError('You successfully confirmed your email, however, an error occurred when trying to login you in.  Please try to login manually.'))
       })
