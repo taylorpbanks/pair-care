@@ -47,7 +47,6 @@ function ShareMyList() {
     }}));
 
     const { items } = apiData.data.listShareds;
-    console.log(items);
     setPeople(items);
   }
 

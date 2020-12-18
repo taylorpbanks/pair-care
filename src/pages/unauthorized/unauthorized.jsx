@@ -57,7 +57,7 @@ function Unauthorized({ authState, onStateChange }) {
         </div>
       </div>
 
-      <h2 style={{marginBottom: '30px', textAlign: 'center'}}>Why use Paircare?</h2>
+      <h2 style={{marginBottom: '30px', textAlign: 'center'}}>Why use Pair Care?</h2>
       <div className="standard-flex-box mb-30" style={{textAlign: 'center'}}>
           <div className="col-4 ">
             <ListAltOutlined fontSize="large" color="secondary" className="icons-highlights" />
@@ -94,7 +94,7 @@ function Unauthorized({ authState, onStateChange }) {
           </div>
           <div className="col-6">
             <h1>That's not everything.</h1>
-            <h2 className="subtext">Every Paircare user gets access to a curated list featuring items for every stage: pre-pregnancy, pregnancy, and parent & baby.</h2>
+            <h2 className="subtext">Every Pair Care user gets access to a curated list featuring items for every stage: pre-pregnancy, pregnancy, and parent & baby.</h2>
             <Button
               style={{ borderRadius: '50px', color: 'white' }}
               type="submit"

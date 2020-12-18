@@ -18,7 +18,6 @@ import {
   faVenus,
   faMars,
   faMagic,
-  faUserFriends,
 } from '@fortawesome/free-solid-svg-icons'
 import './registration.css';
 
@@ -112,7 +111,8 @@ const BabyInfo = ({ setStep, data, handleDataChange }) => {
                 <div className="box-content">
                   More Than One
                   <br />
-                  <FontAwesomeIcon icon={faUserFriends} size="2x" />
+                  <FontAwesomeIcon icon={faBaby} size="2x" />
+                  <FontAwesomeIcon icon={faBaby} size="2x" />
                 </div>
               </Paper>
             </Grid>

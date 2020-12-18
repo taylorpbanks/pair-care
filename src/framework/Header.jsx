@@ -19,12 +19,14 @@ import {
   Menu as MenuIcon,
   AccountCircle,
   ExitToApp,
-  Info,
+  LiveHelp,
   ListAlt,
   Share,
   ImportContacts,
+  ScreenShare,
 } from '@material-ui/icons';
 import './Header.css';
+import { useLocation } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: 'none',
     color: '#545454',
     paddingRight: '30px',
+    display: 'block',
   },
   desktopLink: {
     textDecoration: 'none',
@@ -45,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Header({authState}) {
+export default function Header({ authState }) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedTab, setSelectedTab] = useState(0);
@@ -54,9 +57,18 @@ export default function Header({authState}) {
 
   const navigation = [
     { id: 0, label: 'My List', path: '/my-list', icon: <ListAlt />, requiredAuth: true },
-    { id: 1, label: 'Shared Lists', path: '/shared-lists', icon: <Share />, requiredAuth: true },
-    { id: 2, label: 'About', path: '/about', icon: <Info />, requiredAuth: false },
-    { id: 3, label: 'Resources', path: '/resources', icon: <ImportContacts />, requiredAuth: false },
+    {
+      id: 1,
+      label: 'Shared Lists',
+      icon: <Share />,
+      requiredAuth: true,
+      dropdown: [
+        { label: 'Lists Shared With Me', icon: <ScreenShare />, path: '/shared-lists', id: 11 },
+        { label: 'Share My List', icon: <Share />, path: '/share-my-list', id: 12 },
+      ]
+    },
+    { id: 2, label: 'FAQs', path: '/faq', icon: <LiveHelp />, requiredAuth: false },
+    { id: 3, label: 'Quick Recs', path: '/quick-recommendations', icon: <ImportContacts />, requiredAuth: false },
   ]
 
   const handleMenu = (event) => {
@@ -80,24 +92,69 @@ export default function Header({authState}) {
     toggleIsDrawerOpen(!isDrawerOpen);
   };
 
+  const getCurrentTab = (pathname) => {
+    switch(pathname) {
+      case '/':
+        return 0;
+      case '/my-list':
+        return 0;
+      case '/faq':
+        return 2;
+      case '/share-my-list':
+        return 1;
+      case '/shared-lists':
+        return 1;
+      case '/quick-recommendations':
+        return 3;
+      default:
+        return 100;
+    }
+  };
+
+  const { pathname } = useLocation();
+  const currentTab = getCurrentTab(pathname);
   return (
     <div className={classes.root}>
       <AppBar position="static" className={classes.root}>
         <Drawer anchor="left" open={isDrawerOpen} onClose={(event) => toggleDrawer(event)}>
           <List>
-            {navigation.map((nav, index) => (!nav.requiredAuth || (nav.requiredAuth && authState !== 'signIn')) ? (
+            {navigation.map((nav, index) => (!nav.requiredAuth || (nav.requiredAuth && authState !== 'signIn')) && !nav.dropdown ? (
               <Link
                 key={`nav-${nav.path}-${index}`}
                 to={nav.path}
                 className={classes.navLink}
-                onClick={(event) => {toggleDrawer(event);setSelectedTab(nav.id);}}
+                onClick={(event) => { toggleDrawer(event); setSelectedTab(nav.id); }}
               >
                 <ListItem button key={nav.label}>
                   <ListItemIcon>{nav.icon}</ListItemIcon>
                   <ListItemText primary={nav.label} />
                 </ListItem>
               </Link>
-              ) : (<div/>)
+            ) : (<div />)
+            )}
+            {authState === 'signedIn' && (
+              <>
+                <Link
+                  to="/shared-lists"
+                  className={classes.navLink}
+                  onClick={(event) => { toggleDrawer(event); }}
+                >
+                  <ListItem button>
+                    <ListItemIcon><Share /></ListItemIcon>
+                    <ListItemText primary="Lists Shared With Me" />
+                  </ListItem>
+                </Link>
+                <Link
+                  to="/share-my-list"
+                  className={classes.navLink}
+                  onClick={(event) => { toggleDrawer(event); }}
+                >
+                  <ListItem button>
+                    <ListItemIcon><ScreenShare /></ListItemIcon>
+                    <ListItemText primary="Share My List" />
+                  </ListItem>
+                </Link>
+              </>
             )}
           </List>
         </Drawer>
@@ -111,11 +168,11 @@ export default function Header({authState}) {
           >
             <MenuIcon />
           </IconButton>
-          <a className="logo-container" href="/" style={{textDecoration: 'none', fontSize: '1.5em'}}>
+          <a className="logo-container" href="/" style={{ textDecoration: 'none', fontSize: '1.5em' }}>
             <img
               src={require("../img/pc-logo.png")}
               alt="pair-card logo"
-              style={{maxWidth: '150px'}}
+              style={{ maxWidth: '150px' }}
             />
           </a>
 
@@ -124,38 +181,64 @@ export default function Header({authState}) {
               <div key={`wrapper-${nav.path}-${index}`} className="nav-item-wrapper">
                 <Link
                   to={nav.path}
-                  className={`${classes.desktopLink} ${selectedTab === nav.id ? 'active' : ''}`}
-                  onClick={(event) => {setSelectedTab(nav.id);}}
+                  className={`${classes.desktopLink} ${currentTab === nav.id ? 'active' : ''}`}
+                  onClick={(event) => { nav.dropdown ? handleMenu(event) : setSelectedTab(nav.id); }}
+                  aria-controls={nav.dropdown ? 'menu-dropdown' : ''}
+                  aria-haspopup={nav.dropdown ? 'true' : 'false'}
                 >
                   {nav.label}
                 </Link>
+                {nav.dropdown && (
+                  <Menu
+                    id="menu-dropdown"
+                    anchorEl={anchorEl}
+                    anchorOrigin={{
+                      vertical: 'bottom',
+                      horizontal: 'center',
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'center',
+                    }}
+                    open={open}
+                    onClose={handleClose}
+                  >
+                    {nav.dropdown.map((item) => (
+                      <MenuItem key={item.id} onClick={handleClose}>
+                        <Link to={item.path} className={classes.navLink} onClick={(event) => { setSelectedTab(null); }}>
+                          {item.label}
+                        </Link>
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                )}
               </div>
-              ) : (null)
+            ) : (null)
             )}
           </div>
 
           {authState === 'signIn' && (
-          <Link to="/login" style={{textDecoration: 'none'}}>
-            <Button
-              style={{ borderRadius: '50px', color: 'white' }}
-              size="small"
-              variant="contained"
-              color="primary"
-            >
-              Sign In
+            <Link to="/login" style={{ textDecoration: 'none' }}>
+              <Button
+                style={{ borderRadius: '50px', color: 'white' }}
+                size="small"
+                variant="contained"
+                color="primary"
+              >
+                Sign In
             </Button>
             </Link>
           )}
           {authState !== 'signIn' && (<div>
             <IconButton
               aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleMenu}
+              component={Link}
+              to="/profile"
             >
-              <AccountCircle style={{color: '#226d77'}} />
+              <AccountCircle style={{ color: '#226d77' }} />
             </IconButton>
-            <Menu
+            {/*<Menu
               id="menu-appbar"
               anchorEl={anchorEl}
               anchorOrigin={{
@@ -175,17 +258,17 @@ export default function Header({authState}) {
                   Profile
                 </Link>
               </MenuItem>
-            </Menu>
+            </Menu>*/}
 
             <IconButton
               aria-label="log out"
               color="inherit"
-              onClick={() => {handleSignOut()}}
+              onClick={() => { handleSignOut() }}
             >
-              <ExitToApp style={{color: '#226d77'}} />
+              <ExitToApp style={{ color: '#226d77' }} />
             </IconButton>
           </div>
-        )}
+          )}
         </Toolbar>
       </AppBar>
     </div>

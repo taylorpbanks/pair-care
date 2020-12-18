@@ -1,0 +1,45 @@
+.quick-recs .item-img {
+  max-height: 130px;
+  max-width: 100%;
+}
+
+.quick-recs .item-box {
+  padding: 15px;
+  color: #7d7d7d;
+  text-align: center;
+}
+
+.quick-recs .add-icon,
+.quick-recs .add-label {
+  display: inline-block
+}
+
+.quick-recs .add-icon {
+  vertical-align: middle
+}
+
+.quick-recs .a-title {
+  width: 50%;
+  font-weight: 400;
+  color: #246e78;
+}
+
+.quick-recs .a-img-container {
+  width: 50%;
+  text-align: right
+}
+
+.quick-recs .item-title {
+  min-height: 65px;
+}
+
+/*responsive design*/
+@media screen and (max-width: 960px) {
+  .quick-recs .a-title {
+    width: 100%
+  }
+  
+  .quick-recs .a-img-container {
+    width: 100%
+  }
+}

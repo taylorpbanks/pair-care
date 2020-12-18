@@ -13,6 +13,8 @@ import SharedLists from '../pages/ShareList/SharedLists';
 import ForgotPassword from '../pages/auth/forgotPassword/forgotPassword';
 import ChangePassword from '../pages/Profile/ChangePassword';
 import UnauthSharedList from '../pages/UnauthSharedList/UnauthSharedList';
+import FAQ from '../pages/faq/faq';
+import QuickRecs from '../pages/quick-recs/quick-recs';
 // import App from '../NotesTest';
 
 export default function Content({authState, onStateChange}) {
@@ -45,8 +47,8 @@ export default function Content({authState, onStateChange}) {
           <ForgotPassword />
         </Route>
 
-        <Route path="/about">
-          <About />
+        <Route path="/faq">
+          <FAQ />
         </Route>
 
         <Route path="/shared-lists">
@@ -57,8 +59,8 @@ export default function Content({authState, onStateChange}) {
           }
         </Route>
 
-        <Route path="/resources">
-          <Resources />
+        <Route path="/quick-recommendations">
+          <QuickRecs />
         </Route>
 
         <Route path="/profile">
@@ -83,12 +85,4 @@ export default function Content({authState, onStateChange}) {
       </Switch>
     </>
   );
-}
-
-function About() {
-  return <h1>About</h1>;
-}
-
-function Resources() {
-  return <h1>Resources</h1>;
 }
