@@ -4,7 +4,6 @@ import {
   ListItem,
   ListItemText,
   ListItemIcon,
-  Grid,
   Slide,
   Button,
   Avatar,
@@ -64,7 +63,7 @@ function SharedLists() {
 
 
   return (
-    <div>
+    <div className="shared-list-parent">
       {!selected && (
         <Slide direction="right" in={true} mountOnEnter unmountOnExit>
           <div style={{position: 'relative'}}>
@@ -114,15 +113,21 @@ function SharedLists() {
       {selected && (
         <Slide direction="left" in={true} mountOnEnter unmountOnExit>
           <div>
-            <h1 className="mb-0">
-              {selected.fromName}{selected.fromName.charAt(selected.fromName.length-1) === 's' ? '\'' : '\'s'} Picks
+            <h1 className="mb-30 avatar-header">
+              {pictures[selected.fromSub] ? 
+                <Avatar src={pictures[selected.fromSub]} className="shared-list-avatar" />
+                :
+                <AccountCircle fontSize="large" />
+              }
+              <span>
+                &nbsp;&nbsp;
+                {selected.fromName}{selected.fromName.charAt(selected.fromName.length-1) === 's' ? '\'' : '\'s'} Picks
+                <br />
+                <Button style={{padding: '0 15px'}} color="primary" onClick={() => setSelected(null)}>
+                  &#8249; Back to All Lists
+                </Button>
+              </span>
             </h1>
-            <div className="mb-30">
-              <Button className="mb-15" color="primary" onClick={() => setSelected(null)}>
-                &#8249; Back to All Lists
-              </Button>
-            </div>
-
             <MyList sharedList={selected} viewersList={myList} />
           </div>
         </Slide>

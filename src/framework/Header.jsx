@@ -192,10 +192,6 @@ export default function Header({ authState }) {
                   <Menu
                     id="menu-dropdown"
                     anchorEl={anchorEl}
-                    anchorOrigin={{
-                      vertical: 'bottom',
-                      horizontal: 'center',
-                    }}
                     keepMounted
                     transformOrigin={{
                       vertical: 'top',

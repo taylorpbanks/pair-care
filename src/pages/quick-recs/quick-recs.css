@@ -7,6 +7,7 @@
   padding: 15px;
   color: #7d7d7d;
   text-align: center;
+  margin-bottom: 15px;
 }
 
 .quick-recs .add-icon,
@@ -31,6 +32,11 @@
 
 .quick-recs .item-title {
   min-height: 65px;
+}
+
+.quick-recs .view-link-container {
+  margin-top: 15px;
+  min-height: 153px;
 }
 
 /*responsive design*/

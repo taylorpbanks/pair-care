@@ -20,6 +20,20 @@
     padding-top: 16px;
 }
 
+.shared-list-avatar {
+    height: 75px !important;
+    width: 75px !important;
+}
+
+.avatar-header {
+    display : flex;
+    align-items : center;
+}
+
+.shared-list-parent .MuiAppBar-colorPrimary {
+    background-color: #8cc5be;;
+}
+
 /*responsive design*/
 @media screen and (max-width: 960px) {
     .shared-list-container {
