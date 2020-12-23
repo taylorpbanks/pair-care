@@ -19,6 +19,11 @@ import {
 } from '@material-ui/icons';
 import { Alert } from '@material-ui/lab';
 import { Link } from 'react-router-dom';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+  DatePicker,
+  MuiPickersUtilsProvider
+} from "@material-ui/pickers";
 import './Profile.css';
 import ProfilePic from './ProfilePic.jsx';
 
@@ -169,27 +174,25 @@ const Profile = () => {
               </Grid>
 
               <Grid item xs={12}>
-                <TextField
-                  id="date"
-                  aria-label="Birthday"
-                  type="date"
-                  variant="outlined"
-                  label="Child/ren Birthday"
-                  value={data['custom:childBirthday']}
-                  onChange={(e) => { handleDataChange('custom:childBirthday', e.target.value) }}
-                  InputLabelProps={{
-                    shrink: true,
-                    required: false,
-                  }}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <Cake style={{ color: '#226d77' }} />
-                      </InputAdornment>
-                    ),
-                  }}
-                  required
-                />
+                <MuiPickersUtilsProvider  utils={DateFnsUtils}>
+                  <DatePicker
+                    value={data['custom:yearOfBirth'] || null}
+                    views={["year"]}
+                    variant="outlined"
+                    label="Year of birth (optional)"
+                    onChange={(e) => { handleDataChange('custom:yearOfBirth', e) }}
+                    inputVariant="outlined"
+                    helperText="If you have multiple children we recommend you use the year of your oldest child"
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <Cake style={{ color: '#226d77' }} />
+                        </InputAdornment>
+                      ),
+                    }}
+                    placeholder="Year of Birth"
+                  />
+                </MuiPickersUtilsProvider>
               </Grid>
 
               <Grid item xs={12}>
@@ -214,19 +217,18 @@ const Profile = () => {
                 />
               </Grid>
 
-
-
               <Grid item xs={12} sm={6}>
                 <FormControl component="fieldset">
-                  <FormLabel component="legend">I am a...</FormLabel>
+                  <FormLabel component="legend">I am...</FormLabel>
                   <RadioGroup
                     aria-label="parent"
                     name="parent"
                     value={data['custom:parentType'] || user['custom:childGender']}
                     onChange={(e) => { handleDataChange('custom:parentType', e.target.value) }}
                   >
-                    <FormControlLabel value="N" control={<Radio />} label="New Parent" />
-                    <FormControlLabel value="S" control={<Radio />} label="Seasoned Parent" />
+                    <FormControlLabel value="H" control={<Radio />} label="Hoping to become a parent" />
+                    <FormControlLabel value="N" control={<Radio />} label="A New Parent" />
+                    <FormControlLabel value="S" control={<Radio />} label="A Seasoned Parent" />
                   </RadioGroup>
                 </FormControl>
               </Grid>

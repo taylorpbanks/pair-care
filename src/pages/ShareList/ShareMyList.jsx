@@ -100,7 +100,7 @@ function ShareMyList() {
 
   return (
     <div>
-      <h1>Share my list</h1>
+      <h1>Share My List</h1>
       <p>You're helping to make it easier for other parents one list at a time!</p>
 
       <Grid container spacing={3}>
@@ -159,7 +159,7 @@ function ShareMyList() {
               value={data.customMessage}
               multiline
               rowsMax={6}
-              placeholder="Check out my list on pair care!"
+              placeholder="Check out my list on Pair Care!"
             />
 
             <div className="mt-30">

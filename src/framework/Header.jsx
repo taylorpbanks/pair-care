@@ -63,7 +63,7 @@ export default function Header({ authState }) {
       icon: <Share />,
       requiredAuth: true,
       dropdown: [
-        { label: 'Lists Shared With Me', icon: <ScreenShare />, path: '/shared-lists', id: 11 },
+        { label: 'Shared With Me', icon: <ScreenShare />, path: '/shared-lists', id: 11 },
         { label: 'Share My List', icon: <Share />, path: '/share-my-list', id: 12 },
       ]
     },
@@ -121,7 +121,7 @@ export default function Header({ authState }) {
             {navigation.map((nav, index) => (!nav.requiredAuth || (nav.requiredAuth && authState !== 'signIn')) && !nav.dropdown ? (
               <Link
                 key={`nav-${nav.path}-${index}`}
-                to={nav.path}
+                to={nav.path ? nav.path : ''}
                 className={classes.navLink}
                 onClick={(event) => { toggleDrawer(event); setSelectedTab(nav.id); }}
               >
@@ -130,7 +130,7 @@ export default function Header({ authState }) {
                   <ListItemText primary={nav.label} />
                 </ListItem>
               </Link>
-            ) : (<div />)
+            ) : (<div key={`nav-${nav.path}-${index}`} />)
             )}
             {authState === 'signedIn' && (
               <>

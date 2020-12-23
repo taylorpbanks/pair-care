@@ -128,6 +128,7 @@ export default {
           'Crib Sheets & Blankets',
           'Nightlights and Sound Machines',
           'Mobiles',
+          'Swaddles',
           'Other',
         ]
       },

@@ -24,6 +24,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import './MyLists.css'
 import brands from '../../constants/brand'
 import ages from '../../constants/ages';
+import trimesters from '../../constants/pregnancy-timeline';
 
 const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage, selectedChip, onCancel, onSave, isNewRow }) => {
   const [open, setOpen] = React.useState(false);
@@ -56,6 +57,7 @@ const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage,
     return categories[categoryId] ? categories[categoryId].subCategories.map(category => category) : [];
   }
 
+  console.log(values);
   return (
     <Grow
       in={true}
@@ -169,7 +171,7 @@ const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage,
             className="field-container"
             onChange={(e) => handleChange(e, 'link', undefined, {maxLength: 750})}
             id="link-input"
-            label="Link"
+            label="Link to Purchase"
             variant="outlined"
             value={values.link}
             size="small"
@@ -177,18 +179,20 @@ const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage,
             required
           />
 
-          <FormControl className="field-container" variant="outlined" size="small">
-            <FormLabel component="legend">Recommended Age Range (in months)</FormLabel>
-            <Slider
-              value={[ Number(values.age), Number(values.toAge) ]}
-              onChange={handleSlider}
-              valueLabelDisplay="auto"
-              aria-labelledby="range-slider"
-              marks={ages}
-              max={60}
-              step={3}
-            />
-          </FormControl>
+          {selectedStage !== 0 && (
+            <FormControl className="field-container" variant="outlined" size="small">
+              <FormLabel component="legend">Recommended Age Range (in months)</FormLabel>
+              <Slider
+                value={[ Number(values.age), Number(values.toAge) ]}
+                onChange={handleSlider}
+                valueLabelDisplay="auto"
+                aria-labelledby="range-slider"
+                marks={selectedStage === 1 ? trimesters : ages}
+                max={selectedStage === 1 ? 9 : 60}
+                step={3}
+              />
+            </FormControl>
+          )}
         </div>
 
         <div className="col-3">

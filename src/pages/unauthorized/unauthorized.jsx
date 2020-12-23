@@ -2,12 +2,8 @@ import React from 'react';
 import { Button, Avatar } from '@material-ui/core'
 import { Link, Redirect } from 'react-router-dom';
 import {
-  ThumbUpAltOutlined,
-  ThumbDownAltOutlined,
-  LockOutlined,
   ShareOutlined,
   ListAltOutlined,
-  PeopleOutline,
   BuildOutlined,
 } from '@material-ui/icons';
 import categories from '../../constants/categories';

@@ -9,6 +9,7 @@ import {
   DialogActions,
   IconButton,
   Tooltip,
+  Hidden,
 } from '@material-ui/core';
 import {
   ThumbUpAltOutlined,
@@ -57,12 +58,16 @@ const ListRow = ({
     updateItem(item, e, index);
   };
 
-  const getAgeLabel = (age) => {
+  const getAgeLabel = (age, stage) => {
+    if (stage && stage.id === 0) {
+      return '';
+    }
+
     switch(age) {
       case '0':
-        return 'Newborn';
+        return stage && stage.id === 2 ? 'Newborn' : '0M';
       case 0:
-        return 'Newborn';
+        return stage && stage.id === 2 ? 'Newborn' : '0M';
       case 12: 
         return '1Y';
       case 24:
@@ -141,7 +146,7 @@ const ListRow = ({
         <div className="col-6">
           <div className="row-brand m-text-center">{`${row.type} - ${row.brand}`}</div>
           <div className="row-item m-text-center m-mb-15">{row.item}</div>
-          <div>
+          <div className="mb-15">
             <a href={link} target="_blank" rel="noopener noreferrer">
               {`${linkDisplay}...`} <FontAwesomeIcon icon={faExternalLinkAlt} />
             </a>
@@ -149,15 +154,15 @@ const ListRow = ({
         </div>
 
         <div className="col-3">
-          <div>
-            {row.age || row.age === 0 ? getAgeLabel(row.age) : ''} {row.toAge && row.age !== row.toAge ? `to ${getAgeLabel(row.toAge)}` : ''}
+          <div className="mb-15">
+            {row.age || row.age === 0 ? getAgeLabel(row.age, stageId) : ''} {row.toAge && row.age !== row.toAge ? `to ${getAgeLabel(row.toAge, stageId)}` : ''}
             <span className="float-right">{row.isRecommended === 'Y' ?
               <ThumbUpAltOutlined style={{color: '#8cc5be'}} /> :
               <ThumbDownAltOutlined style={{color: '#dc9577'}} />}
             </span>
           </div>
-          <hr />
-          <div>{row.comments}</div>
+          {stageId && stageId.id !== 0 && <Hidden smDown><hr /></Hidden>}
+          <div className="mt-15">{row.comments}</div>
         </div>
       </div>
     )}

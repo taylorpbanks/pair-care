@@ -224,18 +224,15 @@ const MyLists = ({ sharedList, viewersList }) => {
 
   categories[selectedStage][0].numOfItems = listContent.length;
 
-  /*
+  return (
+    <div className="my-list-container">
       {!sharedList && (
-        <div>
-          <img src={require("../../img/my-list-bg.jpg.png")} alt="list" />
+        <div className="my-list-header">
+          <img src={require("../../img/my-list-bg.jpg.png")} alt="list" style={{width: '100%'}} />
           <h1>My List</h1>
         </div>
       )}
-  */
 
-  return (
-    <div>
-      {!sharedList && (<h1>My List</h1>)}
       <AppBar position="sticky">
         <Tabs value={selectedStage} onChange={handleChange} aria-label="simple tabs example">
           {stages.map(tab => (
@@ -244,7 +241,7 @@ const MyLists = ({ sharedList, viewersList }) => {
         </Tabs>
       </AppBar>
       {stages.map(stage => (
-        <TabPanel selectedStage={selectedStage} index={stage.id} key={stage.id} className={selectedRow === 10000 ? '' : 'append-btm-margin'}>
+        <TabPanel selectedStage={selectedStage} index={stage.id} key={stage.id} className={selectedRow === 10000 ? 'tab-panel' : 'tab-panel append-btm-margin'}>
           <FormControl variant="outlined" size="small">
             <InputLabel id="sort-by-label">Sort By</InputLabel>
             <Select

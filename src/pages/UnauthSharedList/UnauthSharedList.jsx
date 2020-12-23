@@ -10,7 +10,6 @@ import {
   LockOutlined,
   ShareOutlined,
   ListAltOutlined,
-  PeopleOutline,
   BuildOutlined,
 } from '@material-ui/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -53,12 +52,16 @@ const UnauthSharedList = ({ id, name }) => {
     return link.substring(0, link.length >= maxLinkLength ? maxLinkLength : link.length);
   }
 
-  const getAgeLabel = (age) => {
+  const getAgeLabel = (age, stageId) => {
+    if (stageId === 0) {
+      return '';
+    }
+
     switch(age) {
       case '0':
-        return 'Newborn';
+        return stageId === 2 ? 'Newborn' : '0M';
       case 0:
-        return 'Newborn';
+        return stageId === 2 ? 'Newborn' : '0M';
       case 12: 
         return '1Y';
       case 24:
@@ -106,7 +109,7 @@ const UnauthSharedList = ({ id, name }) => {
 
         <div className="col-3">
           <div>
-            {item.age || item.age === 0 ? getAgeLabel(item.age) : ''} {item.toAge && item.age !== item.toAge ? `to ${getAgeLabel(item.toAge)}` : ''}
+            {item.age || item.age === 0 ? getAgeLabel(item.age, item.stageId) : ''} {item.toAge && item.age !== item.toAge ? `to ${getAgeLabel(item.toAge, item.stageId)}` : ''}
             <span className="float-right">{item.isRecommended === 'Y' ?
               <ThumbUpAltOutlined style={{color: '#8cc5be'}} /> :
               <ThumbDownAltOutlined style={{color: '#dc9577'}} />}

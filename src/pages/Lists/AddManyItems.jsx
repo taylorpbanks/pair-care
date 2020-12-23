@@ -15,6 +15,7 @@ import {
   Card,
   CardHeader,
   Divider,
+  DialogContentText,
 } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import { Link as RouterLink } from 'react-router-dom';
@@ -144,11 +145,22 @@ function AddManyItems({
     setChecked(not(checked, rightChecked));
   };
 
-  const customList = (title, items) => (
+  const customList = (title, items, side) => (
     <Card>
+      <div style={{maxWidth: '400px', padding: '10px'}}>
+        <strong className="secondary-color">{side === 'left' ? 'Step 1 (Select)' : 'Step 2 (Review)'}</strong>
+        <br />
+        <span style={{fontSize: '12px'}}>
+          {side === 'left' ? 
+          'Use the list below to select all the items you wish to add to your list. Selected items will appear in the column to the right after you click the ">" button.' :
+          'Time to double check!  Use the checkboxes to send unwanted items back to the left side.  All items on the right side will be saved when "Save Items" is clicked.'
+          }
+        </span>
+      </div>
       <CardHeader
         className={classes.cardHeader}
         avatar={
+          side === 'left' ?
           <Checkbox
             onClick={handleToggleAll(items)}
             checked={numberOfChecked(items) === items.length && items.length !== 0}
@@ -156,9 +168,11 @@ function AddManyItems({
             disabled={items.length === 0}
             inputProps={{ 'aria-label': 'all items selected' }}
           />
+          :
+          <></>
         }
         title={title}
-        subheader={`${numberOfChecked(items)}/${items.length} selected`}
+        subheader={side ==='left' ? `${numberOfChecked(items)}/${items.length} selected` : ''}
       />
       <Divider />
       <List className={classes.list} dense component="div" role="list">
@@ -166,8 +180,6 @@ function AddManyItems({
           const labelId = `transfer-list-all-item-${value}-label`;
           const stage = stages.find(category => category.id === value.stageId);
           const category = categories[value.stageId].find(category => category.id === value.categoryId);
-          console.log(stage);
-          console.log(category);
 
           return (
             <ListItem key={value} role="listitem" button onClick={handleToggle(value)}>
@@ -197,7 +209,8 @@ function AddManyItems({
       fullWidth={true}
       maxWidth={success ? 'sm' : 'lg'}
     >
-      {!success && <DialogTitle id="alert-dialog-title">{"Add Items to Your List"}</DialogTitle>}
+      {!success && <DialogTitle id="alert-dialog-title">{"Add Multiple Items to Your List"}</DialogTitle>}
+      {!success && <DialogContentText style={{padding: '0 24px'}}>{"We're glad to see you love so many items from this shared list. Add multiple items in three easy steps!"}</DialogContentText >}
       <DialogContent>
         {success && (
           <div className="text-center">
@@ -221,7 +234,7 @@ function AddManyItems({
             )}
 
             <Grid container spacing={2} justify="center" alignItems="center" className={classes.root}>
-              <Grid item>{customList(`${shareInfo.fromName}'s list`, left)}</Grid>
+              <Grid item>{customList(`${shareInfo.fromName}'s list`, left, 'left')}</Grid>
               <Grid item>
                 <Grid container direction="column" alignItems="center">
                   <Button
@@ -246,12 +259,16 @@ function AddManyItems({
                   </Button>
                 </Grid>
               </Grid>
-              <Grid item>{customList('Add to my list', right)}</Grid>
+              <Grid item>{customList('Items to Add to My List', right, 'right')}</Grid>
             </Grid>
           </>
         )}
       </DialogContent>
-      
+      <div style={{padding: '15px', textAlign: 'right'}}>
+        <strong className="secondary-color">Step 3 (Add to List)</strong>
+        <br />
+        <span style={{fontSize: '12px'}}>Click "Save Items" to add to list</span>
+      </div>
       {!success && (
         <DialogActions>
           <Button onClick={() => {setOpen(false)}} color="primary">

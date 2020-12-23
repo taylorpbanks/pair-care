@@ -18,14 +18,20 @@ import {
   faVenus,
   faMars,
   faMagic,
+  faHandHoldingHeart,
 } from '@fortawesome/free-solid-svg-icons'
+import DateFnsUtils from '@date-io/date-fns';
+import {
+  DatePicker,
+  MuiPickersUtilsProvider
+} from "@material-ui/pickers";
 import './registration.css';
 
 const BabyInfo = ({ setStep, data, handleDataChange }) => {
   const isDisabled = () => {
     const maxZipCodeLength = 5;
 
-    if (!data.childGender || !data.childBirthday || !data.parentType || !data.zipcode) {
+    if (!data.childGender || !data.parentType || !data.zipcode) {
       return true;
     }
 
@@ -36,10 +42,13 @@ const BabyInfo = ({ setStep, data, handleDataChange }) => {
     return false;
   };
 
+  console.log(data);
+  console.log(data.yearOfBirth);
+
   return (
     <Container maxWidth="lg">
       <p style={{ textAlign: 'left' }}>
-        Tell us a little bit about you and your baby.
+      Tell us a little bit about you and your little one so we can send relevant recommendations.
       </p>
       <Grid container spacing={6}>
         <Grid item xs={12} sm={6}>
@@ -47,6 +56,15 @@ const BabyInfo = ({ setStep, data, handleDataChange }) => {
             <h3>I am...</h3>
           </Grid>
           <Grid container spacing={3}>
+            <Grid item xs={6} sm={6}>
+              <Paper elevation={1} className={`option ${data.parentType === 'H' ? 'selected' : ''}`} onClick={() => { handleDataChange('parentType', 'H') }}>
+                <div className="box-content">
+                  Hoping to become a parent
+                  <br />
+                  <FontAwesomeIcon icon={faHandHoldingHeart} size="2x" />
+                </div>
+              </Paper>
+            </Grid>
 
             <Grid item xs={6} sm={6}>
               <Paper elevation={1} className={`option ${data.parentType === 'N' ? 'selected' : ''}`} onClick={() => { handleDataChange('parentType', 'N') }}>
@@ -123,16 +141,15 @@ const BabyInfo = ({ setStep, data, handleDataChange }) => {
       <hr className="mt-30 mb-30" />
       <Grid container spacing={3}>
         <Grid item xs={6} sm={6}>
-          <TextField
-            id="date"
-            label="Birth date of my child/ren"
-            type="date"
-            onChange={(e) => { handleDataChange('childBirthday', e.target.value, {maxLength: 10}) }}
+        <MuiPickersUtilsProvider  utils={DateFnsUtils}>
+          <DatePicker
+            value={data.yearOfBirth || null}
+            views={["year"]}
             variant="outlined"
-            value={data.childBirthday}
-            InputLabelProps={{
-              shrink: true,
-            }}
+            label="Year of Birth (optional)"
+            onChange={(e) => { handleDataChange('yearOfBirth', e) }}
+            inputVariant="outlined"
+            helperText="If you have multiple children we recommend you use the year of your oldest child"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -140,7 +157,11 @@ const BabyInfo = ({ setStep, data, handleDataChange }) => {
                 </InputAdornment>
               ),
             }}
+            placeholder="Year of Birth"
+            disabled={data.parentType === 'H'}
           />
+        </MuiPickersUtilsProvider>
+
         </Grid>
 
         <Grid item xs={6} sm={6}>

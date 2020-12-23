@@ -1,3 +1,7 @@
+.my-list-container {
+    margin: -15px;
+}
+
 .list-row {
     padding: 5px;
     border: 2px solid #f2f2f2;
@@ -107,11 +111,29 @@
     width: 100%;
 }
 
+.my-list-header { 
+    position: relative;
+}
+
+.my-list-header > h1 {
+    position: absolute;
+    bottom: 0;
+    left: 15px;
+}
+
 /*responsive design*/
 @media screen and (max-width: 600px) {
     /* view row */
     .m-header-display {
         text-align: center;
         padding-bottom: 15px;
+    }
+
+    .tab-panel > .MuiBox-root-15 {
+        padding: 24px 0;
+    }
+
+    .tab-panel {
+        padding: 0;
     }
 }

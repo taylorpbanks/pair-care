@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Link,
 } from '@material-ui/core';
@@ -21,7 +21,7 @@ const Footer = () => {
 
   return (
     <div className={classes.footer}>
-      &copy; 2020 Paircare
+      &copy; 2020 Pair Care
       &nbsp;&nbsp;&nbsp;
       <Link href="mailto:paircarecontact@gmail.com">Contact Us</Link>
     </div>
