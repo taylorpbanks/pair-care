@@ -53,8 +53,21 @@ const Profile = () => {
       setData({ ...storageData });    }
   }, []);
 
-  const handleDataChange = (id, value) => {
-    setData({...data, [id]: value});
+  const handleDataChange = (id, value, rules) => {
+    if (rules && value) {
+      if (rules.maxLength && value.length <= rules.maxLength) {
+        const { numericOnly } = rules;
+        const onlyDigits = /^\d*$/;
+
+        if (numericOnly && onlyDigits.test(value)) {
+          setData({ ...data, [id]: value });
+        } else if (!numericOnly) {
+          setData({ ...data, [id]: value });
+        }
+      }      
+    } else if (!rules) {
+      setData({ ...data, [id]: value });
+    }
   };
 
   const changedFields = () => {
@@ -81,6 +94,7 @@ const Profile = () => {
           setUser({...data});
         })
         .catch(err => setError(err.message))
+        .finally(() => window.scrollTo(0, 0));
       })
       .catch(err => setError(err.message));
   };
@@ -202,7 +216,7 @@ const Profile = () => {
                   name="zipcode"
                   label="Zip Code"
                   type="zipcode"
-                  onChange={(e) => { handleDataChange('custom:zipcode', e.target.value); setError(undefined); }}
+                  onChange={(e) => { handleDataChange('custom:zipcode', e.target.value, {maxLength: 5, numericOnly: true}); setError(undefined); }}
                   variant="outlined"
                   value={data['custom:zipcode']}
                   InputLabelProps={{ required: false }}

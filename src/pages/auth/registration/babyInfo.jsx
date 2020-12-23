@@ -42,9 +42,6 @@ const BabyInfo = ({ setStep, data, handleDataChange }) => {
     return false;
   };
 
-  console.log(data);
-  console.log(data.yearOfBirth);
-
   return (
     <Container maxWidth="lg">
       <p style={{ textAlign: 'left' }}>

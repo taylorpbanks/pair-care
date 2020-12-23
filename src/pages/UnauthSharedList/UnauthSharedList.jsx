@@ -124,12 +124,20 @@ const UnauthSharedList = ({ id, name }) => {
 
   return (
     <div className="unauth-list">
-      <h1>{name} shared their must have items with you!</h1>
+      <h1>{name} shared their must have parenting items with you!</h1>
       <div className="locked-content mb-15">
         <LockOutlined fontSize="large" color="primary" />
-        <h2>Currently sharing the first 3 items of {possessiveName} list with you.</h2>
+        <h2>Create your own Pair Care account to unlock {possessiveName} full list of recommendations.</h2>
         <h3 className="mb-30">Sign up to see the rest of the items and reap the benefits of Pair Care!</h3>
+      </div>
 
+      {list && list.map(item => (
+        <Fragment key={`frag-${item.id}`}>
+          {row(item)}
+        </Fragment>
+      ))}
+
+      <div className="locked-content mb-15">
         <div className="standard-flex-box mb-30">
           <div className="col-4 ">
             <ListAltOutlined fontSize="large" color="secondary" className="icons-highlights" />
@@ -163,12 +171,6 @@ const UnauthSharedList = ({ id, name }) => {
           </RouterLink>
         </p>
       </div>
-
-      {list && list.map(item => (
-        <Fragment key={`frag-${item.id}`}>
-          {row(item)}
-        </Fragment>
-      ))}
     </div>
   );
 }

@@ -9,7 +9,6 @@ const Registration = () => {
   const [data, setData] = useState({});
 
   const handleDataChange = (id, value, rules) => {
-    console.log(value);
     if (rules && value) {
       if (rules.maxLength && value.length <= rules.maxLength) {
         const { numericOnly } = rules;
