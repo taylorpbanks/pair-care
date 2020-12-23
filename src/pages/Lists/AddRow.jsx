@@ -57,7 +57,6 @@ const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage,
     return categories[categoryId] ? categories[categoryId].subCategories.map(category => category) : [];
   }
 
-  console.log(values);
   return (
     <Grow
       in={true}

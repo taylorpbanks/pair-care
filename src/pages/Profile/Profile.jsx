@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Auth } from 'aws-amplify';
+import { connect } from 'react-redux';
+import { ActionCreators } from '../../redux/profile/actions';
 import {
   Container,
   TextField,
@@ -27,31 +29,16 @@ import {
 import './Profile.css';
 import ProfilePic from './ProfilePic.jsx';
 
-const Profile = () => {
+const Profile = ({ profile, updateUser }) => {
   const [error, setError] = useState(undefined);
   const [confirmation, setConfirmation] = useState(undefined);
   const [user, setUser] = useState(undefined);
   const [data, setData] = useState({});
 
   useEffect(() => {
-    const { userDataKey } = localStorage;
-    if (!localStorage[userDataKey]) {
-      Auth.currentUserInfo().then(response => {
-        setUser({ ...response.attributes });
-        setData({ ...response.attributes });
-      });
-    } else {
-      const localStorageObj = JSON.parse(localStorage[userDataKey])
-      const { UserAttributes } = localStorageObj;
-      const storageData = {};
-
-      UserAttributes.forEach(attribute => {
-        storageData[attribute.Name] = attribute.Value;
-      });
-
-      setUser({ ...storageData });
-      setData({ ...storageData });    }
-  }, []);
+    setUser(profile);
+    setData(profile);
+  }, [profile]);
 
   const handleDataChange = (id, value, rules) => {
     if (rules && value) {
@@ -91,7 +78,7 @@ const Profile = () => {
         Auth.updateUserAttributes(currentUser, changedFields())
         .then(() => {
           setConfirmation('Your profile information has been successfully saved.');
-          setUser({...data});
+          updateUser({...changedFields()});
         })
         .catch(err => setError(err.message))
         .finally(() => window.scrollTo(0, 0));
@@ -286,4 +273,17 @@ const Profile = () => {
   );
 }
 
-export default Profile;
+const mapStateToProps = (state) => ({
+  profile: state.profile,
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    updateUser: (attributes) => dispatch(ActionCreators.updateProfile(attributes)),
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Profile);

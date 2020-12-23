@@ -81,7 +81,7 @@ function Unauthorized({ authState, onStateChange }) {
           <div className="col-6">
             <div className="avatars">
               {babyItems.slice(1).map(item => (
-                <div className="avatar-container">
+                <div key={item.id} className="avatar-container">
                   <Avatar className="mr-15" style={{backgroundColor: '#226d77'}}>{item.highlighted ? item.highlighted : item.icon}</Avatar>
                   {item.label}
                 </div>

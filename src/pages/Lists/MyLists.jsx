@@ -1,4 +1,6 @@
 import React from "react";
+import { connect } from 'react-redux';
+import { ActionCreators } from '../../redux/my-list/actions';
 import {
   Box,
   AppBar,
@@ -71,19 +73,37 @@ function a11yProps(index) {
   };
 }
 
-const MyLists = ({ sharedList, viewersList }) => {
+const MyLists = ({
+  sharedList,
+  viewersList,
+  myList,
+  addMyList,
+  profile,
+  addItem,
+  removeItem,
+  changeItem,
+}) => {
   const [selectedStage, setSelectedStage] = React.useState(2);
   const [selectedRow, setSelectedRow] = React.useState(null);
   const [selectedChip, setSelectedChip] = React.useState(0);
   const [listContent, setListContent] = React.useState([]);
-  const [allLists, setAllListContent] = React.useState({});
+  //const [allLists, setAllListContent] = React.useState({});
   const [showSnackBar, setShowSnackBar] = React.useState(undefined);
   const [showManyItemAdd, setShowManyItemAdd] = React.useState(false);
   const [sortBy, setSortBy] = React.useState('isRecommended');
 
   React.useEffect(() => {
-    fetchList(2);
+    const mainListId = 2;
+    if ((myList && myList[mainListId] && !myList[mainListId].length) || sharedList) {
+      fetchList(mainListId);
+    } else {
+      setListContent(myList[mainListId]);
+    }
   }, []);
+
+  React.useEffect(() => {
+    setListContent(myList[selectedStage]);
+  }, [myList]);
 
   React.useEffect(() => {
     const copy = cloneDeep(listContent);
@@ -98,7 +118,7 @@ const MyLists = ({ sharedList, viewersList }) => {
   async function fetchList(id) {
     const apiData = await API.graphql(graphqlOperation(listItems, {filter: {
       stageId: { eq: id },
-      sub: {eq: sharedList ? sharedList.fromSub : localStorage.sub}
+      sub: {eq: sharedList ? sharedList.fromSub : profile.sub}
     }}));
 
     const { items } = apiData.data.listItems;
@@ -110,8 +130,8 @@ const MyLists = ({ sharedList, viewersList }) => {
     }
 
     const sortedItems = items.sort(compareStrings('categoryId')).sort(compareStrings('isRecommended', 'desc'));
+    addMyList(sortedItems, id);
     setListContent(sortedItems);
-    setAllListContent({...allLists, [`list${id}`]: apiData.data.listItems.items});
   }
 
   const emptyRow = {
@@ -130,10 +150,10 @@ const MyLists = ({ sharedList, viewersList }) => {
   const handleChange = (event, newValue) => {
     setListContent([]);
 
-    if (!allLists[`list${newValue}`]) {
+    if (!myList[newValue].length || sharedList) {
       fetchList(newValue);
     } else {
-      setListContent(allLists[`list${newValue}`]);
+      setListContent(myList[newValue]);
     }
     setSelectedStage(newValue);
     setSelectedChip(0);
@@ -151,8 +171,8 @@ const MyLists = ({ sharedList, viewersList }) => {
       requestItem.categoryId = selectedChip;
     }
 
-    requestItem.sub = localStorage.sub;
-    requestItem.email = localStorage.email;
+    requestItem.sub = profile.sub;
+    requestItem.email = profile.email;
     requestItem.updatedAt = undefined;
     requestItem.createdAt = undefined;
     requestItem.added = undefined;
@@ -168,30 +188,25 @@ const MyLists = ({ sharedList, viewersList }) => {
         copyArray[index].added = true;
       } else {
         requestItem.id = response.data.createItem.id;
-        copyArray.push(requestItem);
-        setListContent(copyArray);
         setSelectedRow(null);
-        setAllListContent({...allLists, [`list${selectedStage}`]: undefined});
         setShowSnackBar('Item added successfully!');
       }
+      addItem(requestItem, selectedStage);
     })
     .catch(() => {
       setShowSnackBar('An unexpected error occurred.  Please try again.');
     });
   }
 
-  async function updateItem (item, e, index) {
+  async function updateItem (item, e) {
     e.preventDefault();
-    let copyArray = [...listContent];
-    copyArray[index] = {...item};
     delete item.createdAt;
     delete item.updatedAt;
 
     await API.graphql({ query: updateItemMutation, variables: { input: item } })
     .then(() =>{
-      setListContent(copyArray);
       setSelectedRow(null);
-      setAllListContent({...allLists, [`list${selectedStage}`]: undefined});
+      changeItem(item, selectedStage, item.id);
       setShowSnackBar('Item updated successfully!');
     })
     .catch(() =>{
@@ -202,11 +217,9 @@ const MyLists = ({ sharedList, viewersList }) => {
   };
 
   async function deleteItem(id) {
-    const listCopy = listContent.filter(item => item.id !== id);
-    setListContent(listCopy);
     await API.graphql({ query: deleteItemMutation, variables: { input: { id } }}).then(() =>{
-      setAllListContent({...allLists, [`list${selectedStage}`]: undefined});
       setShowSnackBar('Item deleted successfully!');
+      removeItem(id, selectedStage)
     })
     .catch(() => {
       setShowSnackBar('An unexpected error occurred.  Please try again.');
@@ -391,4 +404,21 @@ const MyLists = ({ sharedList, viewersList }) => {
   );
 }
 
-export default MyLists;
+const mapStateToProps = (state) => ({
+  profile: state.profile,
+  myList: state.myList
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addMyList: (list, listId) => dispatch(ActionCreators.addMyList(list, listId)),
+    addItem: (item, listId) => dispatch(ActionCreators.addItem(item, listId)),
+    removeItem: (itemId, listId) => dispatch(ActionCreators.deleteItem(itemId, listId)),
+    changeItem: (content, itemId, listId) => dispatch(ActionCreators.updateItem(content, itemId, listId)),
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MyLists);

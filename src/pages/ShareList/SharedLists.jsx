@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { ActionCreators } from '../../redux/my-list/actions';
+import { ActionCreators as actions } from '../../redux/share/actions';
 import {
   List,
   ListItem,
@@ -16,49 +19,53 @@ import { API, graphqlOperation } from 'aws-amplify';
 import MyList from '../Lists/MyLists';
 import './SharedLists.css';
 
-function SharedLists() {
-  const pairCareContact = {
-    fromEmail: 'paircarecontact@gmail.com',
-    fromName: 'Pair Care',
-    fromSub: '512bfff3-eb83-4645-864f-1e1f5f5b87fe'
-  };
-
+function SharedLists({
+  profile,
+  myList,
+  addMyList,
+  sharedLists,
+  addWithMe,
+}) {
   const [selected, setSelected] = useState(undefined);
-  const [myList, setMyList] = useState({});
-  const [sharedLists, setSharedLists] = useState([pairCareContact]);
   const [pictures, setPictures] = useState({});
 
   useEffect(() => {
-    fetchList();
-    fetchPeople();
+    if (myList && myList.all && !myList.all.length) {
+      fetchList();
+    }
+
+    if (sharedLists && sharedLists.length <= 1) {
+      fetchPeople();
+    }
   }, []);
 
   useEffect(() => {
-    sharedLists.forEach((list) => {
-      Storage.get(list.fromSub)
-        .then(response => {
-          setPictures({...pictures, [list.fromSub]: response})
-        });
-    });
+    if (sharedLists) {
+      sharedLists.forEach((list) => {
+        Storage.get(list.fromSub)
+          .then(response => {
+            setPictures({...pictures, [list.fromSub]: response})
+          });
+      });
+    }
   }, [sharedLists]);
 
   async function fetchList() {
     const apiData = await API.graphql(graphqlOperation(listItems, {filter: {
-      sub: {eq: localStorage.sub}
+      sub: {eq: profile.sub}
     }}));
 
     const { items } = apiData.data.listItems;
-    setMyList(items);
+    addMyList(items);
   }
 
   async function fetchPeople() {
     const apiData = await API.graphql(graphqlOperation(listShareds, {filter: {
-      toEmail: { eq: localStorage.email }
+      toEmail: { eq: profile.email }
     }}));
 
     const { items } = apiData.data.listShareds;
-    items.unshift(pairCareContact);
-    setSharedLists(items);
+    addWithMe( items );
   }
 
 
@@ -69,10 +76,10 @@ function SharedLists() {
           <div style={{position: 'relative'}}>
             <div className="shared-list-container">
               <h1>Lists Shared With Me</h1>
-              <h3>You currently have <strong className="secondary-color">{sharedLists.length}</strong> list{sharedLists.length === 1 ? '' : 's'} shared with you.</h3>
+              <h3>You currently have <strong className="secondary-color">{sharedLists ? sharedLists.length : 0}</strong> list{sharedLists && sharedLists.length === 1 ? '' : 's'} shared with you.</h3>
               <div>
                 <h3>People sharing with you</h3>
-                {sharedLists.length > 0 && (
+                {sharedLists && sharedLists.length > 0 && (
                   <List component="nav" className="list-container" aria-label="contacts">
                     {sharedLists.map((list) => (
                       <ListItem key={list.id || 'paircare'} button onClick={() => setSelected(list)}>
@@ -95,7 +102,7 @@ function SharedLists() {
                   </List>
                   )}
 
-                {!sharedLists.length && (
+                {sharedLists && !sharedLists.length && (
                   <div className="list-container text-small">
                     <InfoOutlined fontSize="small" color="primary"/>
                     <div className="no-share-msg">No one is currently sharing their list with you.</div>
@@ -128,7 +135,7 @@ function SharedLists() {
                 </Button>
               </span>
             </h1>
-            <MyList sharedList={selected} viewersList={myList} />
+            <MyList sharedList={selected} viewersList={myList.all} />
           </div>
         </Slide>
       )}
@@ -136,4 +143,20 @@ function SharedLists() {
   )
 }
 
-export default SharedLists;
+const mapStateToProps = (state) => ({
+  profile: state.profile,
+  myList: state.myList,
+  sharedLists: state.share.withMe,
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addMyList: (list, listId) => dispatch(ActionCreators.addMyList(list, 'all')),
+    addWithMe: (people) => dispatch(actions.addWithMe(people)),
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SharedLists);

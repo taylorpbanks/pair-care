@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Auth } from 'aws-amplify';
+import { connect } from 'react-redux';
+import { ActionCreators } from '../redux/profile/actions';
 import {
   AppBar,
   Toolbar,
@@ -48,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Header({ authState }) {
+const Header = ({ authState, logout }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedTab, setSelectedTab] = useState(0);
@@ -82,6 +84,7 @@ export default function Header({ authState }) {
   const handleSignOut = () => {
     Auth.signOut();
     localStorage.clear();
+    logout();
   };
 
   const toggleDrawer = (event) => {
@@ -270,3 +273,18 @@ export default function Header({ authState }) {
     </div>
   );
 }
+
+const mapStateToProps = (state) => ({
+  profile: state.profile,
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    logout: (attributes) => dispatch(ActionCreators.logout(attributes)),
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Header);

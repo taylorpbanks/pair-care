@@ -1,0 +1,7 @@
+export const Types = {
+  ADD_MY_LIST: 'ADD_MY_LIST',
+  ADD_ITEM: 'ADD_ITEM',
+  UPDATE_ITEM: 'UPDATE_ITEM',
+  DELETE_ITEM: 'DELETE_ITEM',
+  LOGOUT: 'LOGOUT',
+};

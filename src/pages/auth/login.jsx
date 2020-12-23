@@ -14,6 +14,8 @@ import {
 } from '@material-ui/icons';
 import { Alert } from '@material-ui/lab';
 import { Redirect, Link } from 'react-router-dom';
+import { ActionCreators } from '../../redux/profile/actions';
+import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
@@ -27,7 +29,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Login = () => {
+const Login = ({ addUser }) => {
   const classes = useStyles();
   const [redirect, setRedirect] = useState(undefined);
   const [error, setError] = useState(undefined);
@@ -56,6 +58,7 @@ const Login = () => {
           localStorage.setItem('userDataKey', user.userDataKey);
           localStorage.setItem('sub', user.attributes.sub);
           localStorage.setItem('email', user.attributes.email);
+          addUser(user);
           setRedirect('/my-list');
         });
       }).catch(err => {
@@ -178,4 +181,15 @@ const Login = () => {
   );
 }
 
-export default Login;
+const mapStateToProps = () => ({});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addUser: (user) => dispatch(ActionCreators.addProfile(user)),
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Login);

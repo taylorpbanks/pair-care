@@ -71,7 +71,7 @@ function FAQ() {
     <div className="faq">
         <h1>Frequently Asked Questions</h1>
         {questions && questions.map(q => (
-          <Accordion key={q}>
+          <Accordion key={q.q}>
             <AccordionSummary
               expandIcon={<ExpandMore />}
               aria-controls="panel1a-content"
