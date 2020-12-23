@@ -30,7 +30,9 @@ function QuickRecs() {
 
   useEffect(() => {
     fetchList(2, pairCareSub);
-    fetchList(2, localStorage.sub);
+    if (localStorage.sub) {
+      fetchList(2, localStorage.sub);
+    }
   }, []);
 
   async function fetchList(listId, subId) {
@@ -101,20 +103,22 @@ function QuickRecs() {
                   </a>
                 </div>
 
-                <div
-                  className="mt-30 secondary-color"
-                  style={{ cursor: 'pointer' }}
-                  onClick={(e) => createItem(item.id, e)}
-                >
-                  <div className="add-icon">
-                    {myList.find(myItem => myItem.link === getUrl(item.id)) ? <CheckCircleOutline size="small" /> : <AddCircleOutline size="small" />}
+                {localStorage.sub && (
+                  <div
+                    className="mt-30 secondary-color"
+                    style={{ cursor: 'pointer' }}
+                    onClick={(e) => myList.find(myItem => myItem.link === getUrl(item.id)) ? e.preventDefault() : createItem(item.id, e)}
+                  >
+                    <div className="add-icon">
+                      {myList.find(myItem => myItem.link === getUrl(item.id)) ? <CheckCircleOutline size="small" /> : <AddCircleOutline size="small" />}
+                    </div>
+                    <div className="add-label">
+                      {myList.find(myItem => myItem.link === getUrl(item.id)) ?
+                      ' Item is on Your List' :
+                      ' Add Item to Your List'}
+                    </div>
                   </div>
-                  <div className="add-label">
-                    {myList.find(myItem => myItem.link === getUrl(item.id)) ?
-                    ' Item is on Your List' :
-                    ' Add Item to Your List'}
-                  </div>
-                </div>
+                )}
               </Card>
             ))}
           </AccordionDetails>
