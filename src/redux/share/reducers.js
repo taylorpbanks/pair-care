@@ -3,7 +3,8 @@ import { Types } from './actionTypes';
 const pairCareContact = {
   fromEmail: 'paircarecontact@gmail.com',
   fromName: 'Pair Care',
-  fromSub: '512bfff3-eb83-4645-864f-1e1f5f5b87fe'
+  fromSub: '512bfff3-eb83-4645-864f-1e1f5f5b87fe',
+  isPairCare: true,
 };
 
 const initialState = {

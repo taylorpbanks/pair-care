@@ -19,6 +19,7 @@ type Item @model {
 	toAge: Int
 	isRecommended: String
 	comments: String
+	quickRec: String
 }
 
 type Shared @model {

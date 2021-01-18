@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { connect } from 'react-redux';
 import { ActionCreators } from '../../redux/my-list/actions';
 import {
@@ -83,43 +83,53 @@ const MyLists = ({
   removeItem,
   changeItem,
 }) => {
-  const [selectedStage, setSelectedStage] = React.useState(2);
-  const [selectedRow, setSelectedRow] = React.useState(null);
-  const [selectedChip, setSelectedChip] = React.useState(0);
-  const [listContent, setListContent] = React.useState([]);
+  const [selectedStage, setSelectedStage] = useState(2);
+  const [selectedRow, setSelectedRow] = useState(null);
+  const [selectedChip, setSelectedChip] = useState(0);
+  const [listContent, setListContent] = useState([]);
   //const [allLists, setAllListContent] = React.useState({});
-  const [showSnackBar, setShowSnackBar] = React.useState(undefined);
-  const [showManyItemAdd, setShowManyItemAdd] = React.useState(false);
-  const [sortBy, setSortBy] = React.useState('isRecommended');
+  const [showSnackBar, setShowSnackBar] = useState(undefined);
+  const [showManyItemAdd, setShowManyItemAdd] = useState(false);
+  const [sortBy, setSortBy] = useState('isRecommended');
 
-  React.useEffect(() => {
+  useEffect(() => {
     const mainListId = 2;
     if ((myList && myList[mainListId] && !myList[mainListId].length) || sharedList) {
       fetchList(mainListId);
     } else {
-      setListContent(myList[mainListId]);
+      const copy = cloneDeep(myList[mainListId]);
+      setListContent(copy);
     }
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setListContent(myList[selectedStage]);
   }, [myList]);
 
-  React.useEffect(() => {
-    const copy = cloneDeep(listContent);
-    if (sortBy) {
-      copy.sort(compareStrings('categoryId'));
+  useEffect(() => {
+    if (listContent && listContent.length) {
+      const copy = cloneDeep(listContent);
+      if (sortBy) {
+        copy.sort(compareStrings('categoryId'));
+      }
+  
+      copy.sort(compareStrings(sortBy, sortBy === 'isRecommended' ? 'desc' : 'asc'));
+      setListContent(copy);
     }
-
-    copy.sort(compareStrings(sortBy, sortBy === 'isRecommended' ? 'desc' : 'asc'));
-    setListContent(copy);
   }, [sortBy]);
 
   async function fetchList(id) {
-    const apiData = await API.graphql(graphqlOperation(listItems, {filter: {
-      stageId: { eq: id },
-      sub: {eq: sharedList ? sharedList.fromSub : profile.sub}
-    }}));
+    const request = {
+      stageId: { eq: id }
+    };
+
+    if (sharedList && sharedList.isPairCare) {
+      request.email = {eq: 'paircarecontact@gmail.com'};
+    } else {
+      request.sub = {eq: sharedList ? sharedList.fromSub : profile.sub};
+    }
+
+    const apiData = await API.graphql(graphqlOperation(listItems, {filter: request}));
 
     const { items } = apiData.data.listItems;
 

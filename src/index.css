@@ -74,6 +74,10 @@ a {
   color: #dc9577;
 }
 
+.success-color {
+  color: #6bab5b;
+}
+
 /* alignment */
 .float-right {
   float: right;

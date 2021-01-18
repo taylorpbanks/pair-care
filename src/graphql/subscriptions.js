@@ -53,6 +53,7 @@ export const onCreateItem = /* GraphQL */ `
       toAge
       isRecommended
       comments
+      quickRec
       createdAt
       updatedAt
     }
@@ -74,6 +75,7 @@ export const onUpdateItem = /* GraphQL */ `
       toAge
       isRecommended
       comments
+      quickRec
       createdAt
       updatedAt
     }
@@ -95,6 +97,7 @@ export const onDeleteItem = /* GraphQL */ `
       toAge
       isRecommended
       comments
+      quickRec
       createdAt
       updatedAt
     }

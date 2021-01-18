@@ -71,6 +71,10 @@ function QuickRecs() {
     });
   }
 
+  const isItemOnList = (item) => {
+    return myList.find(myItem => myItem.link === getUrl(item.id));
+  }
+
   return (
     <div className="quick-recs">
       <h1>Quick Recommendations</h1>
@@ -105,15 +109,15 @@ function QuickRecs() {
 
                 {localStorage.sub && (
                   <div
-                    className="mt-30 secondary-color"
+                    className={`mt-30 ${isItemOnList(item) ? 'success-color' : 'secondary-color'}`}
                     style={{ cursor: 'pointer' }}
-                    onClick={(e) => myList.find(myItem => myItem.link === getUrl(item.id)) ? e.preventDefault() : createItem(item.id, e)}
+                    onClick={(e) => isItemOnList(item) ? e.preventDefault() : createItem(item.id, e)}
                   >
                     <div className="add-icon">
-                      {myList.find(myItem => myItem.link === getUrl(item.id)) ? <CheckCircleOutline size="small" /> : <AddCircleOutline size="small" />}
+                      {isItemOnList(item) ? <CheckCircleOutline size="small" /> : <AddCircleOutline size="small" />}
                     </div>
                     <div className="add-label">
-                      {myList.find(myItem => myItem.link === getUrl(item.id)) ?
+                      {isItemOnList(item) ?
                       ' Item is on Your List' :
                       ' Add Item to Your List'}
                     </div>

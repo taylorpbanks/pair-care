@@ -48,6 +48,7 @@ export const getItem = /* GraphQL */ `
       toAge
       isRecommended
       comments
+      quickRec
       createdAt
       updatedAt
     }
@@ -74,6 +75,7 @@ export const listItems = /* GraphQL */ `
         toAge
         isRecommended
         comments
+        quickRec
         createdAt
         updatedAt
       }
