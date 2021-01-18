@@ -10,7 +10,7 @@ import {
 import { Alert } from '@material-ui/lab';
 import { VerifiedUser } from '@material-ui/icons';
 import { Redirect } from 'react-router-dom';
-import { ActionCreators } from '../../redux/profile/actions';
+import { ActionCreators } from '../../../redux/profile/actions';
 import { connect } from 'react-redux';
 import './registration.css';
 
