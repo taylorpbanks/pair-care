@@ -174,8 +174,8 @@ function ShareMyList() {
           <h3>
             People you are sharing with
             &nbsp;
-            {people.length && !isEdit && <Edit style={{ verticalAlign: 'middle', cursor: 'pointer' }} color="secondary" onClick={() => setIsEdit(true)} />}
-            {people.length && isEdit && <Close style={{ verticalAlign: 'middle', cursor: 'pointer' }} color="secondary" onClick={() => setIsEdit(false)} />}
+            {people.length > 0 && !isEdit && <Edit style={{ verticalAlign: 'middle', cursor: 'pointer' }} color="secondary" onClick={() => setIsEdit(true)} />}
+            {people.length > 0 && isEdit && <Close style={{ verticalAlign: 'middle', cursor: 'pointer' }} color="secondary" onClick={() => setIsEdit(false)} />}
           </h3>
           <div className="email-container">
             {!people.length && (

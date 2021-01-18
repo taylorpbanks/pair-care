@@ -19,9 +19,9 @@ const ConfirmEmail = ({ data, handleDataChange }) => {
   const handleVerification = event => {
     event.preventDefault();
     // After retrieving the confirmation code from the user log them in
-    Auth.confirmSignUp(data.email, data.code)
+    Auth.confirmSignUp(data.email.toLowerCase(), data.code)
       .then(() => {
-        Auth.signIn(data.email, data.password)
+        Auth.signIn(data.email.toLowerCase(), data.password)
           .then(() => {
             Auth.currentAuthenticatedUser().then(user => {
               localStorage.setItem('userDataKey', user.userDataKey);

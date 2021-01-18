@@ -16,7 +16,7 @@ export default class Verify extends Component {
     event.preventDefault();
     const { username, code } = this.props.inputs;
     // After retrieving the confirmation code from the user
-    Auth.confirmSignUp(username, code, {
+    Auth.confirmSignUp(username.toLowerCase(), code, {
       // Optional. Force user confirmation irrespective of existing alias. By default set to True.
       forceAliasCreation: true
     })

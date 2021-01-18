@@ -45,7 +45,7 @@ const Login = (props) => {
 
   const signInClick = async () => {
     try {
-      await Auth.signIn(formData.username, formData.password);
+      await Auth.signIn(formData.username.toLowerCase(), formData.password);
       onStateChange(authState);
     }
     catch (error) {

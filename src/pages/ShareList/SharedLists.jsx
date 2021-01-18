@@ -41,11 +41,15 @@ function SharedLists({
 
   useEffect(() => {
     if (sharedLists) {
-      sharedLists.forEach((list) => {
-        Storage.get(list.fromSub)
-          .then(response => {
-            setPictures({...pictures, [list.fromSub]: response})
-          });
+      const getPictureUrl = function getPicUrl(list) { // sample async action
+        return Storage.get(list.fromSub).then(response => {return {[list.fromSub]: response}});
+      };
+
+      const actions = sharedLists.map(getPictureUrl); 
+      const results = Promise.all(actions);
+
+      results.then(data => {
+        setPictures(data.reduce(((r, c) => Object.assign(r, c)), {}));
       });
     }
   }, [sharedLists]);
@@ -67,7 +71,6 @@ function SharedLists({
     const { items } = apiData.data.listShareds;
     addWithMe( items );
   }
-
 
   return (
     <div className="shared-list-parent">

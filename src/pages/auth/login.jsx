@@ -53,7 +53,7 @@ const Login = ({ addUser }) => {
     e.preventDefault();
 
     try {
-      Auth.signIn(formData.username, formData.password).then(() => {
+      Auth.signIn(formData.username.toLowerCase(), formData.password).then(() => {
         Auth.currentAuthenticatedUser().then(user => {
           localStorage.setItem('userDataKey', user.userDataKey);
           localStorage.setItem('sub', user.attributes.sub);

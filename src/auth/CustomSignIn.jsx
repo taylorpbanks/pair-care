@@ -60,7 +60,7 @@ class CustomSignIn extends Component {
   }
 
   async signIn() {
-    const username = this.inputs.username;
+    const username = this.inputs.username.toLowerCase();
     const password = this.inputs.password;
     try {
       await Auth.signIn(username, password);

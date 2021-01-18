@@ -39,7 +39,7 @@ const PersonalInfo = ({ setStep, data, handleDataChange }) => {
     const randomNumber = Math.floor(Math.random() * Math.floor(10));
 
     Auth.signUp({
-      username: email,
+      username: email.toLowerCase(),
       password,
       attributes: {
         email,

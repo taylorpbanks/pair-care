@@ -19,7 +19,7 @@ export default class Register extends Component {
     event.preventDefault();
     const { username, email, password, phone_number } = this.props.inputs;
     Auth.signUp({
-      username,
+      username: username.toLowerCase(),
       password,
       attributes: {
         email, // optional

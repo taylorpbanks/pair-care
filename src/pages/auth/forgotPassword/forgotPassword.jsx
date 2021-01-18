@@ -33,12 +33,12 @@ const ForgotPassword = () => {
     event.preventDefault();
 
     if (step === 0) {
-      Auth.forgotPassword(data.email)
+      Auth.forgotPassword(data.email.toLowerCase())
         .then(() => setStep(1))
         .catch(err => setError(err.message));
     } else if (step === 1) {
       // Collect confirmation code and new password, then
-      Auth.forgotPasswordSubmit(data.email, data.code, data.password)
+      Auth.forgotPasswordSubmit(data.email.toLowerCase(), data.code, data.password)
         .then(() => setStep(2))
         .catch(err => setError(err.message));
     }
