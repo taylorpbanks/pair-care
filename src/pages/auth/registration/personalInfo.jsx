@@ -44,7 +44,7 @@ const PersonalInfo = ({ setStep, data, handleDataChange }) => {
       attributes: {
         email,
         'custom:childGender': childGender,
-        'custom:yearOfBirth': yearOfBirth,
+        'custom:yearOfBirth': yearOfBirth || '',
         'custom:zipcode': zipcode,
         'custom:parentType': parentType,
         'custom:firstName': firstName,

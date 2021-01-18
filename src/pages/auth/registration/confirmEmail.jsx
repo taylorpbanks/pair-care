@@ -10,9 +10,11 @@ import {
 import { Alert } from '@material-ui/lab';
 import { VerifiedUser } from '@material-ui/icons';
 import { Redirect } from 'react-router-dom';
+import { ActionCreators } from '../../redux/profile/actions';
+import { connect } from 'react-redux';
 import './registration.css';
 
-const ConfirmEmail = ({ data, handleDataChange }) => {
+const ConfirmEmail = ({ data, handleDataChange, addUser }) => {
   const [redirect, setRedirect] = useState(false);
   const [error, setError] = useState(undefined);
 
@@ -27,6 +29,7 @@ const ConfirmEmail = ({ data, handleDataChange }) => {
               localStorage.setItem('userDataKey', user.userDataKey);
               localStorage.setItem('sub', user.attributes.sub);
               localStorage.setItem('email', user.attributes.email);
+              addUser(user);
               setRedirect('/');
             }).catch(() => {
               setRedirect('/');
@@ -92,4 +95,15 @@ const ConfirmEmail = ({ data, handleDataChange }) => {
   );
 }
 
-export default ConfirmEmail;
+const mapStateToProps = () => ({});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addUser: (user) => dispatch(ActionCreators.addProfile(user)),
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ConfirmEmail);

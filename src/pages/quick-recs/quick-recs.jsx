@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { ActionCreators } from '../../redux/my-list/actions';
 import {
   Accordion,
   AccordionSummary,
@@ -22,7 +24,7 @@ import { listItems } from '../../graphql/queries';
 import recommendations from '../../constants/recommendations';
 import './quick-recs.css';
 
-function QuickRecs() {
+function QuickRecs({ addItem }) {
   const [items, setItems] = useState([]);
   const [myList, setMyList] = useState([]);
   const [showSnackBar, setShowSnackBar] = React.useState(undefined);
@@ -64,6 +66,7 @@ function QuickRecs() {
     await API.graphql({ query: createItemMutation, variables: { input: requestItem } })
     .then(response => {
       myList.push(requestItem);
+      addItem(requestItem, 2);
       setShowSnackBar('Item added successfully to your list!');
     })
     .catch(() => {
@@ -149,4 +152,20 @@ function QuickRecs() {
   )
 }
 
-export default QuickRecs;
+const mapStateToProps = (state) => ({
+  profile: state.profile,
+  myList: state.myList
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addItem: (item, listId) => dispatch(ActionCreators.addItem(item, listId)),
+    //removeItem: (itemId, listId) => dispatch(ActionCreators.deleteItem(itemId, listId)),
+    //changeItem: (content, itemId, listId) => dispatch(ActionCreators.updateItem(content, itemId, listId)),
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(QuickRecs);
