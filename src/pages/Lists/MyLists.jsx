@@ -95,15 +95,19 @@ const MyLists = ({
   useEffect(() => {
     const mainListId = 2;
     if ((myList && myList[mainListId] && !myList[mainListId].length) || sharedList) {
+      console.log('if');
       fetchList(mainListId);
     } else {
+      console.log('else');
       const copy = cloneDeep(myList[mainListId]);
       setListContent(copy);
     }
   }, []);
 
   useEffect(() => {
-    setListContent(myList[selectedStage]);
+    if (!sharedList) {
+      setListContent(myList[selectedStage]);
+    }
   }, [myList]);
 
   useEffect(() => {
@@ -140,7 +144,9 @@ const MyLists = ({
     }
 
     const sortedItems = items.sort(compareStrings('categoryId')).sort(compareStrings('isRecommended', 'desc'));
-    addMyList(sortedItems, id);
+    if (!sharedList) {
+      addMyList(sortedItems, id);
+    }
     setListContent(sortedItems);
   }
 
