@@ -263,14 +263,19 @@ const MyLists = ({
       )}
 
       <AppBar position="sticky">
-        <Tabs value={selectedStage} onChange={handleChange} aria-label="simple tabs example">
+        <Tabs value={selectedStage} onChange={handleChange} aria-label="simple tabs example" className="page-container">
           {stages.map(tab => (
             <Tab key={tab.label} label={tab.label} {...a11yProps(tab.id)} />
           ))}
         </Tabs>
       </AppBar>
       {stages.map(stage => (
-        <TabPanel selectedStage={selectedStage} index={stage.id} key={stage.id} className={selectedRow === 10000 ? 'tab-panel' : 'tab-panel append-btm-margin'}>
+        <TabPanel
+          selectedStage={selectedStage}
+          index={stage.id}
+          key={stage.id}
+          className={selectedRow === 10000 ? 'tab-panel page-container' : 'tab-panel append-btm-margin page-container'}
+        >
           <FormControl variant="outlined" size="small">
             <InputLabel id="sort-by-label">Sort By</InputLabel>
             <Select

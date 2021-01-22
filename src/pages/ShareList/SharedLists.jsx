@@ -77,7 +77,7 @@ function SharedLists({
       {!selected && (
         <Slide direction="right" in={true} mountOnEnter unmountOnExit>
           <div style={{position: 'relative'}}>
-            <div className="shared-list-container">
+            <div className="shared-list-container page-container">
               <h1>Lists Shared With Me</h1>
               <h3>You currently have <strong className="secondary-color">{sharedLists ? sharedLists.length : 0}</strong> list{sharedLists && sharedLists.length === 1 ? '' : 's'} shared with you.</h3>
               <div>

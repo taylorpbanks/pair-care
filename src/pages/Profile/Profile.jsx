@@ -97,7 +97,7 @@ const Profile = ({ profile, updateUser }) => {
 
   return (
     <>
-      <Container maxWidth="sm" className="parent">
+      <Container maxWidth="sm" className="parent page-container">
         <h1>Account Profile</h1>
         {user && (
           <form onSubmit={handleUpdate}>

@@ -1,4 +1,22 @@
 {
+    "prod": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-pair-care-prod-220933-authRole",
+            "UnauthRoleArn": "arn:aws:iam::297122742436:role/amplify-pair-care-prod-220933-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::297122742436:role/amplify-pair-care-prod-220933-authRole",
+            "Region": "us-east-2",
+            "DeploymentBucketName": "amplify-pair-care-prod-220933-deployment",
+            "UnauthRoleName": "amplify-pair-care-prod-220933-unauthRole",
+            "StackName": "amplify-pair-care-prod-220933",
+            "StackId": "arn:aws:cloudformation:us-east-2:297122742436:stack/amplify-pair-care-prod-220933/04691350-55ec-11eb-b972-0a6e38486072",
+            "AmplifyAppId": "diusrwfy3x66s"
+        },
+        "categories": {
+            "auth": {
+                "paircare0052b10c": {}
+            }
+        }
+    },
     "dev": {
         "awscloudformation": {
             "AuthRoleName": "amplify-paircare-dev-105827-authRole",

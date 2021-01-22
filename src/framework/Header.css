@@ -48,8 +48,14 @@
     display: block;
 }
 
+/*.MuiToolbar-root {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0;
+}*/
+
 /* mobile responsive */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 992px) {
     .logo-container {
         margin: auto;
     }
@@ -61,4 +67,9 @@
     .nav-wrapper { 
         display: none !important;
     }
+
+    /*.MuiToolbar-root {
+        width: 100%;
+        margin: initial;
+    }*/
 }

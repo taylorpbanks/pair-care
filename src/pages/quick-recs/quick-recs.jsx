@@ -79,7 +79,7 @@ function QuickRecs({ addItem }) {
   }
 
   return (
-    <div className="quick-recs">
+    <div className="quick-recs page-container">
       <h1>Quick Recommendations</h1>
       <p className="mb-30">Item recommendations to meet the need for all types of parents and children.</p>
 

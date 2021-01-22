@@ -25,7 +25,7 @@ function Unauthorized({ authState, onStateChange }) {
         </h1>
 
         <img
-          src={require("../../img/bbby-toys-2.jpg")}
+          src={require("../../img/bbby-toys-3.jpg")}
           alt="pair-care welcome"
           style={{maxWidth: '100%'}}
         />
@@ -53,8 +53,8 @@ function Unauthorized({ authState, onStateChange }) {
         </div>
       </div>
 
-      <h2 style={{marginBottom: '30px', textAlign: 'center'}}>Why use Pair Care?</h2>
-      <div className="standard-flex-box mb-30" style={{textAlign: 'center'}}>
+      <h2 style={{marginBottom: '30px', textAlign: 'center'}} className="page-container">Why use Pair Care?</h2>
+      <div className="standard-flex-box mb-30 page-container" style={{textAlign: 'center'}}>
           <div className="col-4 ">
             <ListAltOutlined fontSize="large" color="secondary" className="icons-highlights" />
             <br />
@@ -77,30 +77,32 @@ function Unauthorized({ authState, onStateChange }) {
           </div>
         </div>
 
-        <div className="secondary-box standard-flex-box">
-          <div className="col-6">
-            <div className="avatars">
-              {babyItems.slice(1).map(item => (
-                <div key={item.id} className="avatar-container">
-                  <Avatar className="mr-15" style={{backgroundColor: '#226d77'}}>{item.highlighted ? item.highlighted : item.icon}</Avatar>
-                  {item.label}
-                </div>
-              ))}
+        <div className="secondary-box">
+          <div className="page-container standard-flex-box">
+            <div className="col-6">
+              <div className="avatars">
+                {babyItems.slice(1).map(item => (
+                  <div key={item.id} className="avatar-container">
+                    <Avatar className="mr-15" style={{backgroundColor: '#226d77'}}>{item.highlighted ? item.highlighted : item.icon}</Avatar>
+                    {item.label}
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-          <div className="col-6">
-            <h1>That's not everything.</h1>
-            <h2 className="subtext">Every Pair Care user gets access to a curated list featuring items for every stage: pre-pregnancy, pregnancy, and parent & baby.</h2>
-            <Button
-              style={{ borderRadius: '50px', color: 'white' }}
-              type="submit"
-              onClick={() => setRedirect('register')}
-              variant="contained"
-              color="secondary"
-              size="large"
-            >
-              Sign Up
-            </Button>
+            <div className="col-6">
+              <h1>That's not everything.</h1>
+              <h2 className="subtext">Every Pair Care user gets access to a curated list featuring items for every stage: pre-pregnancy, pregnancy, and parent & baby.</h2>
+              <Button
+                style={{ borderRadius: '50px', color: 'white' }}
+                type="submit"
+                onClick={() => setRedirect('register')}
+                variant="contained"
+                color="secondary"
+                size="large"
+              >
+                Sign Up
+              </Button>
+            </div>
           </div>
         </div>
     </div>

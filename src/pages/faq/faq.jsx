@@ -68,7 +68,7 @@ function FAQ() {
   ];
 
   return (
-    <div className="faq">
+    <div className="faq page-container">
         <h1>Frequently Asked Questions</h1>
         {questions && questions.map(q => (
           <Accordion key={q.q}>

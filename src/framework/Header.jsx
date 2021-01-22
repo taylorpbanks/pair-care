@@ -53,7 +53,6 @@ const useStyles = makeStyles((theme) => ({
 const Header = ({ authState, logout }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
-  const [selectedTab, setSelectedTab] = useState(0);
   const open = Boolean(anchorEl);
   const [isDrawerOpen, toggleIsDrawerOpen] = React.useState();
 
@@ -119,14 +118,14 @@ const Header = ({ authState, logout }) => {
   return (
     <div className={classes.root}>
       <AppBar position="static" className={classes.root}>
-        <Drawer anchor="left" open={isDrawerOpen} onClose={(event) => toggleDrawer(event)}>
+        <Drawer className="page-container" anchor="left" open={isDrawerOpen} onClose={(event) => toggleDrawer(event)}>
           <List>
             {navigation.map((nav, index) => (!nav.requiredAuth || (nav.requiredAuth && authState !== 'signIn')) && !nav.dropdown ? (
               <Link
                 key={`nav-${nav.path}-${index}`}
                 to={nav.path ? nav.path : ''}
                 className={classes.navLink}
-                onClick={(event) => { toggleDrawer(event); setSelectedTab(nav.id); }}
+                onClick={(event) => { toggleDrawer(event); }}
               >
                 <ListItem button key={nav.label}>
                   <ListItemIcon>{nav.icon}</ListItemIcon>
@@ -185,7 +184,7 @@ const Header = ({ authState, logout }) => {
                 <Link
                   to={nav.path}
                   className={`${classes.desktopLink} ${currentTab === nav.id ? 'active' : ''}`}
-                  onClick={(event) => { nav.dropdown ? handleMenu(event) : setSelectedTab(nav.id); }}
+                  onClick={(event) => { nav.dropdown && handleMenu(event) }}
                   aria-controls={nav.dropdown ? 'menu-dropdown' : ''}
                   aria-haspopup={nav.dropdown ? 'true' : 'false'}
                 >
@@ -205,7 +204,7 @@ const Header = ({ authState, logout }) => {
                   >
                     {nav.dropdown.map((item) => (
                       <MenuItem key={item.id} onClick={handleClose}>
-                        <Link to={item.path} className={classes.navLink} onClick={(event) => { setSelectedTab(null); }}>
+                        <Link to={item.path} className={classes.navLink}>
                           {item.label}
                         </Link>
                       </MenuItem>

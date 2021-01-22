@@ -99,7 +99,7 @@ function ShareMyList() {
   }
 
   return (
-    <div>
+    <div className="page-container">
       <h1>Share My List</h1>
       <p>You're helping to make it easier for other parents one list at a time!</p>
 
