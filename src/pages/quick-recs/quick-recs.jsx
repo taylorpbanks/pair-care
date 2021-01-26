@@ -24,17 +24,16 @@ import { listItems } from '../../graphql/queries';
 import recommendations from '../../constants/recommendations';
 import './quick-recs.css';
 
-function QuickRecs({ addItem }) {
+function QuickRecs({ addItem, myList }) {
   const [items, setItems] = useState([]);
-  const [myList, setMyList] = useState([]);
   const [showSnackBar, setShowSnackBar] = React.useState(undefined);
   const pairCareSub = '512bfff3-eb83-4645-864f-1e1f5f5b87fe';
 
   useEffect(() => {
     fetchList(2, pairCareSub);
-    if (localStorage.sub) {
-      fetchList(2, localStorage.sub);
-    }
+    //if (localStorage.sub) {
+    //  fetchList(2, localStorage.sub);
+    //}
   }, []);
 
   async function fetchList(listId, subId) {
@@ -44,7 +43,8 @@ function QuickRecs({ addItem }) {
     }}));
 
     const resp = apiData.data.listItems.items;
-    subId === pairCareSub ? setItems(resp) : setMyList(resp);
+    //subId === pairCareSub ? setItems(resp) : setMyList(resp);
+    setItems(resp);
   }
 
   const getUrl = (id) => {
@@ -76,7 +76,7 @@ function QuickRecs({ addItem }) {
   }
 
   const isItemOnList = (item) => {
-    return myList.find(myItem => myItem.link === getUrl(item.id));
+    return (myList ? myList[2] : []).find(myItem => myItem.link === getUrl(item.id));
   }
 
   return (
