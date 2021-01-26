@@ -39,6 +39,10 @@
   min-height: 153px;
 }
 
+.quick-recs .small-item {
+  height: 75px;
+}
+
 /*responsive design*/
 @media screen and (max-width: 960px) {
   .quick-recs .a-title {
@@ -47,5 +51,10 @@
   
   .quick-recs .a-img-container {
     width: 100%
+  }
+
+  .quick-recs .wide-rec {
+    height: initial;
+    width: 50%;
   }
 }

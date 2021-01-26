@@ -93,7 +93,7 @@ function QuickRecs({ addItem, myList }) {
           >
             <h3 className="a-title">{r.title}</h3>
             <div className="a-img-container">
-              {r.items.map((item, index) => <img style={{height: '75px'}} src={item.img} alt="pacifier" key={`img-${index}`} /> )}
+              {r.items.map((item, index) => <img className={`small-item ${item.className}`} src={item.img} alt="item" key={`img-${index}`} /> )}
             </div>
           </AccordionSummary>
           <AccordionDetails className="standard-flex-box">

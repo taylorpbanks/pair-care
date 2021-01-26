@@ -113,7 +113,7 @@ const ProfilePic = ({ color, user, picture, sub }) => {
     <div className="upload-profile-pic">
       <Avatar
         src={pic}
-        className={`${displayColor} margin-auto`}>
+        className={`${picture ? '' : displayColor} margin-auto`}>
         {picture ? null : initials}
       </Avatar>
       <IconButton color="primary" className="upload-btn" aria-label="upload picture" onClick={handleClick} component="span">

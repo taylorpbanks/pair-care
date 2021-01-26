@@ -140,7 +140,8 @@ export default [
       {
         label: 'whose little one can\'t help but sleep on their front',
         img: sleep3,
-        id: '794819de-f120-4ff3-a1ee-1ca23288a323'
+        id: '794819de-f120-4ff3-a1ee-1ca23288a323',
+        className: 'wide-rec'
       },
       {
         label: 'that needs tons of options in fabric and color',
