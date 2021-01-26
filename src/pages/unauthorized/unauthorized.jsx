@@ -53,7 +53,7 @@ function Unauthorized({ authState, onStateChange }) {
         </div>
       </div>
 
-      <h2 style={{marginBottom: '30px', textAlign: 'center'}} className="page-container">Why use Pair Care?</h2>
+      <h2 style={{marginBottom: '30px', marginTop: '30px', textAlign: 'center'}} className="page-container">Why use Pair Care?</h2>
       <div className="standard-flex-box mb-30 page-container" style={{textAlign: 'center'}}>
           <div className="col-4 ">
             <ListAltOutlined fontSize="large" color="secondary" className="icons-highlights" />

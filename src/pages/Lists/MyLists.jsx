@@ -95,10 +95,8 @@ const MyLists = ({
   useEffect(() => {
     const mainListId = 2;
     if ((myList && myList[mainListId] && !myList[mainListId].length) || sharedList) {
-      console.log('if');
       fetchList(mainListId);
     } else {
-      console.log('else');
       const copy = cloneDeep(myList[mainListId]);
       setListContent(copy);
     }

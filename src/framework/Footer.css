@@ -1,0 +1,11 @@
+.footer-link {
+  font-weight: 600;
+  color: #226d77;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0 10px;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+}

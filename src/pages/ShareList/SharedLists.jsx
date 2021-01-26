@@ -42,7 +42,9 @@ function SharedLists({
   useEffect(() => {
     if (sharedLists) {
       const getPictureUrl = function getPicUrl(list) { // sample async action
-        return Storage.get(list.fromSub).then(response => {return {[list.fromSub]: response}});
+        if (list.fromEmail !== 'paircarecontact@gmail.com') {
+          return Storage.get(list.fromSub).then(response => {return {[list.fromSub]: response}});
+        }
       };
 
       const actions = sharedLists.map(getPictureUrl); 
@@ -87,8 +89,8 @@ function SharedLists({
                     {sharedLists.map((list) => (
                       <ListItem key={list.id || 'paircare'} button onClick={() => setSelected(list)}>
                         <ListItemIcon>
-                          {pictures[list.fromSub] ? 
-                              <Avatar src={pictures[list.fromSub]} />
+                          {pictures[list.fromSub] || list.fromEmail === 'paircarecontact@gmail.com' ? 
+                              <Avatar src={list.fromEmail === 'paircarecontact@gmail.com' ? require("../../img/pc-icon.png") : pictures[list.fromSub]} />
                               :
                               <AccountCircle fontSize="large" />
                           }
@@ -124,8 +126,8 @@ function SharedLists({
         <Slide direction="left" in={true} mountOnEnter unmountOnExit>
           <div>
             <h1 className="mb-30 avatar-header">
-              {pictures[selected.fromSub] ? 
-                <Avatar src={pictures[selected.fromSub]} className="shared-list-avatar" />
+              {pictures[selected.fromSub] || selected.fromEmail === 'paircarecontact@gmail.com' ? 
+                <Avatar src={selected.fromEmail === 'paircarecontact@gmail.com' ? require("../../img/pc-icon.png") : pictures[selected.fromSub]} className="shared-list-avatar" />
                 :
                 <AccountCircle fontSize="large" />
               }

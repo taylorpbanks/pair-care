@@ -66,6 +66,7 @@ function QuickRecs({ addItem }) {
     await API.graphql({ query: createItemMutation, variables: { input: requestItem } })
     .then(response => {
       //myList.push(requestItem);
+      requestItem.id = response.data.createItem.id;
       addItem(requestItem, 2);
       setShowSnackBar('Item added successfully to your list!');
     })

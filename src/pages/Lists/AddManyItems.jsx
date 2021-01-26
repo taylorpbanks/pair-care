@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { ActionCreators } from '../../redux/my-list/actions';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Dialog,
@@ -23,8 +25,6 @@ import { CheckCircle } from '@material-ui/icons';
 import { createItem } from '../../graphql/mutations';
 import { API } from 'aws-amplify';
 import { cloneDeep } from 'lodash';
-
-//TODO: filter out items already appearing on your list
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -64,6 +64,7 @@ function AddManyItems({
   stages,
   categories,
   setListContent,
+  addItem,
 }) {
   const classes = useStyles();
   const [checked, setChecked] = useState([]);
@@ -88,6 +89,7 @@ function AddManyItems({
       requestItem.id = undefined;
 
       requests.push(API.graphql({ query: createItem, variables: { input: requestItem } }));
+      addItem(requestItem, requestItem.stageId);
     });
   
     await Promise.all(requests).then(response => {
@@ -264,11 +266,13 @@ function AddManyItems({
           </>
         )}
       </DialogContent>
-      <div style={{padding: '15px', textAlign: 'right'}}>
-        <strong className="secondary-color">Step 3 (Add to List)</strong>
-        <br />
-        <span style={{fontSize: '12px'}}>Click "Save Items" to add to list</span>
-      </div>
+      {!success && (
+        <div style={{padding: '15px', textAlign: 'right'}}>
+          <strong className="secondary-color">Step 3 (Add to List)</strong>
+          <br />
+          <span style={{fontSize: '12px'}}>Click "Save Items" to add to list</span>
+        </div>
+      )}
       {!success && (
         <DialogActions>
           <Button onClick={() => {setOpen(false)}} color="primary">
@@ -283,4 +287,18 @@ function AddManyItems({
   )
 }
 
-export default AddManyItems;
+const mapStateToProps = () => ({});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addMyList: (list, listId) => dispatch(ActionCreators.addMyList(list, listId)),
+    addItem: (item, listId) => dispatch(ActionCreators.addItem(item, listId)),
+    removeItem: (itemId, listId) => dispatch(ActionCreators.deleteItem(itemId, listId)),
+    changeItem: (content, itemId, listId) => dispatch(ActionCreators.updateItem(content, itemId, listId)),
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AddManyItems);
