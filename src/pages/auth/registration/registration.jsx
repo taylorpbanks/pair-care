@@ -27,7 +27,7 @@ const Registration = () => {
 
   return (
     <div className="register">
-      <h1>Sign up to create or view a list</h1>
+      <h1>{step === 2 ? 'Almost there...' : 'Sign up to create or view a list'}</h1>
 
       {step === 0 && (<BabyInfo setStep={setStep} data={data} handleDataChange={handleDataChange} />)}
       {step === 1 && (<PersonalInfo setStep={setStep} data={data} handleDataChange={handleDataChange} />)}

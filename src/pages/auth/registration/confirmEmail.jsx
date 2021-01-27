@@ -17,6 +17,7 @@ import './registration.css';
 const ConfirmEmail = ({ data, handleDataChange, addUser }) => {
   const [redirect, setRedirect] = useState(false);
   const [error, setError] = useState(undefined);
+  const [hasResent, setHasResent] = useState(false);
 
   const handleVerification = event => {
     event.preventDefault();
@@ -38,6 +39,15 @@ const ConfirmEmail = ({ data, handleDataChange, addUser }) => {
           .catch(err => setError('You successfully confirmed your email, however, an error occurred when trying to login you in.  Please try to login manually.'))
       })
       .catch(err => setError('Invalid confirmation code.'));
+  };
+
+  const resendCode = event => {
+    event.preventDefault();
+    Auth.resendSignUp(data.email.toLowerCase())
+      .then(() => {
+        setHasResent(true);
+      })
+      .catch(err => setError(err.message || 'An unexpected error has occurred.'));
   };
 
   if (redirect) {
@@ -80,10 +90,20 @@ const ConfirmEmail = ({ data, handleDataChange, addUser }) => {
             <Grid item xs={12} sm={6}>
               <Button
                 style={{ width: '100%', borderRadius: '50px' }}
+                onClick={(event) => resendCode(event)}
+                variant="outlined"
+                color="primary"
+                disabled={hasResent}
+              >
+                {hasResent ? 'Code Sent!' : 'Resend Code'}
+              </Button>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Button
+                style={{ width: '100%', borderRadius: '50px' }}
                 onClick={(event) => handleVerification(event)}
                 variant="contained"
                 color="primary"
-                tabIndex="2"
               >
                 Submit Code
               </Button>
