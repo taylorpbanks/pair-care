@@ -17,6 +17,7 @@ import onesie5 from '../img/recs/parent-onesie/onesie5.png';
 import device1 from '../img/recs/devices/device1.png';
 import device2 from '../img/recs/devices/device2.png';
 import device3 from '../img/recs/devices/device3.png';
+import device4 from '../img/recs/devices/device4.png';
 
 import sleep1 from '../img/recs/sleep-item/sleep1.png';
 import sleep2 from '../img/recs/sleep-item/sleep2.png';
@@ -30,12 +31,12 @@ export default [
       {
         label: 'tired of looking for lost pacifiers hidden in dark corners',
         img: pacifier1,
-        id: 'bb9592dc-47f2-4ed5-8498-9e92ecb1d8dc'
+        id: '3d75d8ee-b30f-46f8-9300-df2884afe8ef'
       },
       {
         label: 'that needs to assist in keeping pacifier in their little one\'s mouth',
         img: pacifier2,
-        id: '75a81e57-a612-4874-8541-c6919c4cb964'
+        id: 'e299a966-0d07-46bf-a6ff-d0c29b172017'
       },
       {
         label: 'that wants something aesthetically pleasing',
@@ -115,13 +116,18 @@ export default [
       {
         label: 'Minimalist parent',
         img: device2,
-        id: 'bb9592dc-47f2-4ed5-8498-9e92ecb1d8dc'
+        id: '1ebe69b0-6657-4b18-9955-d94c653a7bea'
       },
       {
         label: 'Space saver parent',
         img: device3,
         id: '20525d85-79bc-4604-acaf-7feee4fb432b'
       },
+      {
+        label: 'The milestone tracking parent',
+        img: device4,
+        id: 'b5e93cee-f5e2-4afe-a6b1-3a0b01d864b7'
+      }
     ]
   },
   { 
