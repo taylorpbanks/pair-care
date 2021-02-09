@@ -18,8 +18,10 @@ import {
   Grow,
   Tooltip,
   Slider,
+  FormHelperText,
 } from '@material-ui/core';
 import { InfoOutlined } from '@material-ui/icons';
+import validator from 'validator';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import './MyLists.css'
 import brands from '../../constants/brand'
@@ -29,6 +31,7 @@ import trimesters from '../../constants/pregnancy-timeline';
 const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage, selectedChip, onCancel, onSave, isNewRow }) => {
   const [open, setOpen] = React.useState(false);
   const [values, setValues] = React.useState(row);
+  const [touched, setTouched] = React.useState({});
 
   React.useEffect(() => {
     if (isNewRow) {
@@ -57,13 +60,25 @@ const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage,
     return categories[categoryId] ? categories[categoryId].subCategories.map(category => category) : [];
   }
 
+  const getHelpText = (field, name) => {
+    const isTouched = touched[field] && (values[field] === '' || !values[field]);
+
+    if (isTouched) {
+      return `${name} is required`;
+    } else if (touched[field] && field === 'link' && !validator.isURL(values[field])) {
+      return 'Enter valid URL'
+    }
+
+    return undefined;
+  };
+
   return (
     <Grow
       in={true}
       style={{ transformOrigin: '0 0 0' }}
       {...(true ? { timeout: 1000 } : {})}
     >
-      <form onSubmit={(e) => onSave(values, e)} className={`edit-row ${isNewRow ? 'append-btm-margin' : ''}`}>
+      <form onSubmit={(e) => onSave(values, e)} className={`edit-row ${isNewRow ? 'append-btm-margin' : ''}`} autoComplete="off">
         <div className="col-2">
           <FormControl variant="outlined" className="field-container" size="small">
             <InputLabel id="life-stage-label">Life Stage</InputLabel>
@@ -89,7 +104,7 @@ const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage,
             )}
           </FormControl>
 
-          <FormControl variant="outlined" className="field-container" size="small">
+          <FormControl variant="outlined" className="field-container" size="small" error={!!getHelpText('categoryId')}>
             <InputLabel id="category-label">Category</InputLabel>
             <Select
               labelId="category-label"
@@ -100,11 +115,13 @@ const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage,
               size="small"
               disabled={selectedChip !== 0}
               required
+              onBlur={() => setTouched({...touched, categoryId: true})}
             >
               {categories.slice(1).map(category => (
                 <MenuItem key={category.id} value={category.id}>{category.label}</MenuItem>
               ))}
             </Select>
+            <FormHelperText>{getHelpText('categoryId', 'Category')}</FormHelperText>
             {selectedChip !== 0 && (
               <div className="disabled-tooltip">
                 <Tooltip title="This field is disabled because you currently have a filter selected above.  To enable this field either select the filter &quot;All&quot; or you can select the category you are trying to add to in the filters." aria-label="Category Info">
@@ -163,6 +180,9 @@ const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage,
             value={values.item}
             size="small"
             InputLabelProps={{ required: false }}
+            onBlur={() => setTouched({...touched, item: true})}
+            helperText={getHelpText('item', 'Item name')}
+            error={!!getHelpText('item')}
             required
           />
 
@@ -175,6 +195,9 @@ const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage,
             value={values.link}
             size="small"
             InputLabelProps={{ required: false }}
+            onBlur={() => setTouched({...touched, link: true})}
+            helperText={getHelpText('link', 'Link')}
+            error={!!getHelpText('link')}
             required
           />
 
@@ -203,6 +226,9 @@ const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage,
               value={values.isRecommended}
               onChange={(e) => handleChange(e, 'isRecommended')}
               style={{ flexDirection: 'initial' }}
+              onBlur={() => setTouched({...touched, isRecommended: true})}
+              helperText={getHelpText('isRecommended', 'Recommendation')}
+              error={!!getHelpText('isRecommended')}
             >
               <FormControlLabel value="Y" control={<Radio required />} label="Yes" />
               <FormControlLabel value="N" control={<Radio required />} label="No" />
