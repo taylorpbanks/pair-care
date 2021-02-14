@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProfilePic = ({ color, user, picture, sub }) => {
+const ProfilePic = ({ color, user, picture, sub, viewOnly }) => {
   const classes = useStyles();
   const displayColor = color ? classes[color] : classes.purple;
   const [error, setError] = useState(undefined);
@@ -116,15 +116,19 @@ const ProfilePic = ({ color, user, picture, sub }) => {
         className={`${picture ? '' : displayColor} margin-auto`}>
         {picture ? null : initials}
       </Avatar>
-      <IconButton color="primary" className="upload-btn" aria-label="upload picture" onClick={handleClick} component="span">
-        <AddAPhoto fontSize="small" />
-      </IconButton>
-      <input
-        type="file"
-        ref={hiddenFileInput}
-        onChange={onChange}
-        style={{display: 'none'}}
-      />
+      {!viewOnly && (
+        <>
+          <IconButton color="primary" className="upload-btn" aria-label="upload picture" onClick={handleClick} component="span">
+            <AddAPhoto fontSize="small" />
+          </IconButton>
+          <input
+            type="file"
+            ref={hiddenFileInput}
+            onChange={onChange}
+            style={{display: 'none'}}
+          />
+        </>
+      )}
 
       {error && (
         <Grid item xs={12}>

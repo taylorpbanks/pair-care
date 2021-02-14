@@ -72,6 +72,20 @@ const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage,
     return undefined;
   };
 
+  const hideBrand = () => {
+    const { categoryId } = values;
+
+    if (
+      (selectedStage === 0 && categoryId === 1) ||
+      (selectedStage === 1 && categoryId === 3) || 
+      (selectedStage === 2 && categoryId === 10)
+    ) {
+      return true;
+    }
+
+    return false;
+  };
+
   return (
     <Grow
       in={true}
@@ -157,17 +171,18 @@ const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage,
             </div>
 
             <div className="col-6">
-              <Autocomplete
-                onChange={(e, newVal) => handleChange(e, 'brand', newVal)}
-                id="brand-input"
-                freeSolo
-                value={values.brand}
-                options={brands}
-                getOptionLabel={option => typeof option === 'string' ? option : option}
-                renderInput={(params) => (
-                  <TextField {...params} label="Brand" margin="normal" variant="outlined" size="small" onBlur={(e) => {handleChange(e, 'brand', undefined, {maxLength: 100})}} />
-                )}
-              />
+              {!hideBrand() &&
+                <Autocomplete
+                  onChange={(e, newVal) => handleChange(e, 'brand', newVal)}
+                  id="brand-input"
+                  freeSolo
+                  value={values.brand}
+                  options={brands}
+                  getOptionLabel={option => typeof option === 'string' ? option : option}
+                  renderInput={(params) => (
+                    <TextField {...params} label="Brand" margin="normal" variant="outlined" size="small" onBlur={(e) => {handleChange(e, 'brand', undefined, {maxLength: 100})}} />
+                  )}
+                />}
             </div>
           </div>
 

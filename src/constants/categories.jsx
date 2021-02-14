@@ -60,6 +60,7 @@ export default {
         label: 'Clothing',
         icon: <FontAwesomeIcon icon={faTshirt} />,
         subCategories: [
+          'All Clothing',
           'Belly Bands & Shapewear',
           'Bottoms',
           'Bras & Undergarments',
