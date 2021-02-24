@@ -12,7 +12,7 @@ const useStyles = makeStyles({
     bottom: 0,
     color: '#676868',
     'font-size': '12px',
-    padding: '30px',
+    padding: '50px',
     borderTop: '2px solid #eef6f9',
     textAlign: 'center',
   }

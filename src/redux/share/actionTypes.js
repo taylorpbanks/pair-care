@@ -1,5 +1,7 @@
 export const Types = {
   WITH_ME: 'WITH_ME',
   WITH_THEM: 'WITH_THEM',
+  ADD_THEM: 'ADD_THEM',
+  DELETE_THEM: 'DELETE_THEM',
   LOGOUT: 'LOGOUT'
 };

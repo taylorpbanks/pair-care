@@ -27,6 +27,7 @@ import sleep4 from '../img/recs/sleep-item/sleep4.png';
 export default [
   {
     title: 'Pacifiers for the parent...',
+    altTitle: 'Pacifiers for the parent',
     items: [
       {
         label: 'tired of looking for lost pacifiers hidden in dark corners',
@@ -36,7 +37,8 @@ export default [
       {
         label: 'that needs to assist in keeping pacifier in their little one\'s mouth',
         img: pacifier2,
-        id: 'e299a966-0d07-46bf-a6ff-d0c29b172017'
+        id: 'e299a966-0d07-46bf-a6ff-d0c29b172017',
+        link: 'https://www.amazon.com/WubbaNub-WN024-Elephant-Pacifier/dp/B0047PAHUW/ref=sr_1_8?m=A32VEP1U5Q7HGC&s=merchant-items&ie=UTF8&qid=1542388017&sr=1-8'
       },
       {
         label: 'that wants something aesthetically pleasing',
@@ -52,6 +54,7 @@ export default [
   }, 
   {
     title: 'Booties for the parent...',
+    altTitle: 'Booties for the parent',
     items: [
       {
         label: 'looking for cute things but always at a discounted price',
@@ -77,6 +80,7 @@ export default [
   },
   {
     title: 'Onesies for the parent...',
+    altTitle: 'Onesies for the parent',
     items: [
       {
         label: 'that can use color coded buttons for additional ease',
@@ -107,6 +111,7 @@ export default [
   },
   {
     title: 'Devices for...',
+    altTitle: 'Devices for',
     items: [
       {
         label: 'First time parent',
@@ -121,7 +126,8 @@ export default [
       {
         label: 'Space saver parent',
         img: device3,
-        id: '20525d85-79bc-4604-acaf-7feee4fb432b'
+        id: '20525d85-79bc-4604-acaf-7feee4fb432b',
+        link: 'https://www.potterybarnkids.com/products/hatch-baby-rest-digital-nightlight-sound-machine/?catalogId=10&sku=9044683&cm_ven=PLA&cm_cat=Google&cm_pla=Baby%20Gear%20%3E%20Monitors%2C%20Humidifiers%20%26%20Sound%20Machines&region_id=669950&cm_ite=9044683&gclid=Cj0KCQiAzZL-BRDnARIsAPCJs71GrvEH0Ez-srU6nEvIwPHjLFV5S0jFP7i8O6VYoVixB5g60VF_a9AaAtzREALw_wcB'
       },
       {
         label: 'The milestone tracking parent',

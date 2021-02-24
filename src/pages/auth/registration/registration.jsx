@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import BabyInfo from './babyInfo';
 import PersonalInfo from './personalInfo';
 import ConfirmEmail from './confirmEmail';
@@ -7,6 +7,10 @@ import './registration.css';
 const Registration = () => {
   const [step, setStep] = useState(0);
   const [data, setData] = useState({});
+
+  useEffect(() => {
+    document.title = 'Pair Care | Register';
+ }, []);
 
   const handleDataChange = (id, value, rules) => {
     if (rules && value) {

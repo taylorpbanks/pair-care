@@ -21,6 +21,11 @@ const share = (state = initialState, action) => {
         ...state,
         withMe: newList
       }
+    case Types.WITH_THEM:
+      return {
+        ...state,
+        withThem: action.people
+      }
     case Types.LOGOUT:
       return {
         withMe: [],

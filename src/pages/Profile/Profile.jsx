@@ -36,6 +36,10 @@ const Profile = ({ profile, updateUser }) => {
   const [data, setData] = useState({});
 
   useEffect(() => {
+    document.title = 'Pair Care | Profile';
+ }, []);
+
+  useEffect(() => {
     setUser(profile);
     setData(profile);
   }, [profile]);

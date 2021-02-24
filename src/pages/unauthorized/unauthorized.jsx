@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Avatar } from '@material-ui/core'
 import { Link, Redirect } from 'react-router-dom';
 import {
@@ -10,6 +10,9 @@ import categories from '../../constants/categories';
 import './unauthorized.css';
 function Unauthorized({ authState, onStateChange }) {
   const [redirect, setRedirect] = React.useState(undefined);
+  useEffect(() => {
+    document.title = 'Pair Care | Welcome';
+  }, []);
 
   if (redirect) {
     return <Redirect to={redirect} />

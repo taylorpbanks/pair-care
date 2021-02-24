@@ -39,6 +39,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { API, graphqlOperation } from 'aws-amplify';
 import { cloneDeep } from 'lodash';
 import { compareStrings } from '../../tools/services';
+import ProfilePic from '../Profile/ProfilePic';
 
 function TabPanel(props) {
   const { children, selectedStage, index, ...other } = props;
@@ -93,6 +94,8 @@ const MyLists = ({
   const [sortBy, setSortBy] = useState('isRecommended');
 
   useEffect(() => {
+    document.title = 'Pair Care | My List';
+
     const mainListId = 2;
     if ((myList && myList[mainListId] && !myList[mainListId].length) || sharedList) {
       fetchList(mainListId);
@@ -256,7 +259,17 @@ const MyLists = ({
       {!sharedList && (
         <div className="my-list-header">
           <img src={require("../../img/my-list-bg.jpg.png")} alt="list" style={{width: '100%'}} />
-          <h1>My List</h1>
+          <h1>
+            <ProfilePic
+              color={profile['custom:color']}
+              user={profile}
+              picture={profile['custom:pic']}
+              sub={profile.sub}
+              viewOnly
+            />
+            &nbsp;
+            <span>My List</span>
+          </h1>
         </div>
       )}
 

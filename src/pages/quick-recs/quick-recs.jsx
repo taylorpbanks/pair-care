@@ -30,6 +30,7 @@ function QuickRecs({ addItem, myList }) {
   const pairCareSub = '512bfff3-eb83-4645-864f-1e1f5f5b87fe';
 
   useEffect(() => {
+    document.title = 'Pair Care | Quick Recs';
     fetchList(2, pairCareSub);
     //if (localStorage.sub) {
     //  fetchList(2, localStorage.sub);

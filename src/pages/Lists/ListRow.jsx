@@ -144,7 +144,7 @@ const ListRow = ({
         </div>
 
         <div className="col-6">
-          <div className="row-brand m-text-center">{`${row.type} - ${row.brand}`}</div>
+          <div className="row-brand m-text-center">{`${row.type} ${row.brand === '' || row.type === '' ? '' : '-'} ${row.brand}`}</div>
           <div className="row-item m-text-center m-mb-15">{row.item}</div>
           <div className="mb-15">
             <a href={link} target="_blank" rel="noopener noreferrer">

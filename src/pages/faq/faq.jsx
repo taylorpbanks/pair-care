@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Accordion,
   AccordionSummary,
@@ -11,6 +11,10 @@ import {
 } from '@material-ui/icons';
 
 function FAQ() {
+
+  useEffect(() => {
+    document.title = 'Pair Care | FAQ';
+  }, []);
 
   const questions = [
     {

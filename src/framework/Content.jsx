@@ -15,6 +15,7 @@ import ChangePassword from '../pages/Profile/ChangePassword';
 import UnauthSharedList from '../pages/UnauthSharedList/UnauthSharedList';
 import FAQ from '../pages/faq/faq';
 import QuickRecs from '../pages/quick-recs/quick-recs';
+import Splash from '../pages/splash/index';
 // import App from '../NotesTest';
 
 export default function Content({authState, onStateChange}) {
@@ -80,7 +81,7 @@ export default function Content({authState, onStateChange}) {
         </Route>
 
         <Route path="/">
-          {isLoggedIn ? <MyLists /> : <UnauthorizedPage /> }
+          {isLoggedIn ? <Splash /> : <UnauthorizedPage /> }
         </Route>
       </Switch>
     </>
