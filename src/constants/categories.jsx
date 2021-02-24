@@ -284,7 +284,7 @@ export default {
         ]
       },
       {
-        id: 12,
+        id: 13,
         label: 'Furniture',
         icon: <FontAwesomeIcon icon={faChair} />,
         subCategories: [
