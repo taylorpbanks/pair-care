@@ -85,7 +85,11 @@ function Splash({
   }
 
   if (redirect) {
-    return <Redirect to={redirect} />
+    return <Redirect to={{
+      pathname: redirect.pathname,
+      state: {seePairCareList: true},
+      }}
+    />
   }
 
   const item1 = { title: recommendations[0].altTitle, details: recommendations[0].items[1] };
@@ -94,7 +98,6 @@ function Splash({
 
   const getUrl = (id) => {
     const item = items.find(item => item.details.id === id);
-    console.log(item);
     return item ? item.details.link : '';
   };
 
@@ -168,13 +171,16 @@ function Splash({
             <Button
               style={{ borderRadius: '50px', color: 'white' }}
               type="submit"
-              onClick={() => setRedirect('quick-recommendations')}
+              onClick={() => setRedirect({
+                pathname: 'shared-lists',
+                state: { seePairCareList: true }
+              })}
               variant="contained"
               color="primary"
               size="large"
             >
               View Pair Care List  &#8250;
-              </Button>
+            </Button>
           </div>
         </div>
       </div>
@@ -240,7 +246,9 @@ function Splash({
             <Button
               style={{ borderRadius: '50px', color: 'white' }}
               type="submit"
-              onClick={() => setRedirect('quick-recommendations')}
+              onClick={() => setRedirect({
+                pathname: 'quick-recommendations'
+              })}
               variant="contained"
               color="secondary"
               size="large"

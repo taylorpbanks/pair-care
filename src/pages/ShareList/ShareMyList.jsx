@@ -43,7 +43,6 @@ function ShareMyList({ withThem, addWithThem }) {
   React.useEffect(() => {
     document.title = 'Pair Care | Share My List'
     if (!withThem || !withThem.length) {
-      console.log('going off?');
       fetchPeople();
     }
   }, []);

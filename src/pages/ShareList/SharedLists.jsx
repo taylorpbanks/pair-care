@@ -25,9 +25,11 @@ function SharedLists({
   addMyList,
   sharedLists,
   addWithMe,
+  seePairCareList,
 }) {
   const [selected, setSelected] = useState(undefined);
   const [pictures, setPictures] = useState({});
+  console.log(seePairCareList);
 
   useEffect(() => {
     document.title = 'Pair Care | Shared Lists';
@@ -149,11 +151,14 @@ function SharedLists({
   )
 }
 
-const mapStateToProps = (state) => ({
-  profile: state.profile,
-  myList: state.myList,
-  sharedLists: state.share.withMe,
-});
+const mapStateToProps = (state, ownProps) => {
+  return {
+    profile: state.profile,
+    myList: state.myList,
+    sharedLists: state.share.withMe,
+    seePairCareList: ownProps.seePairCareList,
+  }
+};
 
 const mapDispatchToProps = dispatch => {
   return {
