@@ -96,8 +96,6 @@ const Header = ({ authState, logout }) => {
 
   const getCurrentTab = (pathname) => {
     switch(pathname) {
-      case '/':
-        return 0;
       case '/my-list':
         return 0;
       case '/faq':
@@ -170,13 +168,17 @@ const Header = ({ authState, logout }) => {
           >
             <MenuIcon />
           </IconButton>
-          <a className="logo-container" href="/" style={{ textDecoration: 'none', fontSize: '1.5em' }}>
+          <Link
+            className="logo-container"
+            to="/"
+            style={{ textDecoration: 'none', fontSize: '1.5em' }}
+          >
             <img
               src={require("../img/pc-logo.png")}
               alt="pair-card logo"
               style={{ maxWidth: '150px' }}
             />
-          </a>
+          </Link>
 
           <div className="nav-wrapper">
             {navigation.map((nav, index) => (!nav.requiredAuth || (nav.requiredAuth && authState !== 'signIn')) ? (

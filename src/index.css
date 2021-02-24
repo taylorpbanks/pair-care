@@ -76,8 +76,24 @@ a {
   color: #f35757;
 }
 
+.primary-color {
+  color: #226d77;
+}
+
 .secondary-color {
   color: #dc9577;
+}
+
+.primary-bg {
+  background-color: #226d77 !important;
+}
+
+.secondary-bg {
+  background-color: #dc9577 !important;
+}
+
+.tertiary-bg {
+  background-color: #8cc5be !important
 }
 
 .success-color {

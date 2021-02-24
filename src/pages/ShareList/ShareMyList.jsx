@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { ActionCreators } from '../../redux/my-list/actions';
+import { ActionCreators as actions } from '../../redux/share/actions';
 import {
   Grid,
   Button,
@@ -22,7 +25,7 @@ import { listShareds } from '../../graphql/queries';
 import { API, graphqlOperation } from 'aws-amplify';
 import './ShareMyList.css';
 
-function ShareMyList() {
+function ShareMyList({ withThem, addWithThem }) {
   const [showSnackBar, setShowSnackBar] = useState(undefined);
   const [error, setError] = useState(false);
 
@@ -33,12 +36,16 @@ function ShareMyList() {
   const lastName = userData.UserAttributes.find(data => data.Name === 'custom:lastName').Value;
   const fullName = `${firstName} ${lastName}`;
 
-  const [people, setPeople] = useState([]);
+  const [people, setPeople] = useState(withThem || []);
   const [data, setData] = useState(emptyDataObj);
   const [isEdit, setIsEdit] = useState(false)
 
   React.useEffect(() => {
-    fetchPeople();
+    document.title = 'Pair Care | Share My List'
+    if (!withThem || !withThem.length) {
+      console.log('going off?');
+      fetchPeople();
+    }
   }, []);
 
   async function fetchPeople() {
@@ -48,6 +55,7 @@ function ShareMyList() {
 
     const { items } = apiData.data.listShareds;
     setPeople(items);
+    addWithThem(items);
   }
 
   async function addEmail(e) {
@@ -72,6 +80,7 @@ function ShareMyList() {
         setPeople(copyArray);
         setShowSnackBar(`You have successfully shared your list with ${data.name}.`)
         setData(emptyDataObj);
+        addWithThem(copyArray);
       })
       .catch(() => {
         setError(true);
@@ -90,7 +99,8 @@ function ShareMyList() {
     await API.graphql({ query: deleteShared, variables: { input: { id } }})
       .then(() => {
         setPeople(peopleArrayCopy);
-        setShowSnackBar(`You have successfully unshared your list.`)
+        setShowSnackBar(`You have successfully unshared your list.`);
+        addWithThem(peopleArrayCopy);
       })
       .catch(() => {
         setError(true);
@@ -230,4 +240,19 @@ function ShareMyList() {
   )
 }
 
-export default ShareMyList;
+const mapStateToProps = (state) => ({
+  withThem: state.share.withThem,
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addWithThem: (people) => dispatch(actions.addWithThem(people)),
+    //addThem: (people) => dispatch(actions.addThem(people)),
+    //deleteThem: (people) => dispatch(actions.deleteThem(people)),
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ShareMyList);

@@ -30,6 +30,7 @@ function SharedLists({
   const [pictures, setPictures] = useState({});
 
   useEffect(() => {
+    document.title = 'Pair Care | Shared Lists';
     if (myList && myList.all && !myList.all.length) {
       fetchList();
     }

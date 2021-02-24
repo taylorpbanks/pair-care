@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Auth } from 'aws-amplify';
 import {
   Container,
@@ -40,6 +40,10 @@ const Login = ({ addUser }) => {
     code: ''
   });
 
+  useEffect(() => {
+    document.title = 'Pair Care | Login';
+ }, []);
+
   const handleInputChange = (e, id) => {
     setError(undefined);
     const { value } = e.target;
@@ -59,7 +63,7 @@ const Login = ({ addUser }) => {
           localStorage.setItem('sub', user.attributes.sub);
           localStorage.setItem('email', user.attributes.email);
           addUser(user);
-          setRedirect('/my-list');
+          setRedirect('/');
         });
       }).catch(err => {
         if (err.code === "UserNotConfirmedException") {

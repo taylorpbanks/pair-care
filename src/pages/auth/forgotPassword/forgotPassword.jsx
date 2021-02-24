@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Auth } from 'aws-amplify';
 import {
   Container,
@@ -25,6 +25,10 @@ const ForgotPassword = () => {
   const [data, setData] = useState({});
   const [step, setStep] = useState(0);
   const [showPassword, setShowPassword] = useState(false);
+
+  useEffect(() => {
+    document.title = 'Pair Care | Forgot Password';
+ }, []);
 
   const handleDataChange = (id, value) => {
     setData({ ...data, [id]: value });

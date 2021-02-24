@@ -127,6 +127,7 @@
 .my-list-header .upload-profile-pic .MuiAvatar-root {
     width: 60px;
     height: 60px;
+    font-size: 1em;
 }
 
 /*responsive design*/

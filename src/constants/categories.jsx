@@ -14,6 +14,7 @@ import {
     faShoppingBag,
     faBook,
     faHeart,
+    faChair,
   } from '@fortawesome/free-solid-svg-icons';
   import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -279,6 +280,21 @@ export default {
           'Letter Board',
           'Milestone Marker',
           'Photos & Accessories',
+          'Other',
+        ]
+      },
+      {
+        id: 12,
+        label: 'Furniture',
+        icon: <FontAwesomeIcon icon={faChair} />,
+        subCategories: [
+          'Bassinet stands',
+          'Dressers',
+          'Ottomans',
+          'Rockers and Gliders',
+          'Rugs',
+          'Side Tables',
+          'Wallpaper and Art',
           'Other',
         ]
       },

@@ -94,6 +94,8 @@ const MyLists = ({
   const [sortBy, setSortBy] = useState('isRecommended');
 
   useEffect(() => {
+    document.title = 'Pair Care | My List';
+
     const mainListId = 2;
     if ((myList && myList[mainListId] && !myList[mainListId].length) || sharedList) {
       fetchList(mainListId);
