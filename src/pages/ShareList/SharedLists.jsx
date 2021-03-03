@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { ActionCreators } from '../../redux/my-list/actions';
 import { ActionCreators as actions } from '../../redux/share/actions';
+import { useLocation } from "react-router-dom";
 import {
   List,
   ListItem,
@@ -25,11 +26,10 @@ function SharedLists({
   addMyList,
   sharedLists,
   addWithMe,
-  seePairCareList,
 }) {
   const [selected, setSelected] = useState(undefined);
   const [pictures, setPictures] = useState({});
-  console.log(seePairCareList);
+  const location = useLocation().state;
 
   useEffect(() => {
     document.title = 'Pair Care | Shared Lists';
@@ -39,6 +39,11 @@ function SharedLists({
 
     if (sharedLists && sharedLists.length <= 1) {
       fetchPeople();
+    }
+
+    const seePairCareList = location ? location.seePairCareList : false;
+    if (seePairCareList) {
+      setSelected(sharedLists[0]);
     }
   }, []);
 
@@ -156,7 +161,6 @@ const mapStateToProps = (state, ownProps) => {
     profile: state.profile,
     myList: state.myList,
     sharedLists: state.share.withMe,
-    seePairCareList: ownProps.seePairCareList,
   }
 };
 

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { ActionCreators } from '../../redux/my-list/actions';
 import { ActionCreators as actions } from '../../redux/share/actions';
 import {
   Grid,
@@ -23,9 +22,10 @@ import {
 } from '../../graphql/mutations';
 import { listShareds } from '../../graphql/queries';
 import { API, graphqlOperation } from 'aws-amplify';
+import NoItemsModal from './no-items-modal';
 import './ShareMyList.css';
 
-function ShareMyList({ withThem, addWithThem }) {
+function ShareMyList({ withThem, addWithThem, list }) {
   const [showSnackBar, setShowSnackBar] = useState(undefined);
   const [error, setError] = useState(false);
 
@@ -38,7 +38,8 @@ function ShareMyList({ withThem, addWithThem }) {
 
   const [people, setPeople] = useState(withThem || []);
   const [data, setData] = useState(emptyDataObj);
-  const [isEdit, setIsEdit] = useState(false)
+  const [isEdit, setIsEdit] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   React.useEffect(() => {
     document.title = 'Pair Care | Share My List'
@@ -59,31 +60,40 @@ function ShareMyList({ withThem, addWithThem }) {
 
   async function addEmail(e) {
     e.preventDefault();
-    setError(false);
+    const preList = list[0] ? list[0].length : 0;
+    const pregList = list[1] ? list[1].length : 0;
+    const babyList = list[2] ? list[2].length : 0;
+    const totalList = preList + pregList + babyList;
 
-    const request = {
-      fromName: fullName,
-      fromEmail: localStorage.email,
-      fromSub: localStorage.sub,
-      toEmail: data.email,
-      toName: data.name,
-      customMessage: data.customMessage
-    };
+    if (totalList === 0) {
+      setIsModalOpen(true);
+    } else {
+      setError(false);
 
-    await API.graphql({ query: createShared, variables: { input: request } })
-      .then(response => {
-        let copyArray = [...people];
-
-        request.id = response.data.createShared.id;
-        copyArray.push(request);
-        setPeople(copyArray);
-        setShowSnackBar(`You have successfully shared your list with ${data.name}.`)
-        setData(emptyDataObj);
-        addWithThem(copyArray);
-      })
-      .catch(() => {
-        setError(true);
-      });
+      const request = {
+        fromName: fullName,
+        fromEmail: localStorage.email,
+        fromSub: localStorage.sub,
+        toEmail: data.email,
+        toName: data.name,
+        customMessage: data.customMessage
+      };
+  
+      await API.graphql({ query: createShared, variables: { input: request } })
+        .then(response => {
+          let copyArray = [...people];
+  
+          request.id = response.data.createShared.id;
+          copyArray.push(request);
+          setPeople(copyArray);
+          setShowSnackBar(`You have successfully shared your list with ${data.name}.`)
+          setData(emptyDataObj);
+          addWithThem(copyArray);
+        })
+        .catch(() => {
+          setError(true);
+        });
+    }
   }
 
   const handleDataChange = (field, value) => {
@@ -109,6 +119,10 @@ function ShareMyList({ withThem, addWithThem }) {
 
   return (
     <div className="page-container">
+      <NoItemsModal
+        isOpen={isModalOpen}
+        handleClose={() => setIsModalOpen(false)}
+      />
       <h1>Share My List</h1>
       <p>You're helping to make it easier for other parents one list at a time!</p>
 
@@ -241,6 +255,7 @@ function ShareMyList({ withThem, addWithThem }) {
 
 const mapStateToProps = (state) => ({
   withThem: state.share.withThem,
+  list: state.myList,
 });
 
 const mapDispatchToProps = dispatch => {
