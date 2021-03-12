@@ -70,18 +70,24 @@ function Splash({
   };
 
   async function fetchSharedLists() {
-    const apiData = await API.graphql(graphqlOperation(listShareds, {filter: {
-      toEmail: { eq: profile.email }
-    }}));
+    const apiData = await API.graphql(graphqlOperation(listShareds, {
+      filter: {
+        toEmail: { eq: profile.email }
+      },
+      limit: 10000,
+    }));
 
     const { items } = apiData.data.listShareds;
     addWithMe( items );
   }
 
   async function fetchMySharedFriends() {
-    const apiData = await API.graphql(graphqlOperation(listShareds, {filter: {
-      fromSub: { eq: profile.sub }
-    }}));
+    const apiData = await API.graphql(graphqlOperation(listShareds, {
+      filter: {
+        fromSub: { eq: profile.sub }
+      },
+      limit: 10000
+    }));
 
     const { items } = apiData.data.listShareds;
     addWithThem(items);

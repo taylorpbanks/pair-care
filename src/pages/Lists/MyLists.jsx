@@ -134,7 +134,7 @@ const MyLists = ({
       request.sub = {eq: sharedList ? sharedList.fromSub : profile.sub};
     }
 
-    const apiData = await API.graphql(graphqlOperation(listItems, {filter: request, limit: 500}));
+    const apiData = await API.graphql(graphqlOperation(listItems, {filter: request, limit: 10000}));
 
     const { items } = apiData.data.listItems;
 
@@ -199,12 +199,12 @@ const MyLists = ({
     .then(response => {
       let copyArray = [...listContent];
 
+      requestItem.id = response.data.createItem.id;
       if (sharedList) {
         setShowSnackBar('Item added successfully to your list!');
         const index = copyArray.findIndex(listItem => listItem.id === item.id);
         copyArray[index].added = true;
       } else {
-        requestItem.id = response.data.createItem.id;
         setSelectedRow(null);
         setShowSnackBar('Item added successfully!');
       }

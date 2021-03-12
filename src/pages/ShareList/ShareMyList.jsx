@@ -49,9 +49,12 @@ function ShareMyList({ withThem, addWithThem, list }) {
   }, []);
 
   async function fetchPeople() {
-    const apiData = await API.graphql(graphqlOperation(listShareds, {filter: {
-      fromSub: { eq: localStorage.sub }
-    }}));
+    const apiData = await API.graphql(graphqlOperation(listShareds, {
+      filter: {
+        fromSub: { eq: localStorage.sub }
+      },
+      limit: 10000,
+    }));
 
     const { items } = apiData.data.listShareds;
     setPeople(items);

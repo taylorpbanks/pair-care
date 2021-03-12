@@ -30,10 +30,13 @@ const UnauthSharedList = ({ id, name }) => {
   }, []);
 
   async function fetchList(stage) {
-    const apiData = await API.graphql(graphqlOperation(listItems, {filter: {
-      stageId: { eq: stage },
-      sub: {eq: id}
-    }}));
+    const apiData = await API.graphql(graphqlOperation(listItems, {
+      filter: {
+        stageId: { eq: stage },
+        sub: {eq: id}
+      },
+      limit: 3,
+    }));
 
     const { items } = apiData.data.listItems;
     const firstThree = items ? items.slice(0, 3) : items;
