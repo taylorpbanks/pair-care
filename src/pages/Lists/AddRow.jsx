@@ -32,6 +32,7 @@ const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage,
   const [open, setOpen] = React.useState(false);
   const [values, setValues] = React.useState(row);
   const [touched, setTouched] = React.useState({});
+  const isBook = selectedStage === 2 && (values.categoryId === 11 || selectedChip === 11);
 
   React.useEffect(() => {
     if (isNewRow) {
@@ -177,10 +178,17 @@ const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage,
                   id="brand-input"
                   freeSolo
                   value={values.brand}
-                  options={brands}
+                  options={isBook ? [] : brands}
                   getOptionLabel={option => typeof option === 'string' ? option : option}
                   renderInput={(params) => (
-                    <TextField {...params} label="Brand" margin="normal" variant="outlined" size="small" onBlur={(e) => {handleChange(e, 'brand', undefined, {maxLength: 100})}} />
+                    <TextField
+                      {...params}
+                      label={isBook ? 'Author' : 'Brand'}
+                      margin="normal"
+                      variant="outlined"
+                      size="small"
+                      onBlur={(e) => {handleChange(e, 'brand', undefined, {maxLength: 100})}}
+                    />
                   )}
                 />}
             </div>

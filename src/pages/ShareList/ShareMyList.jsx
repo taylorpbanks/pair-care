@@ -74,7 +74,7 @@ function ShareMyList({ withThem, addWithThem, list }) {
         fromName: fullName,
         fromEmail: localStorage.email,
         fromSub: localStorage.sub,
-        toEmail: data.email,
+        toEmail: data.email.toLowerCase(),
         toName: data.name,
         customMessage: data.customMessage
       };

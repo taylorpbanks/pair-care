@@ -18,6 +18,7 @@
     "aws-amplify": "^3.0.20",
     "aws-amplify-react": "^4.1.20",
     "date-fns": "^2.16.1",
+    "link-preview-js": "^2.1.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.2",
