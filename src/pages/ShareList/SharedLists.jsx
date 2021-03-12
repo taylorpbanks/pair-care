@@ -65,18 +65,24 @@ function SharedLists({
   }, [sharedLists]);
 
   async function fetchList() {
-    const apiData = await API.graphql(graphqlOperation(listItems, {filter: {
-      sub: {eq: profile.sub}
-    }}));
+    const apiData = await API.graphql(graphqlOperation(listItems, {
+      filter: {
+        sub: {eq: profile.sub}
+      },
+      limit: 10000
+    }));
 
     const { items } = apiData.data.listItems;
     addMyList(items);
   }
 
   async function fetchPeople() {
-    const apiData = await API.graphql(graphqlOperation(listShareds, {filter: {
-      toEmail: { eq: profile.email }
-    }}));
+    const apiData = await API.graphql(graphqlOperation(listShareds, {
+      filter: {
+        toEmail: { eq: profile.email }
+      },
+      limit: 10000,
+    }));
 
     const { items } = apiData.data.listShareds;
     addWithMe( items );

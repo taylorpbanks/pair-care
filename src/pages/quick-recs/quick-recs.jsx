@@ -38,10 +38,13 @@ function QuickRecs({ addItem, myList }) {
   }, []);
 
   async function fetchList(listId, subId) {
-    const apiData = await API.graphql(graphqlOperation(listItems, {filter: {
-      stageId: { eq: listId },
-      sub: {eq: subId}
-    }}));
+    const apiData = await API.graphql(graphqlOperation(listItems, {
+      filter: {
+        stageId: { eq: listId },
+        sub: {eq: subId}
+      },
+      limit: 10000,
+    }));
 
     const resp = apiData.data.listItems.items;
     //subId === pairCareSub ? setItems(resp) : setMyList(resp);
