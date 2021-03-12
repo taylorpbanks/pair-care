@@ -134,7 +134,7 @@ const MyLists = ({
       request.sub = {eq: sharedList ? sharedList.fromSub : profile.sub};
     }
 
-    const apiData = await API.graphql(graphqlOperation(listItems, {filter: request}));
+    const apiData = await API.graphql(graphqlOperation(listItems, {filter: request, limit: 500}));
 
     const { items } = apiData.data.listItems;
 
