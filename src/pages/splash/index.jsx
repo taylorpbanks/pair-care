@@ -56,10 +56,13 @@ function Splash({
   }, []);
 
   async function fetchInfo(id) {
-    const apiData = await API.graphql(graphqlOperation(listItems, {filter: {
-      stageId: { eq:id },
-      sub: {eq: profile.sub}
-    }}));
+    const apiData = await API.graphql(graphqlOperation(listItems, {
+      filter: {
+        stageId: { eq:id },
+        sub: {eq: profile.sub}
+      },
+      limit: 10000
+    }));
 
     const { items } = apiData.data.listItems;
     const sortedItems = items.sort(compareStrings('categoryId')).sort(compareStrings('isRecommended', 'desc'));

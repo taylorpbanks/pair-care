@@ -134,7 +134,7 @@ const MyLists = ({
       request.sub = {eq: sharedList ? sharedList.fromSub : profile.sub};
     }
 
-    const apiData = await API.graphql(graphqlOperation(listItems, {filter: request}));
+    const apiData = await API.graphql(graphqlOperation(listItems, {filter: request, limit: 500}));
 
     const { items } = apiData.data.listItems;
 
@@ -287,7 +287,7 @@ const MyLists = ({
           key={stage.id}
           className={selectedRow === 10000 ? 'tab-panel page-container' : 'tab-panel append-btm-margin page-container'}
         >
-          <FormControl variant="outlined" size="small">
+          <FormControl variant="outlined" size="small" style={{float: 'right'}}>
             <InputLabel id="sort-by-label">Sort By</InputLabel>
             <Select
               labelId="sort-by-label"
@@ -302,6 +302,8 @@ const MyLists = ({
               <MenuItem value="age">Age</MenuItem>
             </Select>
           </FormControl>
+
+          <br />
 
           <div style={{display: 'inline'}}>
             {categories[selectedStage].map(list => (
@@ -374,35 +376,37 @@ const MyLists = ({
         isNewRow={true}
       />)}
 
-        <div className="floating-action-btn-container">
-          <div className="middle-action-btns">
-            {!sharedList && (
-              <>
-                <Tooltip title="Add Item" aria-label="add item">
-                  <Fab className="add-btn mr-15" color="primary" aria-label="add" disabled={!!selectedRow} onClick={() => {addEntryRow();}}>
-                    <Add />
-                  </Fab>
-                </Tooltip>
+        {(selectedRow === null) && (
+          <div className="floating-action-btn-container">
+            <div className="middle-action-btns">
+              {!sharedList && (
+                <>
+                  <Tooltip title="Add Item" aria-label="add item">
+                    <Fab className="add-btn mr-15" color="primary" aria-label="add" disabled={!!selectedRow} onClick={() => {addEntryRow();}}>
+                      <Add />
+                    </Fab>
+                  </Tooltip>
 
-                <Tooltip title="Share List" aria-label="share list">
-                  <Fab className="share-btn" color="secondary" aria-label="share" disabled={!listContent.length} component={RouterLink} to="/share-my-list">
-                    <Share />
-                  </Fab>
-                </Tooltip>
-              </>
-            )}
+                  <Tooltip title="Share List" aria-label="share list">
+                    <Fab className="share-btn" color="secondary" aria-label="share" disabled={!listContent.length} component={RouterLink} to="/share-my-list">
+                      <Share />
+                    </Fab>
+                  </Tooltip>
+                </>
+              )}
 
-            {sharedList && (
-              <>
-                <Tooltip title="Add Many Items" aria-label="add many item">
-                  <Fab className="add-btn mr-15" color="primary" aria-label="add" disabled={!listContent.length} onClick={() => {setShowManyItemAdd(true)}}>
-                    <LibraryAdd />
-                  </Fab>
-                </Tooltip>
-              </>
-            )}
+              {sharedList && (
+                <>
+                  <Tooltip title="Add Many Items" aria-label="add many item">
+                    <Fab className="add-btn mr-15" color="primary" aria-label="add" disabled={!listContent.length} onClick={() => {setShowManyItemAdd(true)}}>
+                      <LibraryAdd />
+                    </Fab>
+                  </Tooltip>
+                </>
+              )}
+            </div>
           </div>
-        </div>
+        )}
 
       <Snackbar
         anchorOrigin={{ vertical: 'bottom', horizontal:'left' }}

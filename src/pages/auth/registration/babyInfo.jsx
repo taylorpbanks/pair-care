@@ -138,30 +138,6 @@ const BabyInfo = ({ setStep, data, handleDataChange }) => {
       <hr className="mt-30 mb-30" />
       <Grid container spacing={3}>
         <Grid item xs={6} sm={6}>
-        <MuiPickersUtilsProvider  utils={DateFnsUtils}>
-          <DatePicker
-            value={data.yearOfBirth || null}
-            views={["year"]}
-            variant="outlined"
-            label="Year of Birth (optional)"
-            onChange={(e) => { handleDataChange('yearOfBirth', e) }}
-            inputVariant="outlined"
-            helperText="If you have multiple children we recommend you use the year of your oldest child"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Cake style={{ color: '#226d77' }} />
-                </InputAdornment>
-              ),
-            }}
-            placeholder="Year of Birth"
-            disabled={data.parentType === 'H'}
-          />
-        </MuiPickersUtilsProvider>
-
-        </Grid>
-
-        <Grid item xs={6} sm={6}>
           <TextField
             type="numeric"
             min="99999"
@@ -182,6 +158,31 @@ const BabyInfo = ({ setStep, data, handleDataChange }) => {
             }}
           />
         </Grid>
+
+        {data.parentType !== 'H' && (
+          <Grid item xs={6} sm={6}>
+            <MuiPickersUtilsProvider  utils={DateFnsUtils}>
+              <DatePicker
+                value={data.yearOfBirth || null}
+                views={["year"]}
+                variant="outlined"
+                label="Year of Birth (optional)"
+                onChange={(e) => { handleDataChange('yearOfBirth', e) }}
+                inputVariant="outlined"
+                helperText="If you have multiple children we recommend you use the year of your oldest child"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Cake style={{ color: '#226d77' }} />
+                    </InputAdornment>
+                  ),
+                }}
+                placeholder="Year of Birth"
+                disabled={data.parentType === 'H'}
+              />
+            </MuiPickersUtilsProvider>
+          </Grid>
+        )}
       </Grid>
 
       <Grid style={{ textAlign: 'center', marginTop: '30px' }}>

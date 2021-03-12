@@ -110,7 +110,6 @@ export default {
         subCategories: [
           'Car Accessories',
           'Car Seats',
-          'Diaper Bags and Mats',
           'Scooters and Bikes',
           'Stollers & Accessories',
           'Travel Cribs',
@@ -130,7 +129,9 @@ export default {
           'Crib Sheets & Blankets',
           'Nightlights and Sound Machines',
           'Mobiles',
+          'Playards & Accessories',
           'Swaddles',
+          'Toddler Bed',
           'Other',
         ]
       },
@@ -189,9 +190,7 @@ export default {
         subCategories: [
           'Activity Centers & Mats',
           'Bouncers & Swings',
-          'Playards & Accessories',
           'Rattles',
-          'Stuffed Animals',
           'Toys',
           'Walkers',
           'Other',
@@ -218,11 +217,12 @@ export default {
       },
       {
         id: 8,
-        label: 'Changing Station',
+        label: 'Changing Station/Potty',
         icon: <FontAwesomeIcon icon={faBaby} />,
         subCategories: [
           'Changing Pad',
           'Changing Pad Covers',
+          'Diaper Bags and Mats',
           'Diaper Pail & Liners',
           'Diapers',
           'Wipes',
@@ -260,7 +260,7 @@ export default {
       },
       {
         id: 11,
-        label: 'Baby Books',
+        label: 'Books for Kids',
         icon: <FontAwesomeIcon icon={faBook} />,
         subCategories: [
           'Black and White',

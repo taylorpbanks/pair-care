@@ -30,11 +30,13 @@ export default [
     altTitle: 'Pacifiers for the parent',
     items: [
       {
+        //TODO
         label: 'tired of looking for lost pacifiers hidden in dark corners',
         img: pacifier1,
         id: '3d75d8ee-b30f-46f8-9300-df2884afe8ef'
       },
       {
+        //TODO
         label: 'that needs to assist in keeping pacifier in their little one\'s mouth',
         img: pacifier2,
         id: 'e299a966-0d07-46bf-a6ff-d0c29b172017',
@@ -46,6 +48,7 @@ export default [
         id: '83850973-4b1f-4e6f-9058-de46ee207425'
       },
       {
+        //TODO
         label: 'that wants something similar to bottle nipples',
         img: pacifier4,
         id: '61f89b8a-979c-401e-a221-fd36676f603b'
@@ -57,11 +60,13 @@ export default [
     altTitle: 'Booties for the parent',
     items: [
       {
+        //TODO
         label: 'looking for cute things but always at a discounted price',
         img: booties1,
         id: '159d64dd-f2e2-404b-b76b-092810343ceb'
       },
       {
+        //TODO
         label: 'who has a stylish little one',
         img: booties2,
         id: 'a3b2e8a1-fadb-43cb-9181-0a49ac226f05'
@@ -72,6 +77,7 @@ export default [
         id: '0ab8977d-57a6-441a-841d-25a7c61713c8'
       },
       {
+        //TODO
         label: 'whose baby needs a little extra width room',
         img: booties4,
         id: 'bb9592dc-47f2-4ed5-8498-9e92ecb1d8dc'
@@ -93,11 +99,13 @@ export default [
         id: 'a45dea6b-0ea7-41f9-bf31-d8453f2ff0b9'
       },
       {
+        //TODO
         label: 'that has a wild adventurer',
         img: onesie3,
         id: '70212809-de3f-42ef-a672-3b49aeed6e6d'
       },
       {
+        //TODO
         label: 'whose baby needs a little extra space in the trunk',
         img: onesie4,
         id: '75a81e57-a612-4874-8541-c6919c4cb964'
@@ -119,11 +127,13 @@ export default [
         id: '279bcdf5-a077-4f8c-aabe-ff1a762f990e'
       },
       {
+        //TODO
         label: 'Minimalist parent',
         img: device2,
         id: '1ebe69b0-6657-4b18-9955-d94c653a7bea'
       },
       {
+        //TODO
         label: 'Space saver parent',
         img: device3,
         id: '20525d85-79bc-4604-acaf-7feee4fb432b',
@@ -140,6 +150,7 @@ export default [
     title: 'Sleep items for the parent...',
     items: [
       {
+        //TODO ig
         label: 'whose little one needs a cuddle 24/7',
         img: sleep1,
         id: '7be5f0bc-ab39-4452-9995-a6b820338fb2'
@@ -150,6 +161,7 @@ export default [
         id: '541d3b11-cfd9-4191-99b3-f86a99184eb3'
       },
       {
+        //TODO
         label: 'whose little one can\'t help but sleep on their front',
         img: sleep3,
         id: '794819de-f120-4ff3-a1ee-1ca23288a323',
