@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Auth } from 'aws-amplify';
 import { connect } from 'react-redux';
-import { ActionCreators } from '../redux/profile/actions';
+import { ActionCreators } from '../../redux/profile/actions';
 import {
   AppBar,
   Toolbar,
@@ -174,7 +174,7 @@ const Header = ({ authState, logout }) => {
             style={{ textDecoration: 'none', fontSize: '1.5em' }}
           >
             <img
-              src={require("../img/pc-logo.png")}
+              src={require("../../img/pc-logo.png")}
               alt="pair-card logo"
               style={{ maxWidth: '150px' }}
             />

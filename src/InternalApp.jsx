@@ -1,7 +1,7 @@
 import React from "react";
 import Content from './framework/content';
-import Header from './framework/header';
-import Footer from './framework/footer';
+import Header from './framework/header/header';
+import Footer from './framework/footer/footer';
 
 import {
   BrowserRouter as Router,
