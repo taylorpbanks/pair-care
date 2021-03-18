@@ -21,8 +21,8 @@ import {
 } from '@material-ui/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
-import './MyLists.css'
-import AddRow from './AddRow';
+import './my-lists.css'
+import AddRow from './add-row';
 
 const ListRow = ({
   row,

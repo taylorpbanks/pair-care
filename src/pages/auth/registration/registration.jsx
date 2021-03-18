@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import BabyInfo from './babyInfo';
-import PersonalInfo from './personalInfo';
-import ConfirmEmail from './confirmEmail';
+import BabyInfo from './baby-info';
+import PersonalInfo from './personal-info';
+import ConfirmEmail from './confirm-email';
 import './registration.css';
 
 const Registration = () => {

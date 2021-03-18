@@ -23,7 +23,7 @@ import {
 import { InfoOutlined } from '@material-ui/icons';
 import validator from 'validator';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import './MyLists.css'
+import './my-lists.css'
 import brands from '../../constants/brand'
 import ages from '../../constants/ages';
 import trimesters from '../../constants/pregnancy-timeline';

@@ -24,7 +24,7 @@ import { listItems } from '../../graphql/queries';
 import recommendations from '../../constants/recommendations';
 import './quick-recs.css';
 
-function QuickRecs({ addItem, myList }) {
+function QuickRecs({ addItem, myList, profile }) {
   const [items, setItems] = useState([]);
   const [showSnackBar, setShowSnackBar] = React.useState(undefined);
   const pairCareSub = '512bfff3-eb83-4645-864f-1e1f5f5b87fe';
@@ -60,8 +60,8 @@ function QuickRecs({ addItem, myList }) {
     const requestItem = cloneDeep(items.find(item => item.id === id));
     e.preventDefault();
 
-    requestItem.sub = localStorage.sub;
-    requestItem.email = localStorage.email;
+    requestItem.sub = profile.sub;
+    requestItem.email = profile.email;
     requestItem.updatedAt = undefined;
     requestItem.createdAt = undefined;
     requestItem.added = undefined;
@@ -115,7 +115,7 @@ function QuickRecs({ addItem, myList }) {
                   </a>
                 </div>
 
-                {localStorage.sub && (
+                {profile.sub && (
                   <div
                     className={`mt-30 ${isItemOnList(item) ? 'success-color' : 'secondary-color'}`}
                     style={{ cursor: 'pointer' }}

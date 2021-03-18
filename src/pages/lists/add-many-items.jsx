@@ -65,6 +65,7 @@ function AddManyItems({
   categories,
   setListContent,
   addItem,
+  profile
 }) {
   const classes = useStyles();
   const [checked, setChecked] = useState([]);
@@ -81,8 +82,8 @@ function AddManyItems({
     const requests = [];
     right.forEach(item => {
       const requestItem = cloneDeep(item);
-      requestItem.sub = localStorage.sub;
-      requestItem.email = localStorage.email;
+      requestItem.sub = profile.sub;
+      requestItem.email = profile.email;
       requestItem.updatedAt = undefined;
       requestItem.createdAt = undefined;
       requestItem.added = undefined;
@@ -287,7 +288,9 @@ function AddManyItems({
   )
 }
 
-const mapStateToProps = () => ({});
+const mapStateToProps = (state) => ({
+  profile: state.profile,
+});
 
 const mapDispatchToProps = dispatch => {
   return {

@@ -16,8 +16,8 @@ import {
   VisibilityOff,
 } from '@material-ui/icons';
 import { Redirect } from 'react-router-dom';
-import SuccessConfirmation from './successConfirmation';
-import './forgotPassword.css'
+import SuccessConfirmation from './success-confirmation';
+import './forgot-password.css'
 
 const ForgotPassword = () => {
   const [redirect, setRedirect] = useState(false);

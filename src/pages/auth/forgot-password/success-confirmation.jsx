@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from 'react-router-dom';
-import './forgotPassword.css'
+import './forgot-password.css'
 
 const SuccessConfirmation = () => {
   return (

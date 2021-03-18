@@ -4,7 +4,7 @@ import {
 } from '@material-ui/core';
 import { Link as RouterLink } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import './Footer.css'
+import './footer.css'
 
 const useStyles = makeStyles({
   footer: {

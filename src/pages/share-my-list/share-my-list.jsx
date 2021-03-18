@@ -23,17 +23,16 @@ import {
 import { listShareds } from '../../graphql/queries';
 import { API, graphqlOperation } from 'aws-amplify';
 import NoItemsModal from './no-items-modal';
-import './ShareMyList.css';
+import './share-my-list.css';
 
-function ShareMyList({ withThem, addWithThem, list }) {
+function ShareMyList({ withThem, addWithThem, list, profile }) {
   const [showSnackBar, setShowSnackBar] = useState(undefined);
   const [error, setError] = useState(false);
 
   const emailRegex = '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$';
   const emptyDataObj = {name: '', email: ''}
-  const userData = JSON.parse(localStorage[localStorage.userDataKey]);
-  const firstName = userData.UserAttributes.find(data => data.Name === 'custom:firstName').Value;
-  const lastName = userData.UserAttributes.find(data => data.Name === 'custom:lastName').Value;
+  const firstName = profile['custom:firstName'];
+  const lastName = profile['custom:lastName'];
   const fullName = `${firstName} ${lastName}`;
 
   const [people, setPeople] = useState(withThem || []);
@@ -51,7 +50,7 @@ function ShareMyList({ withThem, addWithThem, list }) {
   async function fetchPeople() {
     const apiData = await API.graphql(graphqlOperation(listShareds, {
       filter: {
-        fromSub: { eq: localStorage.sub }
+        fromSub: { eq: profile.sub }
       },
       limit: 10000,
     }));
@@ -75,8 +74,8 @@ function ShareMyList({ withThem, addWithThem, list }) {
 
       const request = {
         fromName: fullName,
-        fromEmail: localStorage.email,
-        fromSub: localStorage.sub,
+        fromEmail: profile.email,
+        fromSub: profile.sub,
         toEmail: data.email.toLowerCase(),
         toName: data.name,
         customMessage: data.customMessage
@@ -259,6 +258,7 @@ function ShareMyList({ withThem, addWithThem, list }) {
 const mapStateToProps = (state) => ({
   withThem: state.share.withThem,
   list: state.myList,
+  profile: state.profile,
 });
 
 const mapDispatchToProps = dispatch => {

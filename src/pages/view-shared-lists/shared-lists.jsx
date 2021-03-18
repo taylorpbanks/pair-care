@@ -17,8 +17,8 @@ import { Link } from 'react-router-dom';
 import { AccountCircle, ArrowForwardIos, InfoOutlined } from '@material-ui/icons';
 import { listItems, listShareds } from '../../graphql/queries';
 import { API, graphqlOperation } from 'aws-amplify';
-import MyList from '../Lists/MyLists';
-import './SharedLists.css';
+import MyList from '../lists/my-lists';
+import './shared-lists.css';
 
 function SharedLists({
   profile,
