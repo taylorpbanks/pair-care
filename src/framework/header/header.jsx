@@ -174,7 +174,7 @@ const Header = ({ authState, logout }) => {
             style={{ textDecoration: 'none', fontSize: '1.5em' }}
           >
             <img
-              src={require("../img/pc-logo.png")}
+              src={require("../../img/pc-logo.png")}
               alt="pair-card logo"
               style={{ maxWidth: '150px' }}
             />
