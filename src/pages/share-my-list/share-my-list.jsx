@@ -30,7 +30,7 @@ function ShareMyList({ withThem, addWithThem, list, profile }) {
   const [error, setError] = useState(false);
 
   const emailRegex = '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$';
-  const emptyDataObj = {name: '', email: ''}
+  const emptyDataObj = {name: '', email: '', customMessage: ''}
   const firstName = profile['custom:firstName'];
   const lastName = profile['custom:lastName'];
   const fullName = `${firstName} ${lastName}`;
@@ -78,7 +78,7 @@ function ShareMyList({ withThem, addWithThem, list, profile }) {
         fromSub: profile.sub,
         toEmail: data.email.toLowerCase(),
         toName: data.name,
-        customMessage: data.customMessage
+        customMessage: data.customMessage || ''
       };
   
       await API.graphql({ query: createShared, variables: { input: request } })
