@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Auth } from 'aws-amplify';
 import { connect } from 'react-redux';
-import { ActionCreators } from '../redux/profile/actions';
+import { ActionCreators } from '../../redux/profile/actions';
 import {
   AppBar,
   Toolbar,
