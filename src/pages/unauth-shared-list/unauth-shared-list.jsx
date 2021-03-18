@@ -18,7 +18,7 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { listItems } from '../../graphql/queries';
 import stages from '../../constants/stages';
 import categories from '../../constants/categories';
-import './UnauthSharedList.css';
+import './unauth-shared-list.css';
 
 const UnauthSharedList = ({ id, name }) => {
   const [list, setList] = useState([]);
@@ -35,7 +35,7 @@ const UnauthSharedList = ({ id, name }) => {
         stageId: { eq: stage },
         sub: {eq: id}
       },
-      limit: 3,
+      limit: 10000,
     }));
 
     const { items } = apiData.data.listItems;

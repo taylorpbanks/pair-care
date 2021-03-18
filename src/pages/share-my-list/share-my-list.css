@@ -1,0 +1,59 @@
+.email-container {
+    border: 2px solid #226d77;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.no-share-msg {
+    display: inline;
+    vertical-align: super;
+    margin-left: 5px;
+}
+
+.MuiListItem-button:hover {
+    background-color: #eef6f9 !important;
+}
+
+.list-container {
+    border: 2px solid #8cc5be;
+    border-radius: 15px;
+    padding: 15px;
+    background-color: white;
+}
+
+.shared-list-container {
+    position: absolute;
+    top: 0;
+    width: 70%;
+}
+
+.para-container {
+    border-top: 1px solid #eef6f9;
+    padding-top: 16px;
+}
+
+.shared-list-avatar {
+    height: 75px !important;
+    width: 75px !important;
+}
+
+.avatar-header {
+    display : flex;
+    align-items : center;
+}
+
+.shared-list-parent .MuiAppBar-colorPrimary {
+    background-color: #8cc5be;;
+}
+
+/*responsive design*/
+@media screen and (max-width: 960px) {
+    .shared-list-container {
+        position: initial;
+    }
+
+    .shared-list-container {
+        margin-bottom: 30px;
+        width: 100%;
+    }
+}

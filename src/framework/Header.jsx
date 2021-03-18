@@ -27,7 +27,7 @@ import {
   ImportContacts,
   ScreenShare,
 } from '@material-ui/icons';
-import './Header.css';
+import './header.css';
 import { useLocation } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({

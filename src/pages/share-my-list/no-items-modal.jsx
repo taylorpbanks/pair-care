@@ -9,7 +9,7 @@ import {
   Button,
   DialogContent,
 } from '@material-ui/core';
-import './SharedLists.css';
+import './share-my-list.css';
 
 function NoItemsModal({
   isOpen,

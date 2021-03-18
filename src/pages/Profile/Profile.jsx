@@ -26,8 +26,8 @@ import {
   DatePicker,
   MuiPickersUtilsProvider
 } from "@material-ui/pickers";
-import './Profile.css';
-import ProfilePic from './ProfilePic.jsx';
+import './profile.css';
+import ProfilePic from './profile-pic.jsx';
 
 const Profile = ({ profile, updateUser }) => {
   const [error, setError] = useState(undefined);

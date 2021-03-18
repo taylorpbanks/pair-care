@@ -23,12 +23,12 @@ import {
   LibraryAdd,
 } from '@material-ui/icons';
 import PropTypes from 'prop-types';
-import './MyLists.css'
-import ListRow from './ListRow';
+import './my-lists.css'
+import ListRow from './list-row';
 import stages from '../../constants/stages';
 import categories from '../../constants/categories';
-import AddRow from './AddRow';
-import AddManyItems from './AddManyItems';
+import AddRow from './add-row';
+import AddManyItems from './add-many-items';
 import {
   createItem as createItemMutation,
   deleteItem as deleteItemMutation,
@@ -39,7 +39,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { API, graphqlOperation } from 'aws-amplify';
 import { cloneDeep } from 'lodash';
 import { compareStrings } from '../../tools/services';
-import ProfilePic from '../Profile/ProfilePic';
+import ProfilePic from '../profile/profile-pic';
 
 function TabPanel(props) {
   const { children, selectedStage, index, ...other } = props;
