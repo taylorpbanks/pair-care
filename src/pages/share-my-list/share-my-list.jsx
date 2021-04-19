@@ -7,7 +7,9 @@ import {
   TextField,
   Chip,
   Snackbar,
-  IconButton
+  IconButton,
+  InputAdornment,
+  Tooltip,
 } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import {
@@ -15,6 +17,7 @@ import {
   Close,
   InfoOutlined,
   Edit,
+  FileCopy,
 } from '@material-ui/icons';
 import {
   createShared,
@@ -116,8 +119,17 @@ function ShareMyList({ withThem, addWithThem, list, profile }) {
       .catch(() => {
         setError(true);
       });
-
   }
+
+  const copyUrl = () => {
+    var copyText = document.getElementById('unique-url');
+    /* Select the text field */
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); /* For mobile devices */
+  
+    /* Copy the text inside the text field */
+    document.execCommand('copy');
+  };
 
   return (
     <div className="page-container">
@@ -197,7 +209,7 @@ function ShareMyList({ withThem, addWithThem, list, profile }) {
           <hr className="mt-30 mb-30" />
 
           <h3>
-            People you are sharing with
+            People you are sharing with ({people.length})
             &nbsp;
             {people.length > 0 && !isEdit && <Edit style={{ verticalAlign: 'middle', cursor: 'pointer' }} color="secondary" onClick={() => setIsEdit(true)} />}
             {people.length > 0 && isEdit && <Close style={{ verticalAlign: 'middle', cursor: 'pointer' }} color="secondary" onClick={() => setIsEdit(false)} />}
@@ -233,6 +245,34 @@ function ShareMyList({ withThem, addWithThem, list, profile }) {
               />
             ))}
           </div>
+
+          <hr className="mt-30 mb-30" />
+
+          <h3>
+            Share your unique url directly
+            <Tooltip title="Sharing your url directly will allow you to invite a person to join Pair Care but they will not be able to view your list after signing up unless you add their email above.">
+              <InfoOutlined color="primary" style={{fontSize: '20px', verticalAlign: 'middle'}} />
+            </Tooltip>
+          </h3>
+          <TextField
+              id="unique-url"
+              label="Unique Url"
+              type="text"
+              className="field-container"
+              variant="outlined"
+              InputProps={{
+                endAdornment: (
+                  <Tooltip title="Copy" aria-label="Copy">
+                    <InputAdornment position="start">
+                      <FileCopy onClick={copyUrl} style={{color: '#226d77', cursor: 'pointer', marginLeft: '5px'}} />
+                    </InputAdornment>
+                  </Tooltip>
+                ),
+              }}
+              size="small"
+              value={`https://pair-care.com/shared-lists/?id=${profile.sub}&name=${fullName}`}
+              readOnly
+            />
         </Grid>
       </Grid>
       <Snackbar
