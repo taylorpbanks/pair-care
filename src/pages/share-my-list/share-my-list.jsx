@@ -270,7 +270,7 @@ function ShareMyList({ withThem, addWithThem, list, profile }) {
                 ),
               }}
               size="small"
-              value={`https://pair-care.com/shared-lists/?id=${profile.sub}&name=${fullName}`}
+              value={`https://www.pair-care.com/shared-lists/?id=${profile.sub}&name=${fullName}`}
               readOnly
             />
         </Grid>
