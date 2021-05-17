@@ -7,6 +7,7 @@ import {
   MailOutline,
   Instagram,
   Pinterest,
+  Facebook,
 } from '@material-ui/icons';
 import { Link as RouterLink } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
@@ -32,7 +33,7 @@ const Footer = () => {
       <Link href="mailto:paircarecontact@gmail.com" className="footer-link">Contact Us</Link>
       <RouterLink to="/faq" className="footer-link">FAQs</RouterLink>
       <br />
-      <div style={{ marginBottom: '10px', marginTop: '10px'}}>
+      <div style={{ marginBottom: '10px', marginTop: '10px' }}>
         <Link href="https://www.instagram.com/pair_care/" className="footer-link">
           <IconButton size="small" color="primary">
             <Instagram fontSize="small" />
@@ -45,9 +46,9 @@ const Footer = () => {
           </IconButton>
         </Link>
 
-        <Link href="mailto:paircarecontact@gmail.com" className="footer-link">
+        <Link href="https://www.facebook.com/Pair-Care-104798421646164" className="footer-link">
           <IconButton size="small" color="primary">
-            <MailOutline fontSize="small" />
+            <Facebook fontSize="small" />
           </IconButton>
         </Link>
       </div>

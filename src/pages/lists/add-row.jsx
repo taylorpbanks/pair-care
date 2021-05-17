@@ -226,14 +226,16 @@ const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage,
 
           {selectedStage !== 0 && (
             <FormControl className="field-container" variant="outlined" size="small">
-              <FormLabel component="legend">Recommended Age Range (in months)</FormLabel>
+              <FormLabel component="legend">
+                Recommended Age Range (in {selectedStage === 1 ? 'weeks' : 'months'})
+              </FormLabel>
               <Slider
                 value={[ Number(values.age), Number(values.toAge) ]}
                 onChange={handleSlider}
                 valueLabelDisplay="auto"
                 aria-labelledby="range-slider"
                 marks={selectedStage === 1 ? trimesters : ages}
-                max={selectedStage === 1 ? 9 : 60}
+                max={selectedStage === 1 ? 42 : 60}
                 step={3}
               />
             </FormControl>

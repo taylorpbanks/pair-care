@@ -61,6 +61,8 @@ const ListRow = ({
   const getAgeLabel = (age, stage) => {
     if (stage && stage.id === 0) {
       return '';
+    } else if (stage && stage.id === 1) {
+      return `${age}W`;
     }
 
     switch(age) {
