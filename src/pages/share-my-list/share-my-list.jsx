@@ -214,37 +214,31 @@ function ShareMyList({ withThem, addWithThem, list, profile }) {
             {people.length > 0 && !isEdit && <Edit style={{ verticalAlign: 'middle', cursor: 'pointer' }} color="secondary" onClick={() => setIsEdit(true)} />}
             {people.length > 0 && isEdit && <Close style={{ verticalAlign: 'middle', cursor: 'pointer' }} color="secondary" onClick={() => setIsEdit(false)} />}
           </h3>
-          <div className="email-container">
+
             {!people.length && (
-              <div className="text-small">
-                <InfoOutlined fontSize="small" color="primary"/>
-                <div className="no-share-msg">You are not currently sharing your list with anyone.</div>
+              <div className="email-container">
+                <div className="text-small">
+                  <InfoOutlined fontSize="small" color="primary"/>
+                  <div className="no-share-msg">You are not currently sharing your list with anyone.</div>
+                </div>
               </div>
             )}
-
-            {isEdit && people.map((person, index) => (
-              <Chip
-                key={person.toEmail}
-                icon={<Person />}
-                className="mr-5 mt-5"
-                size="small"
-                label={`${person.toName} | ${person.toEmail}`}
-                onDelete={() => deletePerson(person)}
-                color="secondary"
-              />
-            ))}
-
-          {!isEdit && people.map((person, index) => (
-              <Chip
-                key={person.toEmail}
-                icon={<Person />}
-                className="mr-5 mt-5"
-                size="small"
-                label={`${person.toName} | ${person.toEmail}`}
-                color="secondary"
-              />
-            ))}
-          </div>
+            {isEdit && people && (
+              <div className="email-container">
+                {people.map((person, index) => (
+                  <Chip
+                    key={person.toEmail}
+                    icon={<Person />}
+                    className="mr-5 mt-5"
+                    size="small"
+                    label={`${person.toName} | ${person.toEmail}`}
+                    onDelete={() => deletePerson(person)}
+                    color="secondary"
+                  />
+                ))}
+              </div>
+            )}
+          
 
           <hr className="mt-30 mb-30" />
 
