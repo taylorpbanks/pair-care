@@ -159,6 +159,14 @@ a {
   padding: 15px;
 }
 
+.pt-15 {
+  padding-top: 15px;
+}
+
+.pb-15 {
+  padding-bottom: 15px;
+}
+
 .break {
   flex-basis: 100%;
   height: 0;
