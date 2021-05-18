@@ -1,0 +1,168 @@
+.my-list-container {
+    margin: -15px;
+}
+
+.list-row {
+    padding: 5px;
+    border: 2px solid #f2f2f2;
+    margin-bottom: 10px;
+    border-radius: 15px;
+    position: relative;
+}
+
+.category-chip { 
+    margin: 5px !important;
+}
+
+.first-col {
+    flex-basis: 33.33%;
+    flex-shrink: 0;
+}
+
+.row-brand {
+    font-weight: 300;
+    color: grey;
+}
+
+.wrap-container {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border-top: 1px solid #f0f0f0;
+    padding: 20px;
+}
+
+.recommended-text {
+    position: relative;
+    top: -4px;
+}
+
+.floating-action-btn-container {
+    position: fixed;
+    bottom: 0px;
+    margin-bottom: 15px;
+    width: 100%;
+    text-align: center;
+    right: 0;
+    padding-bottom: 100px;
+}
+
+.edit-row, .view-row {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    display: flex;
+    padding: 15px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.edit-row, .view-row:hover {
+    background-color: #eef6f9;
+}
+
+.tool-bar {
+    text-align: center;
+    display: none;
+}
+
+.append-btm-margin {
+    margin-bottom: 80px;
+}
+
+.disabled-tooltip {
+    position: absolute;
+    right: 25px;
+    top: 8px;
+}
+
+.disabled-tooltip-2 {
+    position: absolute;
+    top: 35%;
+    right: 5px;
+}
+
+.view-row:hover > div > div > .tool-bar {
+    display: table;
+}
+
+.field-container {
+    width: 100%;
+    margin-top: 15px !important;
+}
+
+.row-footer {
+    border-top: 1px solid #f0f0f0;
+    margin-top: 15px;
+    text-align: right;
+}
+
+.MuiInputBase-root {
+    background-color: white;
+}
+
+.MuiSnackbarContent-root {
+    background-color: #dc9577 !important;
+}
+
+.img-icon-avatar {
+    margin-right: 15px;
+    width: 40px;
+    height: 40px;
+}
+
+.img-icon-avatar > img {
+    width: 100%;
+}
+
+.my-list-header { 
+    position: relative;
+}
+
+.my-list-header > h1 {
+    position: absolute;
+    bottom: 0;
+    left: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.my-list-header .upload-profile-pic .MuiAvatar-root {
+    width: 60px;
+    height: 60px;
+    font-size: 1em;
+}
+
+/*responsive design*/
+@media screen and (max-width: 600px) {
+    /* view row */
+    .m-header-display {
+        text-align: center;
+        padding-bottom: 15px;
+    }
+
+    .tab-panel > .MuiBox-root-15 {
+        padding: 24px 0;
+    }
+
+    .tab-panel {
+        padding: 0;
+    }
+
+    
+    .my-list-header .upload-profile-pic .MuiAvatar-root {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+/****definitely this stuff****/
+.item-card {
+    border: 1px solid #f2f2f2;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    max-width: 300px;
+    padding: 15px;
+}
+
+.item-card > img {
+    margin: 10px;
+    max-width: 300px;
+}
