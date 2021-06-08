@@ -27,3 +27,12 @@
     margin-bottom: 30px;
     width: 100%;
 }
+
+/* google btn */
+.register .g-signin2, .register .g-signin2 > div {
+    width: 100% !important
+  }
+  
+  .register .g-signin2 > div{
+    margin: 0 auto;
+  }

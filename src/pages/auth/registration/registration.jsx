@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import BabyInfo from './baby-info';
 import PersonalInfo from './personal-info';
 import ConfirmEmail from './confirm-email';
+import PickSignInType from './pick-sign-in-type';
 import './registration.css';
 
 const Registration = () => {
@@ -31,11 +32,12 @@ const Registration = () => {
 
   return (
     <div className="register">
-      <h1>{step === 2 ? 'Almost there...' : 'Sign up to create or view a list'}</h1>
+      <h1>{step === 3 ? 'Almost there...' : 'Sign up to create or view a list'}</h1>
 
-      {step === 0 && (<BabyInfo setStep={setStep} data={data} handleDataChange={handleDataChange} />)}
-      {step === 1 && (<PersonalInfo setStep={setStep} data={data} handleDataChange={handleDataChange} />)}
-      {step === 2 && (<ConfirmEmail setStep={setStep} data={data} handleDataChange={handleDataChange} />)}                   
+      {step === 0 && (<PickSignInType setStep={setStep} data={data} handleDataChange={handleDataChange} />)}
+      {step === 1 && (<BabyInfo setStep={setStep} data={data} handleDataChange={handleDataChange} />)}
+      {step === 2 && (<PersonalInfo setStep={setStep} data={data} handleDataChange={handleDataChange} />)}
+      {step === 3 && (<ConfirmEmail setStep={setStep} data={data} handleDataChange={handleDataChange} />)}                   
     </div>
   );
 }

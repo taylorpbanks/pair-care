@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Avatar,
   Button,
@@ -79,13 +79,23 @@ const ListRow = ({
   const [isViewMode, setIsViewMode] = React.useState(true);
   const [expanded, setExpanded] = React.useState(false);
 
+  useEffect(() => {
+    //const previewData = linkPreviewGenerator(row.link).then(response => {
+    //  console.log(response)
+    //});
+    //const linkPreviewGenerator = require("link-preview-generator");
+
+    //const previewData = linkPreviewGenerator("https://www.youtube.com/watch?v=8mqqY2Ji7_g");
+    //console.log(previewData)
+  }, []);
+
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
   const maxLinkLength = 40;
   const handleClickOpen = () => {
-      setDeleteOpen(true);
+    setDeleteOpen(true);
   };
 
   const handleClose = () => {
@@ -108,12 +118,12 @@ const ListRow = ({
       return `${age}W`;
     }
 
-    switch(age) {
+    switch (age) {
       case '0':
         return stage && stage.id === 2 ? 'Newborn' : '0M';
       case 0:
         return stage && stage.id === 2 ? 'Newborn' : '0M';
-      case 12: 
+      case 12:
         return '1Y';
       case 24:
         return '2Y';
@@ -123,7 +133,7 @@ const ListRow = ({
         return '4Y';
       case 60:
         return '5Y';
-      default: 
+      default:
         return `${age}M`
     }
   };
@@ -133,7 +143,7 @@ const ListRow = ({
   const linkDisplay = row.link.substring(0, row.link.length >= maxLinkLength ? maxLinkLength : row.link.length);
   let link = row.link;
 
-  if(!link.startsWith('https://') && !link.startsWith('http://')) {
+  if (!link.startsWith('https://') && !link.startsWith('http://')) {
     link = `http://${row.link}`;
   }
 
@@ -143,7 +153,7 @@ const ListRow = ({
 
   return (
     <>
-    {/*(isViewMode || selectedRow !== index) && (
+      {/*(isViewMode || selectedRow !== index) && (
       <div className="item-card">
         <strong className="primary-color">{row.item}</strong>
         <a href={link} target="_blank" rel="noopener noreferrer">
@@ -159,68 +169,68 @@ const ListRow = ({
 
       
     )*/}
-    {(isViewMode || selectedRow !== index) && (
-    <Card className={classes.root}>
-      <CardHeader
-          avatar={
-            <Avatar aria-label="item type" style={{backgroundColor: '#226d77'}}>
-              {category.highlighted ? category.highlighted : category.icon}
-            </Avatar>
-          }
-          action={
-            <IconButton aria-label="settings">
-              <MoreVert />
-            </IconButton>
-          }
-          title={row.item}
-          subheader={row.type}
-        />
-        <CardContent>
-          <a href={link} target="_blank" rel="noopener noreferrer">
-            <img
-              src={require("../../img/no-img-found.jpg")} alt="picture of item"
-              style={{maxWidth: '275px', width: '100%'}}
-            />
-          </a>
-        </CardContent>
-        <CardActions disableSpacing>
-          <IconButton aria-label="edit item">
-            <Edit />
-          </IconButton>
-          <IconButton aria-label="delete item">
-            <Delete />
-          </IconButton>
-          <IconButton
-            className={clsx(classes.expand, {
-              [classes.expandOpen]: expanded,
-            })}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-            aria-label="show more"
-          >
-            <ExpandMore />
-          </IconButton>
-        </CardActions>
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
+      {(isViewMode || selectedRow !== index) && (
+        <Card className={classes.root}>
+          <CardHeader
+            avatar={
+              <Avatar aria-label="item type" style={{ backgroundColor: '#226d77' }}>
+                {category.highlighted ? category.highlighted : category.icon}
+              </Avatar>
+            }
+            action={
+              <IconButton aria-label="settings">
+                <MoreVert />
+              </IconButton>
+            }
+            title={row.item}
+            subheader={row.type}
+          />
           <CardContent>
-            <Typography paragraph>
-              <div className="d-inline-blk"><Timer className="mr-5" /></div>
-              <div className="d-inline-blk" style={{verticalAlign: 'top'}}>
-                {row.age || row.age === 0 ? getAgeLabel(row.age, stageId) : ''} {row.toAge && row.age !== row.toAge ? `to ${getAgeLabel(row.toAge, stageId)}` : ''}
-              </div>
-              <span className="float-right">{row.isRecommended === 'Y' ?
-                <ThumbUp style={{color: '#8cc5be'}} /> :
-                <ThumbDown style={{color: '#dc9577'}} />}
-              </span>
-            </Typography>
-            <Typography paragraph>
-              {row.comments}
-            </Typography>
+            <a href={link} target="_blank" rel="noopener noreferrer">
+              <img
+                src={require("../../img/no-img-found.jpg")} alt="picture of item"
+                style={{ maxWidth: '275px', width: '100%' }}
+              />
+            </a>
           </CardContent>
-        </Collapse>
-      </Card>
-    )}
-    {/*(isViewMode || selectedRow !== index) && (
+          <CardActions disableSpacing>
+            <IconButton aria-label="edit item">
+              <Edit />
+            </IconButton>
+            <IconButton aria-label="delete item">
+              <Delete />
+            </IconButton>
+            <IconButton
+              className={clsx(classes.expand, {
+                [classes.expandOpen]: expanded,
+              })}
+              onClick={handleExpandClick}
+              aria-expanded={expanded}
+              aria-label="show more"
+            >
+              <ExpandMore />
+            </IconButton>
+          </CardActions>
+          <Collapse in={expanded} timeout="auto" unmountOnExit>
+            <CardContent>
+              <Typography paragraph>
+                <div className="d-inline-blk"><Timer className="mr-5" /></div>
+                <div className="d-inline-blk" style={{ verticalAlign: 'top' }}>
+                  {row.age || row.age === 0 ? getAgeLabel(row.age, stageId) : ''} {row.toAge && row.age !== row.toAge ? `to ${getAgeLabel(row.toAge, stageId)}` : ''}
+                </div>
+                <span className="float-right">{row.isRecommended === 'Y' ?
+                  <ThumbUp style={{ color: '#8cc5be' }} /> :
+                  <ThumbDown style={{ color: '#dc9577' }} />}
+                </span>
+              </Typography>
+              <Typography paragraph>
+                {row.comments}
+              </Typography>
+            </CardContent>
+          </Collapse>
+        </Card>
+      )}
+      {/*(isViewMode || selectedRow !== index) && (
       <div className="view-row">
         <div className="col-2 m-header-display">
           <div className="d-inline-blk">
@@ -289,47 +299,47 @@ const ListRow = ({
       </div>
     )*/}
 
-    {!isViewMode && selectedRow === index && (
-      <AddRow
-        row={{...row, toAge: (row.toAge || row.age)}}
-        stages={stages}
-        categories={categories}
-        setSelectedRow={setSelectedRow}
-        selectedStage={row.stageId}
-        selectedChip={selectedChip}
-        onSave={onSave}
-        onCancel={onCancel}
-      />
-    )}
+      {!isViewMode && selectedRow === index && (
+        <AddRow
+          row={{ ...row, toAge: (row.toAge || row.age) }}
+          stages={stages}
+          categories={categories}
+          setSelectedRow={setSelectedRow}
+          selectedStage={row.stageId}
+          selectedChip={selectedChip}
+          onSave={onSave}
+          onCancel={onCancel}
+        />
+      )}
 
-    <Dialog
-      open={deleteOpen}
-      onClose={handleClose}
-      aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description"
-    >
-      <DialogTitle id="alert-dialog-title">Are you sure you want to delete this item?</DialogTitle>
-      <DialogContent>
-        <DialogContentText id="alert-dialog-description">
-          The following item will be deleted:
+      <Dialog
+        open={deleteOpen}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">Are you sure you want to delete this item?</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            The following item will be deleted:
           <br />
-          <strong>{row.brand} - {row.item}</strong>
-          <br />
-          <br />
+            <strong>{row.brand} - {row.item}</strong>
+            <br />
+            <br />
           This action cannot be undone.
         </DialogContentText>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={(e) => handleClose(false)} color="primary" autoFocus>
-          Cancel
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={(e) => handleClose(false)} color="primary" autoFocus>
+            Cancel
         </Button>
 
-        <Button onClick={(e) => {handleClose(false);onDeleteItem(row.id);}} color="primary">
-          Delete Item
+          <Button onClick={(e) => { handleClose(false); onDeleteItem(row.id); }} color="primary">
+            Delete Item
         </Button>
-      </DialogActions>
-    </Dialog>
-  </>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 }
 

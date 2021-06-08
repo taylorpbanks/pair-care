@@ -17,6 +17,7 @@ import { Redirect, Link } from 'react-router-dom';
 import { ActionCreators } from '../../redux/profile/actions';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
+import './login.css'
 
 const useStyles = makeStyles({
   input: {
@@ -104,7 +105,7 @@ const Login = ({ addUser }) => {
 
   //TO DO: fix broken sign up and forgot password links
   return (
-    <div>
+    <div className="login">
       <Container maxWidth="sm">
         <Box p={3}>
           <h1>Sign In</h1>
@@ -177,6 +178,14 @@ const Login = ({ addUser }) => {
               >
                 Sign up
               </Button>
+              <div className="or">OR</div>
+              <div
+                id="googlesignin"
+                data-longtitle="true"
+                className="g-signin2"
+                data-onsuccess="onSignIn"
+                width="100%"
+              />
             </div>
           </form>
         </Box>

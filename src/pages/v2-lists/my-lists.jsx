@@ -15,6 +15,7 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
+  CircularProgress,
 } from '@material-ui/core';
 import {
   Close,
@@ -100,7 +101,7 @@ const MyListsV2 = ({
   const followersCount = followers ? followers.length : 1;
 
   useEffect(() => {
-    document.title = 'Pair Care | My List';
+    document.title = 'Pair Care | My List V2';
 
     const mainListId = 2;
     if ((myList && myList[mainListId] && !myList[mainListId].length) || sharedList) {
