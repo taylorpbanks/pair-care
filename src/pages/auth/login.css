@@ -20,10 +20,6 @@
 }
 
 /* google btn */
-.login .g-signin2, .login .g-signin2 > div {
-  width: 100% !important
-}
-
-.login .g-signin2 > div{
-  margin: 0 auto;
+.login .google-btn, .login .google-btn > span {
+  width: 100%;
 }

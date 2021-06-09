@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Container,
 } from '@material-ui/core';
@@ -7,29 +7,40 @@ import {
   faEnvelope
 } from '@fortawesome/free-solid-svg-icons'
 import './registration.css';
+import { GoogleLogin } from 'react-google-login';
 
 const PickSignInType = ({ setStep }) => {
+  const [googleError, setGoogleError] = useState(false)
+  const responseGoogle = (response) => {
+    console.log(response);
+    if(response?.error === 'idpiframe_initialization_failed') {
+      setGoogleError(true);
+    }
+  }
+
   return (
     <Container maxWidth="lg">
-      <h2>How do you want to sign in?</h2>
-      <div className="abcRioButton abcRioButtonLightBlue" onClick={() => setStep(1)}>
-          <div className="abcRioButtonContentWrapper">
-            <div className="abcRioButtonIcon" style={{padding: '8px'}}>
-              <FontAwesomeIcon icon={faEnvelope} />
-            </div>
-            <span className="abcRioButtonContents" style={{padding: '8px', fontSize: '13px', position: 'relative', top: '8px'}}>
-              <span id="not_signed_inu1s4o4b4xudx">Sign in with Email</span>
-             </span>
-          </div>
+      <h2>How do you want to sign up?</h2>
+      <div onClick={() => setStep(1)} className="email-btn">
+        <div className="email-icon-container">
+          <FontAwesomeIcon icon={faEnvelope} />
+        </div>
+        <span className="email-text-container">
+          Sign up with Email
+        </span>
       </div>
       <br />
-      <div
-        id="googlesignin"
-        data-longtitle="true"
-        className="g-signin2"
-        data-onsuccess="onSignIn"
-        width="100%"
+      <GoogleLogin
+        className="google-btn"
+        clientId={'839098953915-ds3fkvd7mbdnh43tmc420gfsfc6q493n.apps.googleusercontent.com'}
+        buttonText="Sign up with Google"
+        onSuccess={responseGoogle}
+        onFailure={responseGoogle}
+        disabled={googleError}
       />
+      {googleError && (<div style={{float: 'right', fontSize: '10px', paddingRight: '3px'}}>
+        Coming soon!
+      </div>)}
     </Container>
   );
 }
