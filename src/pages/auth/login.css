@@ -1,0 +1,25 @@
+/* horizontal or rule */
+.or {
+  display: flex;
+  flex-direction: row;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  color: #ababab;
+}
+.or:before, .or:after{
+  content: "";
+  flex: 1 1;
+  border-bottom: 1px solid;
+  margin: auto;
+}
+.or:before {
+  margin-right: 10px
+}
+.or:after {
+  margin-left: 10px
+}
+
+/* google btn */
+.login .google-btn, .login .google-btn > span {
+  width: 100%;
+}

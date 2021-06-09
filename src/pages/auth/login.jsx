@@ -17,6 +17,8 @@ import { Redirect, Link } from 'react-router-dom';
 import { ActionCreators } from '../../redux/profile/actions';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
+import { GoogleLogin } from 'react-google-login';
+import './login.css'
 
 const useStyles = makeStyles({
   input: {
@@ -39,6 +41,7 @@ const Login = ({ addUser }) => {
     password: '',
     code: ''
   });
+  const [googleError, setGoogleError] = useState(false)
 
   useEffect(() => {
     document.title = 'Pair Care | Login';
@@ -52,6 +55,13 @@ const Login = ({ addUser }) => {
       [id]: value
     });
   };
+
+  const responseGoogle = (response) => {
+    console.log(response);
+    if(response?.error === 'idpiframe_initialization_failed') {
+      setGoogleError(true);
+    }
+  }
 
   const signInClick = async (e) => {
     e.preventDefault();
@@ -104,7 +114,7 @@ const Login = ({ addUser }) => {
 
   //TO DO: fix broken sign up and forgot password links
   return (
-    <div>
+    <div className="login">
       <Container maxWidth="sm">
         <Box p={3}>
           <h1>Sign In</h1>
@@ -177,6 +187,18 @@ const Login = ({ addUser }) => {
               >
                 Sign up
               </Button>
+              <div className="or">OR</div>
+              <GoogleLogin
+                className="google-btn"
+                clientId={'839098953915-ds3fkvd7mbdnh43tmc420gfsfc6q493n.apps.googleusercontent.com'}
+                buttonText="Continue with Google"
+                onSuccess={responseGoogle}
+                onFailure={responseGoogle}
+                disabled={googleError}
+              />
+              {googleError && (<div style={{float: 'right', fontSize: '10px', paddingRight: '3px'}}>
+                Coming soon!
+              </div>)}
             </div>
           </form>
         </Box>

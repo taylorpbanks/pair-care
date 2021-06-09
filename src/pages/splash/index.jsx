@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Button, Avatar, Card } from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
 import { ActionCreators } from '../../redux/my-list/actions';
 import { ActionCreators as actions } from '../../redux/share/actions';
 import { Link, Redirect } from 'react-router-dom';
@@ -104,6 +105,16 @@ function Splash({
   const item1 = { title: recommendations[0].altTitle, details: recommendations[0].items[1] };
   const item2 = { title: recommendations[3].altTitle, details: recommendations[3].items[2] };
   const items = [item1, item2];
+  const isMissingInfo = profile['custom:childGender'] === '' ||
+  !profile['custom:childGender'] ||
+  profile['custom:firstName'] === '' ||
+  !profile['custom:firstName'] ||
+  profile['custom:lastName'] === '' ||
+  !profile['custom:lastName'] ||
+  profile['custom:parentType'] === '' ||
+  !profile['custom:parentType'] ||
+  profile['custom:zipcode'] === '' ||
+  !profile['custom:zipcode'];
 
   const getUrl = (id) => {
     const item = items.find(item => item.details.id === id);
@@ -114,7 +125,16 @@ function Splash({
     <div className="unauthorized">
       <div className="welcome-bar">
         <h1 className="p-15" style={{paddingBottom: '30px'}}>Hello {profile['custom:firstName']}!</h1>
+
         <div className="standard-flex-box page-container">
+          {isMissingInfo && (
+            <Alert severity="warning" className="col-12 mb-15">
+              <strong>Looks like we are missing information on your profile!</strong>
+              &nbsp;&nbsp;
+              Fill out your profile information <Link to="/profile">here</Link> so we can recommend the best items for you.
+            </Alert>
+          )}
+
           <div className="col-2 text-center">
             <div className="primary-color">Items in your list</div>
             <br />
