@@ -16,6 +16,7 @@ import {
   FormControl,
   InputLabel,
   CircularProgress,
+  Toolbar,
 } from '@material-ui/core';
 import {
   Close,
@@ -23,6 +24,7 @@ import {
   Add,
   LibraryAdd,
   FiberManualRecord,
+  Tune,
 } from '@material-ui/icons';
 import PropTypes from 'prop-types';
 import './my-lists.css'
@@ -42,6 +44,7 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { cloneDeep } from 'lodash';
 import { compareStrings } from '../../tools/services';
 import ProfilePic from '../profile/profile-pic';
+import FiltersPanel from './filters-panel';
 
 function TabPanel(props) {
   const { children, selectedStage, index, ...other } = props;
@@ -96,6 +99,7 @@ const MyListsV2 = ({
   const [showSnackBar, setShowSnackBar] = useState(undefined);
   const [showManyItemAdd, setShowManyItemAdd] = useState(false);
   const [sortBy, setSortBy] = useState('isRecommended');
+  const [open, setOpen] = React.useState(false);
 
   const followingCount = following ? following.length : 1;
   const followersCount = followers ? followers.length : 1;
@@ -284,11 +288,23 @@ const MyListsV2 = ({
       
 
       <AppBar position="sticky">
-        <Tabs value={selectedStage} onChange={handleChange} aria-label="simple tabs example" className="page-container">
-          {stages.map(tab => (
-            <Tab key={tab.label} label={tab.label} {...a11yProps(tab.id)} />
-          ))}
-        </Tabs>
+        <Toolbar>
+          <Tabs value={selectedStage} onChange={handleChange} aria-label="simple tabs example" className="page-container">
+            {stages.map(tab => (
+              <Tab key={tab.label} label={tab.label} {...a11yProps(tab.id)} />
+            ))}
+          </Tabs>
+          <IconButton edge="end" style={{color: 'white'}} onClick={() => setOpen(!open)}>
+            <Tune />
+          </IconButton>
+          <FiltersPanel
+            sortBy={sortBy}
+            setSortBy={setSortBy}
+            selectedStage={selectedStage}
+            open={open}
+            setOpen={setOpen}
+          />
+        </Toolbar>
       </AppBar>
       {stages.map(stage => (
         <TabPanel
