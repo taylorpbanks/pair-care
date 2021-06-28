@@ -20,6 +20,7 @@ type Item @model {
 	isRecommended: String
 	comments: String
 	quickRec: String
+	price: Int
 }
 
 type Shared @model {
