@@ -37,6 +37,7 @@ import './my-lists.css'
 import AddRow from './add-row';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
+import { API } from 'aws-amplify';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -61,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
   avatar: {},
 }));
 
-const ListRow = ({
+const ItemCard = ({
   row,
   categories,
   selectedChip,
@@ -78,6 +79,22 @@ const ListRow = ({
   const [deleteOpen, setDeleteOpen] = React.useState(false);
   const [isViewMode, setIsViewMode] = React.useState(true);
   const [expanded, setExpanded] = React.useState(false);
+  const response = API.get(
+    'imgapi',
+    '/image',
+    {
+      headers: {
+        'Access-Control-Allow-Origin' : '*',
+        'Access-Control-Allow-Headers':'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token',
+        'Content-Type': 'application/json'
+      },
+      queryStringParameters: { link: 'https://www.target.com/p/mam-glow-in-the-dark-night-pacifier-0-6-months-2ct-green/-/A-75454632' }
+      //queryStringParameters: { link: 'https://www.pair-care.com/' }
+    }
+  );
+  response.then((test) => {
+    console.log(test)
+  })
 
   useEffect(() => {
     //const previewData = linkPreviewGenerator(row.link).then(response => {
@@ -343,4 +360,4 @@ const ListRow = ({
   );
 }
 
-export default ListRow;
+export default ItemCard;

@@ -1,0 +1,34 @@
+{
+    "paths": [
+        {
+            "name": "/image",
+            "lambdaFunction": "imgfunction",
+            "privacy": {
+                "open": true
+            }
+        }
+    ],
+    "resourceName": "imgapi",
+    "apiName": "imgapi",
+    "functionArns": [
+        {
+            "lambdaFunction": "imgfunction"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "amplify-paircare-dev-105827-authRole",
+        "unAuthRoleName": "amplify-paircare-dev-105827-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "imgfunction",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}

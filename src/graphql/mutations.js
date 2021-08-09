@@ -66,6 +66,7 @@ export const createItem = /* GraphQL */ `
       isRecommended
       comments
       quickRec
+      price
       createdAt
       updatedAt
     }
@@ -91,6 +92,7 @@ export const updateItem = /* GraphQL */ `
       isRecommended
       comments
       quickRec
+      price
       createdAt
       updatedAt
     }
@@ -116,6 +118,7 @@ export const deleteItem = /* GraphQL */ `
       isRecommended
       comments
       quickRec
+      price
       createdAt
       updatedAt
     }

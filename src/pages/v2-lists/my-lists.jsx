@@ -28,7 +28,7 @@ import {
 } from '@material-ui/icons';
 import PropTypes from 'prop-types';
 import './my-lists.css'
-import ListRow from './list-row';
+import ItemCard from './item-card';
 import stages from '../../constants/stages';
 import categories from '../../constants/categories';
 import AddRow from './add-row';
@@ -354,7 +354,7 @@ const MyListsV2 = ({
             {categories[selectedStage][selectedChip].numOfItems > 0 && (
               <>
                 {listContent.map((item, index) => (
-                  <ListRow
+                  <ItemCard
                     key={`${item.id}-${index}`}
                     row={item}
                     stages={stages}

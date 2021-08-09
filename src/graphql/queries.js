@@ -49,6 +49,7 @@ export const getItem = /* GraphQL */ `
       isRecommended
       comments
       quickRec
+      price
       createdAt
       updatedAt
     }
@@ -76,6 +77,7 @@ export const listItems = /* GraphQL */ `
         isRecommended
         comments
         quickRec
+        price
         createdAt
         updatedAt
       }
