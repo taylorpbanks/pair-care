@@ -1,0 +1,15 @@
+.blog .item-title {
+  min-height: 60px
+}
+
+/* Zoom In #1 */
+.zoom-in figure img {
+	-webkit-transform: scale(1);
+	transform: scale(1);
+	-webkit-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
+}
+.zoom-in figure:hover img {
+	-webkit-transform: scale(1.3);
+	transform: scale(1.3);
+}

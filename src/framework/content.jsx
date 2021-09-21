@@ -17,6 +17,8 @@ import UnauthSharedList from '../pages/unauth-shared-list/unauth-shared-list';
 import FAQ from '../pages/faq/faq';
 import QuickRecs from '../pages/quick-recs/quick-recs';
 import Splash from '../pages/splash/index';
+import BlogList from '../pages/blog/index';
+import Post from '../pages/blog/post';
 // import App from '../NotesTest';
 
 export default function Content({authState, onStateChange}) {
@@ -51,6 +53,14 @@ export default function Content({authState, onStateChange}) {
 
         <Route path="/faq">
           <FAQ />
+        </Route>
+
+        <Route path="/blog">
+          <BlogList />
+        </Route>
+
+        <Route path="/post/:id">
+          <Post />
         </Route>
 
         <Route path="/shared-lists">
