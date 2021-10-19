@@ -8,11 +8,10 @@ import {
 } from '@material-ui/icons';
 import categories from '../../constants/categories';
 import './unauthorized.css';
+import Helmet from 'react-helmet';
+
 function Unauthorized({ authState, onStateChange }) {
   const [redirect, setRedirect] = React.useState(undefined);
-  useEffect(() => {
-    document.title = 'Pair Care | Welcome';
-  }, []);
 
   if (redirect) {
     return <Redirect to={redirect} />
@@ -22,6 +21,15 @@ function Unauthorized({ authState, onStateChange }) {
 
   return (
     <div className="unauthorized">
+      <Helmet
+        title="Pair Care | Welcome"
+        meta={[
+          {
+            name: 'description',
+            content: `Must have items for parents, newborns, babies, and toddlers. Curated list of parenting essentials at your fingertips so you can focus on the things that matter. It's free!`
+          }
+        ]}
+      />
       <div style={{position: 'relative'}}>
         <h1 className="welcome-title">
           Sharing your must-have items just got easier!

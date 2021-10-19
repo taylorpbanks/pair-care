@@ -7,6 +7,7 @@ import './index.css';
 function BlogList() {
   useEffect(() => {
     document.title = 'Pair Care | Blog';
+    window.scrollTo(0, 0)
   }, []);
 
   const {featured, posts} = blog;
