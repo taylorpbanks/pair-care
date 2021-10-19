@@ -95,6 +95,6 @@ export default {
       <p>
       When it comes to choosing the right options for your newborn, both baby wipes and otherwise, it pays to do your research. Keep in mind your baby’s individual needs like skin conditions, allergies, or other sensitivities.
       </p><p>What’s best for one baby may might not necessarily be best for another, and when it comes to something as delicate as baby wipes, you want to make sure you’re making a good choice, whether that means going with traditional baby wipes, cloth wipes, hypoallergenic wipes, or any other option available. Also - make sure to not fall for pleasant sounding words like ‘sensitive’ or ‘hypoallergenic’ since they don't mean baby wipes don’t contain toxic ingredients and always choose ‘fragrance-free’, not ‘unscented’ when buying baby wipes.</p>`
-    }
+    },
   ]
 }
