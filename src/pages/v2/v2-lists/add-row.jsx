@@ -24,9 +24,9 @@ import { InfoOutlined } from '@material-ui/icons';
 import validator from 'validator';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import './my-lists.css'
-import brands from '../../constants/brand'
-import ages from '../../constants/ages';
-import trimesters from '../../constants/pregnancy-timeline';
+import brands from '../../../constants/brand'
+import ages from '../../../constants/ages';
+import trimesters from '../../../constants/pregnancy-timeline';
 
 const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage, selectedChip, onCancel, onSave, isNewRow }) => {
   const [open, setOpen] = React.useState(false);
