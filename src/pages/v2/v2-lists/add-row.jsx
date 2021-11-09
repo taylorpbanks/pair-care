@@ -88,11 +88,6 @@ const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage,
   };
 
   return (
-    <Grow
-      in={true}
-      style={{ transformOrigin: '0 0 0' }}
-      {...(true ? { timeout: 1000 } : {})}
-    >
       <form onSubmit={(e) => onSave(values, e)} className={`edit-row ${isNewRow ? 'append-btm-margin' : ''}`} autoComplete="off">
         <div className="col-2">
           <FormControl variant="outlined" className="field-container" size="small">
@@ -312,7 +307,6 @@ const AddRow = ({ row, categories, stages, index, setSelectedRow, selectedStage,
         </Dialog>
 
       </form>
-    </Grow>
   );
 }
 

@@ -77,12 +77,13 @@ const ItemCard = ({
   createItem,
 }) => {
   const classes = useStyles();
+  const [addOpen, setAddOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [isViewMode, setIsViewMode] = useState(true);
   const [expanded, setExpanded] = useState(false);
   const [imgUrl, setImgUrl] = useState(undefined)
 
-  useEffect(() => {
+  /* useEffect(() => {
     console.log(row.link)
     const api = ' https://5vri05j6qj.execute-api.us-east-2.amazonaws.com/staging';
     const data = {link: row.link }
@@ -99,7 +100,7 @@ const ItemCard = ({
     .catch((error) => {
       console.log(error);
     });
-  }, []);
+  }, []); */
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -199,7 +200,7 @@ const ItemCard = ({
           />
           <CardContent>
             <a href={link} target="_blank" rel="noopener noreferrer">
-              {imgUrl ? 
+              {imgUrl ?
                 <img
                   src={imgUrl} alt="picture of item"
                   style={{ maxWidth: '275px', width: '100%' }}
@@ -208,8 +209,8 @@ const ItemCard = ({
                 <img
                   src={require('../../../img/no-img-found.jpg')} alt="picture of item"
                   style={{ maxWidth: '275px', width: '100%' }}
-               /> 
-            }
+                />
+              }
             </a>
           </CardContent>
           <CardActions disableSpacing>
@@ -241,7 +242,7 @@ const ItemCard = ({
                   <ThumbUp style={{ color: '#8cc5be' }} /> :
                   <ThumbDown style={{ color: '#dc9577' }} />}
                 </span>
-              </Typography>
+              </Typography>s
               <Typography paragraph>
                 {row.comments}
               </Typography>
@@ -273,21 +274,21 @@ const ItemCard = ({
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             The following item will be deleted:
-          <br />
+            <br />
             <strong>{row.brand} - {row.item}</strong>
             <br />
             <br />
-          This action cannot be undone.
-        </DialogContentText>
+            This action cannot be undone.
+          </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={(e) => handleClose(false)} color="primary" autoFocus>
             Cancel
-        </Button>
+          </Button>
 
           <Button onClick={(e) => { handleClose(false); onDeleteItem(row.id); }} color="primary">
             Delete Item
-        </Button>
+          </Button>
         </DialogActions>
       </Dialog>
     </>

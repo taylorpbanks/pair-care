@@ -21,6 +21,7 @@ type Item @model {
 	comments: String
 	quickRec: String
 	price: Int
+	image: String
 }
 
 type Shared @model {

@@ -45,6 +45,7 @@ import { cloneDeep } from 'lodash';
 import { compareStrings } from '../../../tools/services';
 import ProfilePic from '../../profile/profile-pic';
 import FiltersPanel from './filters-panel';
+import AddItemForm from './add-item-form';
 
 function TabPanel(props) {
   const { children, selectedStage, index, ...other } = props;
@@ -100,6 +101,7 @@ const MyListsV2 = ({
   const [showManyItemAdd, setShowManyItemAdd] = useState(false);
   const [sortBy, setSortBy] = useState('isRecommended');
   const [open, setOpen] = React.useState(false);
+  const [isAdding, setIsAdding] = React.useState(false);
 
   const followingCount = following ? following.length : 1;
   const followersCount = followers ? followers.length : 1;
@@ -294,6 +296,9 @@ const MyListsV2 = ({
               <Tab key={tab.label} label={tab.label} {...a11yProps(tab.id)} />
             ))}
           </Tabs>
+          <IconButton edge="end" style={{color: 'white'}} onClick={() => setIsAdding(!isAdding)}>
+            <Add />
+          </IconButton>
           <IconButton edge="end" style={{color: 'white'}} onClick={() => setOpen(!open)}>
             <Tune />
           </IconButton>
@@ -381,6 +386,8 @@ const MyListsV2 = ({
           </React.Fragment>
         }
       />
+
+        <AddItemForm isOpen={isAdding} onClose={() => setIsAdding(false)} />
 
       {sharedList && showManyItemAdd && (
         <AddManyItems
