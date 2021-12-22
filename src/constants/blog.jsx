@@ -138,8 +138,8 @@ export default {
       img: blog7,
       category: 'essentials',
       time: '2 minutes',
-      date: 'December 8, 2021',
-      html: '<p>The world is full of choices, and yes opinions, on what your child should be eating. You can grab an assortment of pre-made baby food and snacks from any big box store aisle such as Walmart and Target and of course there is Amazon. You can also go completely au natural and make your own delectable assortment of foods. But let&rsquo;s not forget the middle ground. You can combine pre-made food with food you&rsquo;ve made or even outsource the work of pre-made fresh food. The question comes down to three things how much time do you want to spend, how much money do you want to spend and how much control do you want over the nutritional value. Here are some of our favorites for each type of food path.</p>
+      date: `December 8, 2021',
+      html: `<p>The world is full of choices, and yes opinions, on what your child should be eating. You can grab an assortment of pre-made baby food and snacks from any big box store aisle such as Walmart and Target and of course there is Amazon. You can also go completely au natural and make your own delectable assortment of foods. But let&rsquo;s not forget the middle ground. You can combine pre-made food with food you&rsquo;ve made or even outsource the work of pre-made fresh food. The question comes down to three things how much time do you want to spend, how much money do you want to spend and how much control do you want over the nutritional value. Here are some of our favorites for each type of food path.</p>
 <p><u>For the parents who want to cut down on time: </u></p>
 <p>If you haven&rsquo;t heard there were reports of toxic heavy metals in baby foods. Some folks even took it to social media to demonstrate the simple act of using a magnet and pulling small fragments of metal from their purchase kid foods. Now there are class action lawsuits against Plum (a Campbell brand), Gerber, Beech-Nut and Hain. Fear not, US lawmakers are introducing The Baby Food Safety Act of 2021 that will limit toxic heavy metals in baby food which includes mercury, lead, inorganic arsenic and cadmium. The good news is there are a plethora of brands outside of the four listed in which you can stock up on for your little one.</p>
 <p>We love the variety from the happy family of products. From teether crackers to food pouches to their warmup meals. You&rsquo;ll feel great about the options, and they do a great job of incorporating healthy foods such as quinoa, chia, and a variety of vegetables.</p>
@@ -158,7 +158,7 @@ export default {
 <p>While this market is only getting more saturated one brand that has stood out to us is Yumi. It&rsquo;s as easy as picking a plan, they prep, cook, and ship to you. Voila you have a week supply of food! And it&rsquo;s as simple as they ship fresh food EVERY week. Yumi has amazing customer service and have developed a food plan (7 stages) that adapts to your baby&rsquo;s likes while also allowing them to try new things. New things that even you may not have tried yourself such as adzuki bean, Japanese sweet potato, dragon fruit, and more. They also pride themselves on being no gluten, dairy, big 9 allergens, GMO, added sugars, or fortified so you have even less to worry about if you have specific dietary guidelines you wish to follow.</p>
 <p>https://helloyumi.com/</p>
 <p>At the end of the day, similar to one&rsquo;s birth plan, expect to be flexibility or you will drive yourself mad. Remember that your child has their own taste preferences. As a parent you can do your best to make sure they develop the best pallet, but it is always best when our little ones have full stomachs and happy hearts.</p>
-</div>'
+</div>`
     },
 
   ]
