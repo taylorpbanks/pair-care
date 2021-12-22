@@ -132,10 +132,7 @@ export default {
 <li>Baby wipe warmer &ndash; Not a Pair Care essential. If you travel you don&rsquo;t want to have this be yet another item to bring on the road. Babies can get used to the coldness of the cloth. To also prevent some post diaper leakage place a baby cloth on the stomach while the diaper is on so that the baby can release any urine reacting from the cold wipe.</li>
 <li>Diaper organizer &ndash; Yes, anything that makes it easier to grab wipes, diapers and creams is a yes for us! Whether that is a caddy or organized compartments in a drawer it is highly recommended.</li>
 </ul>`
-    },
-  ]
-},
-  {
+    },{
       id: 7,
       title: 'Baby food: To cook or not to cook?!',
       img: blog7,
@@ -163,3 +160,7 @@ export default {
 <p>At the end of the day, similar to one&rsquo;s birth plan, expect to be flexibility or you will drive yourself mad. Remember that your child has their own taste preferences. As a parent you can do your best to make sure they develop the best pallet, but it is always best when our little ones have full stomachs and happy hearts.</p>
 </div>'
     },
+
+  ]
+}
+  
