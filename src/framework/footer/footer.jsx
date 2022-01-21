@@ -30,27 +30,28 @@ const Footer = () => {
 
   return (
     <div className={classes.footer}>
-      <Link href="mailto:paircarecontact@gmail.com" className="footer-link">Contact Us</Link>
-      <RouterLink to="/faq" className="footer-link">FAQs</RouterLink>
-      <br />
       <div style={{ marginBottom: '10px', marginTop: '10px' }}>
         <Link href="https://www.instagram.com/pair_care/" className="footer-link">
-          <IconButton size="small" color="primary">
-            <Instagram fontSize="small" />
+          <IconButton size="large" color="primary">
+            <Instagram fontSize="large" />
           </IconButton>
         </Link>
 
         <Link href="https://www.pinterest.com/pair_care/" className="footer-link">
-          <IconButton size="small" color="primary">
-            <Pinterest fontSize="small" />
+          <IconButton size="large" color="primary">
+            <Pinterest fontSize="large" />
           </IconButton>
         </Link>
 
         <Link href="https://www.facebook.com/Pair-Care-104798421646164" className="footer-link">
-          <IconButton size="small" color="primary">
-            <Facebook fontSize="small" />
+          <IconButton size="large" color="primary">
+            <Facebook fontSize="large" />
           </IconButton>
         </Link>
+
+        <br />
+        <Link href="mailto:paircarecontact@gmail.com" className="footer-link">Contact Us</Link>
+        <RouterLink to="/faq" className="footer-link">FAQs</RouterLink>
       </div>
 
       <div className="pt-15">

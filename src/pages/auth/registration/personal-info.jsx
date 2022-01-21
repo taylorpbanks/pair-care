@@ -53,7 +53,7 @@ const PersonalInfo = ({ setStep, data, handleDataChange }) => {
       },
       validationData: [] //optional
     })
-      .then(() => setStep(2))
+      .then(() => setStep(3))
       .catch(err => setError(err.message))
   };
 

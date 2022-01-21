@@ -187,7 +187,7 @@ const BabyInfo = ({ setStep, data, handleDataChange }) => {
 
       <Grid style={{ textAlign: 'center', marginTop: '30px' }}>
         <Button
-          onClick={() => setStep(1)}
+          onClick={() => setStep(2)}
           variant="contained"
           color="primary"
           className="single-submit-btn"

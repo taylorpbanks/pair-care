@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Avatar,
   Button,
@@ -38,6 +38,7 @@ import AddRow from './add-row';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import { API } from 'aws-amplify';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -76,35 +77,30 @@ const ItemCard = ({
   createItem,
 }) => {
   const classes = useStyles();
-  const [deleteOpen, setDeleteOpen] = React.useState(false);
-  const [isViewMode, setIsViewMode] = React.useState(true);
-  const [expanded, setExpanded] = React.useState(false);
-  const response = API.get(
-    'imgapi',
-    '/image',
-    {
-      headers: {
-        'Access-Control-Allow-Origin' : '*',
-        'Access-Control-Allow-Headers':'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token',
-        'Content-Type': 'application/json'
-      },
-      queryStringParameters: { link: 'https://www.target.com/p/mam-glow-in-the-dark-night-pacifier-0-6-months-2ct-green/-/A-75454632' }
-      //queryStringParameters: { link: 'https://www.pair-care.com/' }
-    }
-  );
-  response.then((test) => {
-    console.log(test)
-  })
+  const [addOpen, setAddOpen] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [isViewMode, setIsViewMode] = useState(true);
+  const [expanded, setExpanded] = useState(false);
+  const [imgUrl, setImgUrl] = useState(undefined)
 
-  useEffect(() => {
-    //const previewData = linkPreviewGenerator(row.link).then(response => {
-    //  console.log(response)
-    //});
-    //const linkPreviewGenerator = require("link-preview-generator");
+  /* useEffect(() => {
+    console.log(row.link)
+    const api = ' https://5vri05j6qj.execute-api.us-east-2.amazonaws.com/staging';
+    const data = {link: row.link }
 
-    //const previewData = linkPreviewGenerator("https://www.youtube.com/watch?v=8mqqY2Ji7_g");
-    //console.log(previewData)
-  }, []);
+    axios
+    .post(api, data)
+    .then((response) => {
+      const { data } = response
+      if (data?.body?.images?.length) {
+        setImgUrl(data.body.images[0])
+      }
+      console.log(response);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }, []); */
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -204,10 +200,17 @@ const ItemCard = ({
           />
           <CardContent>
             <a href={link} target="_blank" rel="noopener noreferrer">
-              <img
-                src={require("../../img/no-img-found.jpg")} alt="picture of item"
-                style={{ maxWidth: '275px', width: '100%' }}
-              />
+              {imgUrl ?
+                <img
+                  src={imgUrl} alt="picture of item"
+                  style={{ maxWidth: '275px', width: '100%' }}
+                />
+                :
+                <img
+                  src={require('../../../img/no-img-found.jpg')} alt="picture of item"
+                  style={{ maxWidth: '275px', width: '100%' }}
+                />
+              }
             </a>
           </CardContent>
           <CardActions disableSpacing>
@@ -239,7 +242,7 @@ const ItemCard = ({
                   <ThumbUp style={{ color: '#8cc5be' }} /> :
                   <ThumbDown style={{ color: '#dc9577' }} />}
                 </span>
-              </Typography>
+              </Typography>s
               <Typography paragraph>
                 {row.comments}
               </Typography>
@@ -247,74 +250,6 @@ const ItemCard = ({
           </Collapse>
         </Card>
       )}
-      {/*(isViewMode || selectedRow !== index) && (
-      <div className="view-row">
-        <div className="col-2 m-header-display">
-          <div className="d-inline-blk">
-            <Avatar className="mr-15" style={{backgroundColor: '#226d77'}}>{category.highlighted ? category.highlighted : category.icon}</Avatar>
-          </div>
-
-          <div className="d-inline-blk">
-            <span className="text-small">{stageId.label}</span>
-            <br />
-            <span>{category.label}</span>
-            {!sharedList && (
-              <div className="tool-bar">
-                <Tooltip title="Edit" aria-label="edit">
-                  <IconButton aria-label="edit" onClick={() => {setSelectedRow(index);setIsViewMode(false);}} size="small">
-                    <EditOutlined />
-                  </IconButton>
-                </Tooltip>
-
-                <Tooltip title="Delete" aria-label="delete">
-                  <IconButton aria-label="delete" onClick={() => handleClickOpen(false)} size="small">
-                    <DeleteOutlineOutlined />
-                  </IconButton>
-                </Tooltip>
-              </div>
-            )}
-
-            {sharedList && !row.added && (
-              <div className="tool-bar">
-                <Tooltip title="Add Item" aria-label="Add">
-                  <IconButton aria-label="Add Item" onClick={(e) => {createItem(row, e)}} size="small">
-                    <AddCircleOutline />
-                  </IconButton>
-                </Tooltip>
-              </div>
-            )}
-          </div>
-          
-          {sharedList && row.added && (
-            <div className="secondary-color mt-15">
-              <CheckCircleOutline color="secondary" style={{verticalAlign: 'middle'}} /> Item on your list
-            </div>
-          )}
-        </div>
-
-        <div className="col-6">
-          <div className="row-brand m-text-center">{`${row.type} ${row.brand === '' || row.type === '' ? '' : '-'} ${row.brand}`}</div>
-          <div className="row-item m-text-center m-mb-15">{row.item}</div>
-          <div className="mb-15">
-            <a href={link} target="_blank" rel="noopener noreferrer">
-              {`${linkDisplay}...`} <FontAwesomeIcon icon={faExternalLinkAlt} />
-            </a>
-          </div>
-        </div>
-
-        <div className="col-3">
-          <div className="mb-15">
-            {row.age || row.age === 0 ? getAgeLabel(row.age, stageId) : ''} {row.toAge && row.age !== row.toAge ? `to ${getAgeLabel(row.toAge, stageId)}` : ''}
-            <span className="float-right">{row.isRecommended === 'Y' ?
-              <ThumbUpAltOutlined style={{color: '#8cc5be'}} /> :
-              <ThumbDownAltOutlined style={{color: '#dc9577'}} />}
-            </span>
-          </div>
-          {stageId && stageId.id !== 0 && <Hidden smDown><hr /></Hidden>}
-          <div className="mt-15">{row.comments}</div>
-        </div>
-      </div>
-    )*/}
 
       {!isViewMode && selectedRow === index && (
         <AddRow
@@ -339,21 +274,21 @@ const ItemCard = ({
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             The following item will be deleted:
-          <br />
+            <br />
             <strong>{row.brand} - {row.item}</strong>
             <br />
             <br />
-          This action cannot be undone.
-        </DialogContentText>
+            This action cannot be undone.
+          </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={(e) => handleClose(false)} color="primary" autoFocus>
             Cancel
-        </Button>
+          </Button>
 
           <Button onClick={(e) => { handleClose(false); onDeleteItem(row.id); }} color="primary">
             Delete Item
-        </Button>
+          </Button>
         </DialogActions>
       </Dialog>
     </>

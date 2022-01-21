@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { ActionCreators } from '../../redux/my-list/actions';
+import { ActionCreators } from '../../../redux/my-list/actions';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Dialog,
@@ -22,7 +22,7 @@ import {
 import { Alert } from '@material-ui/lab';
 import { Link as RouterLink } from 'react-router-dom';
 import { CheckCircle } from '@material-ui/icons';
-import { createItem } from '../../graphql/mutations';
+import { createItem } from '../../../graphql/mutations';
 import { API } from 'aws-amplify';
 import { cloneDeep } from 'lodash';
 
