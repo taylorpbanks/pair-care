@@ -1,5 +1,4 @@
-const getLinkPreview = require('link-preview-js');
-const linkPreviewGenerator = require("link-preview-generator");
+const { getLinkPreview } = require('link-preview-js');
 
 exports.handler = async (options) => {
   return getLinkPreview(options.link)

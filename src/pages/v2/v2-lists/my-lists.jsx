@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { connect } from 'react-redux';
-import { ActionCreators } from '../../redux/my-list/actions';
+import { ActionCreators } from '../../../redux/my-list/actions';
 import {
   Box,
   AppBar,
@@ -29,22 +29,23 @@ import {
 import PropTypes from 'prop-types';
 import './my-lists.css'
 import ItemCard from './item-card';
-import stages from '../../constants/stages';
-import categories from '../../constants/categories';
+import stages from '../../../constants/stages';
+import categories from '../../../constants/categories';
 import AddRow from './add-row';
 import AddManyItems from './add-many-items';
 import {
   createItem as createItemMutation,
   deleteItem as deleteItemMutation,
   updateItem as updateItemMutation,
-} from '../../graphql/mutations';
-import { listItems } from '../../graphql/queries';
+} from '../../../graphql/mutations';
+import { listItems } from '../../../graphql/queries';
 import { Link as RouterLink } from 'react-router-dom';
 import { API, graphqlOperation } from 'aws-amplify';
 import { cloneDeep } from 'lodash';
-import { compareStrings } from '../../tools/services';
-import ProfilePic from '../profile/profile-pic';
+import { compareStrings } from '../../../tools/services';
+import ProfilePic from '../../profile/profile-pic';
 import FiltersPanel from './filters-panel';
+import AddItemForm from './add-item-form';
 
 function TabPanel(props) {
   const { children, selectedStage, index, ...other } = props;
@@ -100,6 +101,7 @@ const MyListsV2 = ({
   const [showManyItemAdd, setShowManyItemAdd] = useState(false);
   const [sortBy, setSortBy] = useState('isRecommended');
   const [open, setOpen] = React.useState(false);
+  const [isAdding, setIsAdding] = React.useState(false);
 
   const followingCount = following ? following.length : 1;
   const followersCount = followers ? followers.length : 1;
@@ -294,6 +296,9 @@ const MyListsV2 = ({
               <Tab key={tab.label} label={tab.label} {...a11yProps(tab.id)} />
             ))}
           </Tabs>
+          <IconButton edge="end" style={{color: 'white'}} onClick={() => setIsAdding(!isAdding)}>
+            <Add />
+          </IconButton>
           <IconButton edge="end" style={{color: 'white'}} onClick={() => setOpen(!open)}>
             <Tune />
           </IconButton>
@@ -313,42 +318,6 @@ const MyListsV2 = ({
           key={stage.id}
           className={selectedRow === 10000 ? 'tab-panel page-container' : 'tab-panel append-btm-margin'}
         >
-          {/*<FormControl variant="outlined" size="small" style={{float: 'right'}}>
-            <InputLabel id="sort-by-label">Sort By</InputLabel>
-            <Select
-              labelId="sort-by-label"
-              id="sort-by-label"
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-                label="Sort By"
-              size="small"
-            >
-              <MenuItem value="isRecommended">Recommended</MenuItem>
-              <MenuItem value="brand">Brand</MenuItem>
-              <MenuItem value="age">Age</MenuItem>
-            </Select>
-          </FormControl>
-
-          <br />
-
-          <div style={{display: 'inline'}}>
-            {categories[selectedStage].map(list => (
-              <Chip
-                className="category-chip"
-                color={selectedChip === list.id ? 'primary' : undefined}
-                key={list.id}
-                size="medium"
-                icon={selectedChip === list.id && list.highlighted ? list.highlighted : list.icon}
-                label={`${list.label} (${list.numOfItems})`}
-                onClick={() => {
-                  setSelectedChip(list.id)
-                  if (selectedRow !== 10000) {
-                    setSelectedRow(null);
-                  }
-                }}
-              />
-            ))}
-              </div>*/}
 
           <div className="standard-flex-box mt-30">
             {categories[selectedStage][selectedChip].numOfItems > 0 && (
@@ -401,39 +370,6 @@ const MyListsV2 = ({
         selectedChip={selectedChip}
         isNewRow={true}
       />)}
-
-        {/* (selectedRow === null) && (
-          <div className="floating-action-btn-container">
-            <div className="middle-action-btns">
-              {!sharedList && (
-                <>
-                  <Tooltip title="Add Item" aria-label="add item">
-                    <Fab className="add-btn mr-15" color="primary" aria-label="add" disabled={!!selectedRow} onClick={() => {addEntryRow();}}>
-                      <Add />
-                    </Fab>
-                  </Tooltip>
-
-                  <Tooltip title="Share List" aria-label="share list">
-                    <Fab className="share-btn" color="secondary" aria-label="share" disabled={!listContent.length} component={RouterLink} to="/share-my-list">
-                      <Share />
-                    </Fab>
-                  </Tooltip>
-                </>
-              )}
-
-              {sharedList && (
-                <>
-                  <Tooltip title="Add Many Items" aria-label="add many item">
-                    <Fab className="add-btn mr-15" color="primary" aria-label="add" disabled={!listContent.length} onClick={() => {setShowManyItemAdd(true)}}>
-                      <LibraryAdd />
-                    </Fab>
-                  </Tooltip>
-                </>
-              )}
-            </div>
-          </div>
-              )*/}
-
       <Snackbar
        anchorOrigin={{ vertical: 'bottom', horizontal:'left' }}
         open={showSnackBar}
@@ -450,6 +386,8 @@ const MyListsV2 = ({
           </React.Fragment>
         }
       />
+
+        <AddItemForm isOpen={isAdding} onClose={() => setIsAdding(false)} />
 
       {sharedList && showManyItemAdd && (
         <AddManyItems

@@ -8,15 +8,15 @@
     padding: 10px;
     margin-left: 10px;
     color: #226d77;
-    max-width: 245px;
+    width: 600px;
+    font-size: 3em;
 }
 
 .welcome-content {
     position: absolute;
-    bottom: 15px;
-    margin-left: 15px;
-    padding: 0 15px;
+    bottom: 35%;
     text-align: center;
+    width: 600px;
 }
 
 .secondary-box {
@@ -40,9 +40,9 @@
 
 .avatar-container {
     display: inline-grid;
-    font-size: 11px;
+    font-size: 14px;
     text-align: center;
-    width: 92px;
+    width: 105px;
     margin-bottom: 30px;
 }
 
@@ -51,11 +51,36 @@
 }
 
 /*responsive design*/
+@media screen and (max-width: 1495px) {
+    .welcome-title {
+        width: 400px;
+    }
+
+    .welcome-content {
+        width: 400px;
+        bottom: 15%;
+    }
+}
+
+@media screen and (max-width: 1300px) {
+    .welcome-title {
+        width: 300px;
+        font-size: 2em;
+    }
+
+    .welcome-content {
+        width: 300px;
+        bottom: 10%;
+    }
+}
+
 @media screen and (max-width: 960px) {
     .welcome-title {
         position: initial;
         text-align: center;
         max-width: 100%;
+        font-size: 2em;
+        width: 100%
     }
 
     .welcome-content {
@@ -64,6 +89,7 @@
         margin-left: 0;
         margin-top: -5px;
         padding: 15px 0;
+        width: 100%;
     }
 
     .avatar-container {

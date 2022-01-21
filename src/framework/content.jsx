@@ -7,7 +7,8 @@ import Unauthorized from '../pages/unauthorized/unauthorized';
 import Login from '../pages/auth/login';
 import Registration from '../pages/auth/registration/registration';
 import MyLists from '../pages/lists/my-lists';
-import MyListsV2 from '../pages/v2-lists/my-lists';
+import MyListsV2 from '../pages/v2/v2-lists/my-lists';
+import Journey from '../pages/v2/journey/landing';
 import Profile from '../pages/profile/profile';
 import ShareMyList from '../pages/share-my-list/share-my-list';
 import SharedLists from '../pages/view-shared-lists/shared-lists';
@@ -85,6 +86,10 @@ export default function Content({authState, onStateChange}) {
 
         <Route path="/my-list-v2">
           {isLoggedIn ? <MyListsV2 /> : <UnauthorizedPage /> }
+        </Route>
+
+        <Route path="/journey">
+          {isLoggedIn ? <Journey /> : <UnauthorizedPage /> }
         </Route>
 
         <Route path="/change-password">
