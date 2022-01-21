@@ -138,7 +138,7 @@ export default {
       img: blog7,
       category: 'essentials',
       time: '2 minutes',
-      date: `December 8, 2021',
+      date: `December 8, 2021`,
       html: `<p>The world is full of choices, and yes opinions, on what your child should be eating. You can grab an assortment of pre-made baby food and snacks from any big box store aisle such as Walmart and Target and of course there is Amazon. You can also go completely au natural and make your own delectable assortment of foods. But let&rsquo;s not forget the middle ground. You can combine pre-made food with food you&rsquo;ve made or even outsource the work of pre-made fresh food. The question comes down to three things how much time do you want to spend, how much money do you want to spend and how much control do you want over the nutritional value. Here are some of our favorites for each type of food path.</p>
 <p><u>For the parents who want to cut down on time: </u></p>
 <p>If you haven&rsquo;t heard there were reports of toxic heavy metals in baby foods. Some folks even took it to social media to demonstrate the simple act of using a magnet and pulling small fragments of metal from their purchase kid foods. Now there are class action lawsuits against Plum (a Campbell brand), Gerber, Beech-Nut and Hain. Fear not, US lawmakers are introducing The Baby Food Safety Act of 2021 that will limit toxic heavy metals in baby food which includes mercury, lead, inorganic arsenic and cadmium. The good news is there are a plethora of brands outside of the four listed in which you can stock up on for your little one.</p>
