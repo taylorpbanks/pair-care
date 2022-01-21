@@ -36,9 +36,9 @@ function Unauthorized({ authState, onStateChange }) {
         </h1>
 
         <img
-          src={require("../../img/bbby-toys-3.jpg")}
+          src={require("../../img/bbby-toys-2.jpg")}
           alt="pair-care welcome"
-          style={{maxWidth: '100%'}}
+          style={{width: '100%'}}
         />
 
         <div className="welcome-content">
@@ -50,6 +50,7 @@ function Unauthorized({ authState, onStateChange }) {
             onClick={() => setRedirect('register')}
             variant="contained"
             color="primary"
+            size="large"
           >
             Create a List
           </Button>
@@ -70,21 +71,21 @@ function Unauthorized({ authState, onStateChange }) {
             <ListAltOutlined fontSize="large" color="secondary" className="icons-highlights" />
             <br />
             <div className="icons-text">Create</div>
-            <p>Create a list of your own recommended items</p>
+            <p className="icons-subtext">Create a list of your own recommended items</p>
           </div>
 
           <div className="col-4">
             <ShareOutlined fontSize="large" color="secondary" className="icons-highlights" />
             <br />
             <div className="icons-text">Share</div>
-            <p>Share your list with other parents</p>
+            <p className="icons-subtext">Share your list with other parents</p>
           </div>
 
           <div className="col-4">
             <BuildOutlined fontSize="large" color="secondary" className="icons-highlights" />
             <br />
             <div className="icons-text">Manage</div>
-            <p>Manage your list as you discover new products</p>
+            <p className="icons-subtext">Manage your list as you discover new products</p>
           </div>
         </div>
 

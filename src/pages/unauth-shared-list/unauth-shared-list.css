@@ -20,4 +20,10 @@
 .icons-text {
     color: #dc9577;
     font-weight: 500;
+    font-size: 1.25em;
+}
+
+.icons-subtext {
+    font-weight: 300;
+    font-size: 1.25em;
 }
