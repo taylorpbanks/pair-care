@@ -1,0 +1,21 @@
+.pie-chart {
+  width: 50%;
+  margin: auto;
+}
+
+/* mobile responsive */
+@media screen and (max-width: 992px) {
+  .journey-main {
+    display: block;
+  }
+
+  .card-header {
+    text-align: center;
+    display: block;
+    width: 100%;
+  }
+
+  .pie-chart {
+    width: 25%;
+  }
+}

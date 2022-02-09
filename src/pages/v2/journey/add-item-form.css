@@ -1,0 +1,22 @@
+.icons {
+    display: inline;
+    width: 50px;
+    height: 50px;
+    vertical-align: middle;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.icons > svg {
+  width: 100%;
+}
+
+.category-icons {
+  display: inline
+}
+
+.category-icons > .MuiAvatar-root {
+  display: inline-flex;
+  vertical-align: middle;
+  cursor: pointer;
+}
