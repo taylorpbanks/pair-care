@@ -3,6 +3,37 @@
   margin: auto;
 }
 
+.tile-container {
+  min-height: 100px;
+  text-decoration: none;
+}
+
+.tile {
+  border: 1px solid #d2d2d2;
+  border-radius: 8px;
+  height: 100%
+}
+
+.blue-tile {
+  background-color: #eef6f9;
+  color: #226d77;
+  border-radius: 8px;
+}
+
+.pink-tile {
+  background-color: #dc9577;
+  color: white;
+  border-radius: 8px;
+}
+
+.tile-page {
+  gap: 10px 20px;
+}
+
+.tile-page h3 {
+  padding-left: 15px;
+}
+
 /* mobile responsive */
 @media screen and (max-width: 992px) {
   .journey-main {

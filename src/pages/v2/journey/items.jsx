@@ -30,7 +30,7 @@ const breakPoints = [
   { width: 1200, itemsToShow: 4, itemsToScroll: 2 },
 ]
 
-const PopulatedItem = ({ item }) => {
+const PopulatedItem = ({ item, defaultIcon }) => {
   const Icon = item.icon
 
   return (
@@ -38,10 +38,10 @@ const PopulatedItem = ({ item }) => {
       <CardHeader
         avatar={
           <Avatar aria-label="crib" style={{ backgroundColor: '#226d77' }}>
-            {item.icon}
+            {item.icon || defaultIcon}
           </Avatar>
         }
-        title={item.title}
+        title={item.title || item}
         subheader={item.subheader}
       />
       <CardContent>
@@ -56,7 +56,7 @@ const PopulatedItem = ({ item }) => {
   )
 }
 
-const UnpopulatedItem = ({ item, setSelected }) => {
+const UnpopulatedItem = ({ item, setSelected, defaultIcon }) => {
   const Icon = item.icon
 
   return (
@@ -64,10 +64,10 @@ const UnpopulatedItem = ({ item, setSelected }) => {
       <CardHeader
         avatar={
           <Avatar aria-label="crib" style={{ backgroundColor: '#226d77' }}>
-            {item.icon}
+            {item.icon || defaultIcon}
           </Avatar>
         }
-        title={item.title}
+        title={item.title || item}
         subheader="Pick your item!"
       />
         <CardContent>
@@ -84,7 +84,7 @@ const UnpopulatedItem = ({ item, setSelected }) => {
   )
 }
 
-function Items({ items }) {
+function Items({ items, defaultIcon }) {
   const [selected, setSelected] = React.useState(undefined);
 
   return (
@@ -92,11 +92,12 @@ function Items({ items }) {
       <Carousel breakPoints={breakPoints}>
         {items.map(item => (
           <>
-            {item.link ? <PopulatedItem item={item} /> : <UnpopulatedItem item={item} setSelected={setSelected} />}
+            {/*item.link ? <PopulatedItem item={item} /> : <UnpopulatedItem item={item} setSelected={setSelected} defaultIcon={defaultIcon} />}*/}
+            <UnpopulatedItem item={item} setSelected={setSelected} defaultIcon={defaultIcon} />
           </>
         ))}
       </Carousel>
-      <AddItemForm item={selected} isOpen={selected} onClose={() => setSelected(undefined)} />
+      <AddItemForm item={selected} isOpen={selected} onClose={() => setSelected(undefined)} defaultIcon={defaultIcon} />
     </div>
   )
 }

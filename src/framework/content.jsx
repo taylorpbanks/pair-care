@@ -9,6 +9,7 @@ import Registration from '../pages/auth/registration/registration';
 import MyLists from '../pages/lists/my-lists';
 import MyListsV2 from '../pages/v2/v2-lists/my-lists';
 import Journey from '../pages/v2/journey/landing';
+import Tiles from '../pages/v2/journey/tiles';
 import Profile from '../pages/profile/profile';
 import ShareMyList from '../pages/share-my-list/share-my-list';
 import SharedLists from '../pages/view-shared-lists/shared-lists';
@@ -89,6 +90,10 @@ export default function Content({authState, onStateChange}) {
         </Route>
 
         <Route path="/journey">
+          {isLoggedIn ? <Tiles /> : <UnauthorizedPage /> }
+        </Route>
+
+        <Route path="/category/:id">
           {isLoggedIn ? <Journey /> : <UnauthorizedPage /> }
         </Route>
 

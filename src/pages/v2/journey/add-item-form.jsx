@@ -46,7 +46,8 @@ import { ConsoleLogger } from "@aws-amplify/core";
 const AddItemForm = ({
   isOpen,
   onClose,
-  item
+  item,
+  defaultIcon
 }) => {
   const [form, setForm] = useState({
     link: ''
@@ -117,7 +118,7 @@ const AddItemForm = ({
       >
         <DialogTitle className="pb-0" id="alert-dialog-title">
           <Avatar aria-label="crib" style={{ backgroundColor: '#226d77', display: 'inline-flex', marginRight: '15px' }}>
-            {item.icon}
+            {item.icon || defaultIcon}
           </Avatar>
           Add {item.title}
         </DialogTitle>
