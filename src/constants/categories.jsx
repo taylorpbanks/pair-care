@@ -17,6 +17,7 @@ import {
     faChair,
   } from '@fortawesome/free-solid-svg-icons';
   import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+  import { Stroller, Crib, Toys } from '@mui/icons-material';
 
 export default {
     0: [
@@ -104,9 +105,9 @@ export default {
       { id: 0, label: 'All', icon: <FontAwesomeIcon icon={faInfinity} /> },
       {     id: 1,
         label: 'On the Go',
-        icon: <img src={require("../img/t-icons/Stroller-d.png")} alt="stroller" width="25px" />,
-        highlighted: <img src={require("../img/t-icons/Stroller-h.png")} alt="stroller"  width="25px" />,
-        //icon: <FontAwesomeIcon icon={faCar} />,
+        // icon: <img src={require("../img/t-icons/Stroller-d.png")} alt="stroller" width="25px" />,
+        // highlighted: <img src={require("../img/t-icons/Stroller-h.png")} alt="stroller"  width="25px" />,
+        icon: <Stroller />,
         subCategories: [
           'Car Accessories',
           'Car Seats',
@@ -120,9 +121,9 @@ export default {
       {
         id: 2,
         label: 'Sleeping',
-        icon: <img src={require("../img/t-icons/Bassinet-d.png")} alt="bassinet" width="25px" />,
-        highlighted: <img src={require("../img/t-icons/Bassinet-h.png")} alt="bassinet" width="25px" />,
-        //icon: <FontAwesomeIcon icon={faBed} />,
+        // icon: <img src={require("../img/t-icons/Bassinet-d.png")} alt="bassinet" width="25px" />,
+        // highlighted: <img src={require("../img/t-icons/Bassinet-h.png")} alt="bassinet" width="25px" />,
+        icon: <Crib />,
         subCategories: [
           'Bumpers',
           'Cribs & Mattresses',
@@ -184,9 +185,9 @@ export default {
       {
         id: 6,
         label: 'Play & Learn',
-        icon: <img src={require("../img/t-icons/Rattle-d.png")} alt="rattle" width="25px" />,
-        highlighted: <img src={require("../img/t-icons/Rattle-h.png")} alt="rattle" width="25px" />,
-        //icon: <FontAwesomeIcon icon={faBrain} />,
+        // icon: <img src={require("../img/t-icons/Rattle-d.png")} alt="rattle" width="25px" />,
+        // highlighted: <img src={require("../img/t-icons/Rattle-h.png")} alt="rattle" width="25px" />,
+        icon: <Toys />,
         subCategories: [
           'Activity Centers & Mats',
           'Bouncers & Swings',

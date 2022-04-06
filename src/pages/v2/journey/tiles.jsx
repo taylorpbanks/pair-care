@@ -2,7 +2,6 @@ import React from 'react';
 import categories from '../../../constants/categories';
 import { Link } from 'react-router-dom';
 import { PieChart } from 'react-minimal-pie-chart'
-import LinearProgress from '@mui/material/LinearProgress';
 import './journey.css'
 
 const tiles = categories[2]
@@ -39,13 +38,12 @@ const Tiles = () => {
           <>
             {index !==0 && (
               <Link
-              to={`/category/${tile.id}`}
-              className={`col-4 tile-container ${index % 2 === 0 ? 'blue-tile' : 'pink-tile'}`}
-              key={tile.id || tile.label}
-            >
+                to={`/category/${tile.id}`}
+                className={`col-4 tile-container ${index % 2 === 0 ? 'blue-tile' : 'pink-tile'}`}
+                key={tile.id || tile.label}
+              >
               <div className="tile">
-                <h3>{tile.label}</h3>
-                <LinearProgress variant="determinate" progress={30} />
+                <h3 className="mt-30">{tile.label}</h3>
               </div>
             </Link>
             )}
