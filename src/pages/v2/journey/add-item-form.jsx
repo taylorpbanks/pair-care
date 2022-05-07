@@ -2,27 +2,14 @@ import React, { useEffect, useState } from "react";
 import {
   Avatar,
   TextField,
-  FormLabel,
-  RadioGroup,
-  FormControlLabel,
-  Radio,
   Button,
   Dialog,
   DialogTitle,
   DialogContent,
   DialogContentText,
   DialogActions,
-  Grow,
   Tooltip,
-  Slider,
-  FormHelperText,
   IconButton,
-  Drawer,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Chip,
   CircularProgress
 } from '@material-ui/core';
 import { InfoOutlined } from '@material-ui/icons';
@@ -32,30 +19,31 @@ import {
   ChevronLeft,
   AddCircleOutline
 } from '@material-ui/icons';
-import validator from 'validator';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import brands from '../../../constants/brand'
-import ages from '../../../constants/ages';
-import trimesters from '../../../constants/pregnancy-timeline';
 import categories from '../../../constants/categories';
-import { API } from 'aws-amplify';
+import { API, graphqlOperation } from 'aws-amplify';
+import { cloneDeep } from 'lodash';
 import axios from 'axios';
 import './add-item-form.css';
-import { ConsoleLogger } from "@aws-amplify/core";
+import { connect } from 'react-redux';
+import { ActionCreators } from '../../../redux/my-list/actions';
+import {
+  createItem as createItemMutation
+} from '../../../graphql/mutations';
 
 const AddItemForm = ({
   isOpen,
   onClose,
   item,
-  defaultIcon
+  defaultIcon,
+  categoryId,
+  profile,
+  myList,
+  addItem
 }) => {
   const [form, setForm] = useState({
     link: ''
   });
-  const [imgPreview, setImgPreview] = useState([]);
-  const [index, setIndex] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
-  const [data, setData] = useState({
+  const defaultContent = {
     stageId: '',
     categoryId: '',
     type: '',
@@ -68,7 +56,12 @@ const AddItemForm = ({
     comments: '',
     imgs: [],
     submitted: false
-  });
+  }
+  const [imgPreview, setImgPreview] = useState([]);
+  const [index, setIndex] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false)
+  const [data, setData] = useState(defaultContent);
 
   const getImgPreview = (e) => {
     const { value } = e.target;
@@ -98,9 +91,49 @@ const AddItemForm = ({
     }
   };
 
-  const getSubCategories = () => {
-    const displayCategories = categories[2]
-    return categories[2][data.categoryId] ? categories[2][data.categoryId].subCategories.map(category => category) : [];
+  async function addingItem() {
+    const content = {
+      stageId: 2,
+      categoryId: categoryId,
+      type: item.type,
+      brand: '',
+      link: form.link,
+      item: data.item,
+      age: 0,
+      toAge: 0,
+      isRecommended: 'true',
+      comments: '',
+      image: data.imgs[index] || null
+    }
+    const requestItem = cloneDeep(content);
+
+    requestItem.sub = profile.sub;
+    requestItem.email = profile.email;
+    requestItem.updatedAt = undefined;
+    requestItem.createdAt = undefined;
+    requestItem.added = undefined;
+    requestItem.id = undefined;
+
+    await API.graphql({ query: createItemMutation, variables: { input: requestItem } })
+    .then(response => {
+      console.log(1)
+      let copyArray = [{...content}];
+
+      requestItem.id = response.data.createItem.id;
+      addItem(requestItem, 2);
+      clear();
+      console.log(2)
+    })
+    .catch((error) => {
+      console.log(error)
+      setError('An unexpected error occurred.  Please try again.');
+    });
+  }
+
+  const clear = () => {
+    setForm({ link: '' });
+    setData(defaultContent);
+    onClose(false);
   }
 
   if (!item) return null
@@ -152,6 +185,7 @@ const AddItemForm = ({
                     InputLabelProps={{ required: true }}
                     autoComplete="false"
                     required
+                    disabled={isLoading}
                   />
                 </div>
                 <div className="col-12 text-center">
@@ -187,11 +221,11 @@ const AddItemForm = ({
           </div>
 
           <DialogActions>
-            <Button onClick={(e) => { onClose(false); setForm({ link: '' }) }} color="primary" autoFocus>
+            <Button onClick={(e) => { clear() }} color="primary" autoFocus>
               Cancel
             </Button>
 
-            <Button onClick={(e) => { onClose(false); }} color="primary">
+            <Button onClick={(e) => { addingItem() }} color="primary">
               Add
             </Button>
           </DialogActions>
@@ -238,4 +272,18 @@ const AddItemForm = ({
   );
 }
 
-export default AddItemForm;
+const mapStateToProps = (state) => ({
+  profile: state.profile,
+  myList: state.myList
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addItem: (item, listId) => dispatch(ActionCreators.addItem(item, listId)),
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AddItemForm);

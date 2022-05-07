@@ -20,6 +20,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import categories from '../../../constants/categories';
 import { useParams, Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 // custom components
 import PersonHeadline from './person-headline';
@@ -34,75 +35,8 @@ import DirectionsCarIcon from '@mui/icons-material/DirectionsCar'
 
 import CircularProgress from '@mui/material/CircularProgress';
 
-/* const all = [
-  {
-    title: 'Essentials',
-    items: [
-      {
-        title: 'Crib',
-        icon: <CribIcon />,
-        img: '../../../img/concept/crib.jpg',
-        link: 'https://www.westelm.com/products/gemini-crib-white-h7670/',
-        brand: 'West Elm',
-        subheader: 'Gemini Crib'
-      },
-      {
-        title: 'Changing Table',
-        icon: <BabyChangingStationIcon />,
-        suggestions: [
-          {
-            brand: 'West Elm',
-            name: 'Babyletto Hudson',
-            link: 'https://www.westelm.com/products/hudson-3-drawer-changing-table-h9028/?pkey=cchanging-tables',
-            img: '../../../img/concept/changing-table-1.jpg'
-          },
-          {
-            brand: 'Wayfair',
-            name: 'Monarch Hill', 
-            link: '"https://www.wayfair.com/Little-Seeds--Monarch-Hill-Hawken-Changing-Table-Dresser-5715407COM-L218-K~W002967088.html?refid=GX528880927665-W002967088&device=c&ptid=893049660391&network=g&targetid=pla-893049660391&channel=GooglePLA&ireid=51633606&fdid=1817&gclid=Cj0KCQiA_JWOBhDRARIsANymNOY0ans9q3LxR-ZPMVH0nsFaU2Q34jrnd4AY7rRpjKhVnlFvhrl07NUaAsX3EALw_wcB',
-            img: '../../../img/concept/changing-table-2.jpg'
-          }
-        ]
-      },
-      {
-        title: 'Stroller',
-        icon: <ChildFriendlyIcon />
-        // https://www.target.com/p/graco-pace-2-0-stroller-perkins/-/A-80179076
-      },
-      {
-        title: 'High Chair',
-        icon: <ChairAltIcon />
-      },
-      {
-        title: 'Car Seat',
-        icon: <DirectionsCarIcon />
-      },
-    ]
-  },
-  {
-    title: 'Sleeping',
-    items: [
-      {
-        title: 'Mattresses',
-        icon: <CribIcon />
-      },
-      {
-        title: 'Crib Sheets & Blankets',
-        icon: <CribIcon />
-      },
-      {
-        title: 'Mobiles',
-        icon: <CribIcon />
-      },
-      {
-        title: 'Swaddles',
-        icon: <CribIcon />
-      }
-    ]
-  }
-] */
 
-function Landing({}) {
+function Landing({ myList }) {
   const params = useParams();
 
   useEffect(() => {
@@ -110,7 +44,19 @@ function Landing({}) {
     window.scrollTo(0, 0)
   }, []);
 
-  const category = categories[2][params.id]
+  const rawList = categories[2][params.id]
+  const category = rawList
+  const items = []
+  rawList.subCategories.forEach(type => {
+    const item = myList[2].find(item => {
+      return item.categoryId === category.id && type === item.type
+    })
+    items.push({
+      type: type,
+      ...item
+    })
+  })
+  console.log(myList[2])
 
   return (
     <div className="journey">
@@ -120,10 +66,9 @@ function Landing({}) {
         <CategoryCard
           category={category.label}
           totalItems={category.subCategories.length}
-          // filledItems={category.subCategories.filter((item) => item.link).length}
-          filledItems={0}
+          filledItems={items.filter(item => item.item).length}
         />
-        <Items items={category.subCategories} defaultIcon={category.icon} />
+        <Items items={items} defaultIcon={category.icon} categoryId={params.id} />
       </div>
 
       {/*all.map(category => (
@@ -142,4 +87,15 @@ function Landing({}) {
   )
 }
 
-export default Landing
+const mapStateToProps = (state) => ({
+  myList: state.myList
+});
+
+const mapDispatchToProps = dispatch => {
+  return {};
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Landing);

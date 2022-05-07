@@ -17,8 +17,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import CribIcon from '@mui/icons-material/Crib'
 import {
   Add,
-  AddCircleOutline,
-  ChevronRights
+  Link
 } from '@material-ui/icons';
 import AddItemForm from './add-item-form';
 import './journey.css'
@@ -41,12 +40,19 @@ const PopulatedItem = ({ item, defaultIcon }) => {
             {item.icon || defaultIcon}
           </Avatar>
         }
-        title={item.title || item}
-        subheader={item.subheader}
+        title={item.type}
+        subheader={item.item}
       />
       <CardContent>
-        <a href={item.link}>
-          <img style={{ width: '100%' }} src={require('../../../img/concept/crib.jpg')} />
+        <a href={item.link} target="_blank">
+          {item.image && <img style={{ width: '100%' }} src={item.image} />}
+          {!item.image && (
+            <div style={{ width: '268px', height: '268px' }}>
+              <Fab color="secondary" aria-label="link" style={{ position: 'relative', left: '40%', top: '40%' }}>
+                <Link />
+              </Fab>
+              </div>
+          )}
         </a>
         <p className="text-right">
           <a href="#">See more suggestions ›</a>
@@ -67,7 +73,7 @@ const UnpopulatedItem = ({ item, setSelected, defaultIcon }) => {
             {item.icon || defaultIcon}
           </Avatar>
         }
-        title={item.title || item}
+        title={item.type || item}
         subheader="Pick your item!"
       />
         <CardContent>
@@ -84,7 +90,7 @@ const UnpopulatedItem = ({ item, setSelected, defaultIcon }) => {
   )
 }
 
-function Items({ items, defaultIcon }) {
+function Items({ items, defaultIcon, categoryId }) {
   const [selected, setSelected] = React.useState(undefined);
 
   return (
@@ -92,12 +98,20 @@ function Items({ items, defaultIcon }) {
       <Carousel breakPoints={breakPoints}>
         {items.map(item => (
           <>
-            {/*item.link ? <PopulatedItem item={item} /> : <UnpopulatedItem item={item} setSelected={setSelected} defaultIcon={defaultIcon} />}*/}
-            <UnpopulatedItem item={item} setSelected={setSelected} defaultIcon={defaultIcon} />
+            {item.link ?
+              <PopulatedItem item={item} /> :
+              <UnpopulatedItem item={item} setSelected={setSelected} defaultIcon={defaultIcon} />
+            }
           </>
         ))}
       </Carousel>
-      <AddItemForm item={selected} isOpen={selected} onClose={() => setSelected(undefined)} defaultIcon={defaultIcon} />
+      <AddItemForm
+        item={selected}
+        isOpen={selected}
+        onClose={() => setSelected(undefined)}
+        defaultIcon={defaultIcon}
+        categoryId={categoryId}
+      />
     </div>
   )
 }
