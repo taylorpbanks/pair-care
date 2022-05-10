@@ -55,6 +55,7 @@ export const onCreateItem = /* GraphQL */ `
       comments
       quickRec
       price
+      image
       createdAt
       updatedAt
     }
@@ -78,6 +79,7 @@ export const onUpdateItem = /* GraphQL */ `
       comments
       quickRec
       price
+      image
       createdAt
       updatedAt
     }
@@ -101,6 +103,7 @@ export const onDeleteItem = /* GraphQL */ `
       comments
       quickRec
       price
+      iamge
       createdAt
       updatedAt
     }

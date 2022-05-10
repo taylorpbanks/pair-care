@@ -50,6 +50,7 @@ export const getItem = /* GraphQL */ `
       comments
       quickRec
       price
+      image
       createdAt
       updatedAt
     }
@@ -78,6 +79,7 @@ export const listItems = /* GraphQL */ `
         comments
         quickRec
         price
+        image
         createdAt
         updatedAt
       }

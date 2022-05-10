@@ -86,7 +86,7 @@ const ListRow = ({
   };
 
   const stageId = stages.find(category => category.id === row.stageId);
-  const category = categories.find(category => category.id === row.categoryId);
+  const category = categories.find(category => category.id == row.categoryId);
   const linkDisplay = row.link.substring(0, row.link.length >= maxLinkLength ? maxLinkLength : row.link.length);
   let link = row.link;
 

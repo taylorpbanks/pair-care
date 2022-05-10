@@ -67,6 +67,7 @@ export const createItem = /* GraphQL */ `
       comments
       quickRec
       price
+      image
       createdAt
       updatedAt
     }

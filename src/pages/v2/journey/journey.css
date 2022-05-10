@@ -1,0 +1,53 @@
+.pie-chart {
+  width: 50%;
+  margin: auto;
+}
+
+.tile-container {
+  min-height: 100px;
+  text-decoration: none;
+}
+
+.tile {
+  border: 1px solid #d2d2d2;
+  border-radius: 8px;
+  height: 100%;
+  font-size: 1.2em;
+}
+
+.blue-tile {
+  background-color: #eef6f9;
+  color: #226d77;
+  border-radius: 8px;
+}
+
+.pink-tile {
+  background-color: rgb(34, 109, 119);
+  color: white;
+  border-radius: 8px;
+}
+
+/*.tile-page {
+  gap: 10px 20px;
+}*/
+
+.tile-page h3 {
+  padding-left: 15px;
+}
+
+/* mobile responsive */
+@media screen and (max-width: 992px) {
+  .journey-main {
+    display: block;
+  }
+
+  .card-header {
+    text-align: center;
+    display: block;
+    width: 100%;
+  }
+
+  .pie-chart {
+    width: 25%;
+  }
+}

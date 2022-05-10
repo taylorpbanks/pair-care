@@ -26,6 +26,7 @@ import {
   Share,
   ImportContacts,
   ScreenShare,
+  RateReview
 } from '@material-ui/icons';
 import './header.css';
 import { useLocation } from 'react-router-dom'
@@ -70,6 +71,7 @@ const Header = ({ authState, logout }) => {
     },
     { id: 2, label: 'FAQs', path: '/faq', icon: <LiveHelp />, requiredAuth: false },
     { id: 3, label: 'Quick Recs', path: '/quick-recommendations', icon: <ImportContacts />, requiredAuth: false },
+    { id: 3, label: 'Blog', path: '/blog', icon: <RateReview />, requiredAuth: false },
   ]
 
   const handleMenu = (event) => {

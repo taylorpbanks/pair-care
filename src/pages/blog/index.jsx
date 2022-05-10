@@ -24,15 +24,14 @@ function BlogList() {
         <h2>Featured Article</h2>
         <div className="standard-flex-box">
           <div className="col-4">
-            <img src={featured.img} alt={featured.title} style={{width: '100%'}} />
+            <img src={featured.img} alt={featured.title} style={{maxWidth: '100%', maxHeight: '300px'}} />
           </div>
 
           <div className="col-8">
             <h3 className="primary-color">{featured.title}</h3>  
             <h4 className="secondary-color">{featured.date}</h4>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit ani.m id est laborum.
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum...
+              {featured.html}
             </p>
             <div style={{width: '50%'}}>
               <Link to={`/post/${featured.id}`} className="text-right mt-15" href="#">Read More &#8250;</Link>
