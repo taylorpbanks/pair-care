@@ -36,7 +36,7 @@ const PopulatedItem = ({ item, defaultIcon }) => {
     <Card style={{ width: '300px', display: 'inline-block', minHeight: '450px', margin: '15px' }} className="mr-15 pr-15">
       <CardHeader
         avatar={
-          <Avatar aria-label="crib" style={{ backgroundColor: '#226d77' }}>
+          <Avatar style={{ backgroundColor: '#226d77' }}>
             {item.icon || defaultIcon}
           </Avatar>
         }
@@ -69,7 +69,7 @@ const UnpopulatedItem = ({ item, setSelected, defaultIcon }) => {
     <Card style={{ width: '300px', display: 'inline-block', minHeight: '450px', margin: '15px' }} className="mr-15 pr-15">
       <CardHeader
         avatar={
-          <Avatar aria-label="crib" style={{ backgroundColor: '#226d77' }}>
+          <Avatar style={{ backgroundColor: '#bdbdbd' }}>
             {item.icon || defaultIcon}
           </Avatar>
         }

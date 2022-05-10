@@ -49,14 +49,13 @@ function Landing({ myList }) {
   const items = []
   rawList.subCategories.forEach(type => {
     const item = myList[2].find(item => {
-      return item.categoryId === category.id && type === item.type
+      return item.categoryId == category.id && type === item.type
     })
     items.push({
       type: type,
       ...item
     })
   })
-  console.log(myList[2])
 
   return (
     <div className="journey">

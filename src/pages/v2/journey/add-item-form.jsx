@@ -10,7 +10,9 @@ import {
   DialogActions,
   Tooltip,
   IconButton,
-  CircularProgress
+  CircularProgress,
+  FormControlLabel,
+  Checkbox
 } from '@material-ui/core';
 import { InfoOutlined } from '@material-ui/icons';
 import {
@@ -62,6 +64,7 @@ const AddItemForm = ({
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false)
   const [data, setData] = useState(defaultContent);
+  const [checked, setChecked] = useState(true);
 
   const getImgPreview = (e) => {
     const { value } = e.target;
@@ -103,7 +106,7 @@ const AddItemForm = ({
       toAge: 0,
       isRecommended: 'true',
       comments: '',
-      image: data.imgs[index] || null
+      image: checked && data.imgs[index] ? data.imgs[index] : null
     }
     const requestItem = cloneDeep(content);
 
@@ -116,19 +119,21 @@ const AddItemForm = ({
 
     await API.graphql({ query: createItemMutation, variables: { input: requestItem } })
     .then(response => {
-      console.log(1)
       let copyArray = [{...content}];
 
       requestItem.id = response.data.createItem.id;
       addItem(requestItem, 2);
       clear();
-      console.log(2)
     })
     .catch((error) => {
       console.log(error)
       setError('An unexpected error occurred.  Please try again.');
     });
   }
+
+  const handleChange = (event) => {
+    setChecked(event.target.checked);
+  };
 
   const clear = () => {
     setForm({ link: '' });
@@ -215,6 +220,7 @@ const AddItemForm = ({
                   )
                   }
                   {isLoading && <CircularProgress />}
+                  <FormControlLabel control={<Checkbox onChange={handleChange} checked={checked} />} label="This is the correct image" />
                 </div>
               </div>
             </DialogContentText>
@@ -225,7 +231,7 @@ const AddItemForm = ({
               Cancel
             </Button>
 
-            <Button onClick={(e) => { addingItem() }} color="primary">
+            <Button onClick={(e) => { addingItem() }} color="primary" disabled={form.link === '' || data.item === ''}>
               Add
             </Button>
           </DialogActions>
