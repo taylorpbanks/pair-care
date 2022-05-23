@@ -14,7 +14,7 @@ export default {
     category: 'newborn',
     date: 'October 19, 2021',
     time: '5 minute',
-    html: `Are you trying to figure out which baby wipes to purchase? It may seem straightforward but not all baby wipes are equal and they are not only super convenient but arguably essential. Washcloths are also a good eco-friendly alternative but keep in mind you will need multiple washcloths and need to frequently do laundry (unless you use a specialty service). We'll explore both options in this post to help you determine the best option for your baby since you're trying to figure out...everything else. You want your baby to get the best, and sometimes the wrong baby wipes can cause irritation, allergic reactions, and other issues so it&rsquo;s important to pay attention to what wipes you use.`
+    html: `Are you trying to figure out which baby wipes to purchase? It may seem straightforward but not all baby wipes are equal and they are not only super convenient but arguably essential. Washcloths are also a good eco-friendly alternative but keep in mind you will need multiple washcloths and need to frequently do laundry (unless you use a specialty service). We'll explore both options in this post to help you determine the best option for your baby since you're trying to figure out...everything else. You want your baby to get the best, and sometimes the wrong baby wipes can cause irritation, allergic reactions, and other issues so it's important to pay attention to what wipes you use.`
   },
   posts: [
     {
