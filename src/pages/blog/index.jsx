@@ -46,16 +46,22 @@ function BlogList() {
         <h2 style={{maxWidth: '1400px', margin: '0 auto'}}>Recent Posts</h2>
         <div className="page-container standard-flex-box">
           {posts.map(post => (
-            <Card className="col-3 item-box" variant="outlined" key={post.id}>
+            <Card className="col-3 item-box" variant="outlined" key={post.id} style={{ position: 'relative' }}>
               <div className="item-title">
                 {post.title}
               </div>
 
               <div className="view-link-container">
                 <Link to={`/post/${post.id}`} className="zoom-in">
-                  <figure><img src={post.img} alt={post.title} style={{width: '100%'}} /></figure>
+                  <figure><img src={post.img} alt={post.title} style={{maxWidth: '100%', maxHeight: '300px'}} /></figure>
                 </Link>
-                <div className="text-right mt-30" style={{fontSize: '.75em', color: 'gray'}}>{post.date} | {post.time}</div>
+                <div className="text-right mt-30" style={{
+                  fontSize: '.75em',
+                  color: 'gray',
+                  position: 'absolute',
+                  bottom: '15px',
+                  right: '15px'
+                }}>{post.date} | {post.time}</div>
               </div>
             </Card>
           ))}

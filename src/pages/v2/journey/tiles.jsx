@@ -42,8 +42,12 @@ const Tiles = () => {
                 className={`col-4 tile-container ${index % 2 === 0 ? 'blue-tile' : 'pink-tile'}`}
                 key={tile.id || tile.label}
               >
-              <div className="tile">
-                <h3 className="mt-30">{tile.label}</h3>
+              <div className="tile" style={{ 
+                backgroundImage: `url("${tile.img}")`,
+                backgroundSize: '100%',
+                backgroundPosition: 'bottom'
+               }}>
+                <h3 className="mt-30" style={{ backgroundColor: 'rgba(255, 255, 255, 0.7)' }}>{tile.label}</h3>
               </div>
             </Link>
             )}

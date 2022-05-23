@@ -13,17 +13,17 @@
   border-radius: 8px;
   height: 100%;
   font-size: 1.2em;
+  height: 250px;
+  margin: 15px;
 }
 
 .blue-tile {
-  background-color: #eef6f9;
   color: #226d77;
   border-radius: 8px;
 }
 
 .pink-tile {
-  background-color: rgb(34, 109, 119);
-  color: white;
+  color: #226d77;
   border-radius: 8px;
 }
 
@@ -33,6 +33,24 @@
 
 .tile-page h3 {
   padding-left: 15px;
+  font-weight: 400;
+  font-size: 1.5em;
+  padding: 15px;
+  margin-top: 190px;
+}
+
+/* carosal colors */
+.rec-arrow {
+  background-color: white !important;
+}
+
+.rec-arrow:focus, .rec-arrow:focus:enabled, .rec-arrow:hover {
+  background-color: #8cc5be !important;
+}
+
+.rec-dot_active {
+  background-color: #226d77 !important;
+  box-shadow: 0 0 1px 3px #8cc5be !important;
 }
 
 /* mobile responsive */

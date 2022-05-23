@@ -99,7 +99,7 @@ function Items({ items, defaultIcon, categoryId }) {
         {items.map(item => (
           <>
             {item.link ?
-              <PopulatedItem item={item} /> :
+              <PopulatedItem item={item} defaultIcon={defaultIcon} /> :
               <UnpopulatedItem item={item} setSelected={setSelected} defaultIcon={defaultIcon} />
             }
           </>
