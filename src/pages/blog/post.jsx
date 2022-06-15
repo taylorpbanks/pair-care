@@ -1,18 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import blog from '../../constants/blog';
 import { useParams, Link } from 'react-router-dom';
 import './index.css';
+import axios from 'axios';
+import moment from 'moment';
+import {
+  MailOutline,
+  Instagram,
+  Pinterest,
+  Facebook,
+} from '@material-ui/icons';
+import {
+  Button
+} from '@material-ui/core';
 
 function Post() {
   const params = useParams();
   const [attributes, setAttributes] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (params.id == 1) {
-      setAttributes(blog.featured)
-    } else {
-      setAttributes(blog.posts.find((post) => post.id == params.id))
-    }
+    axios
+    .get(
+      `http://public-api.wordpress.com/rest/v1/sites/paircare131120833.wordpress.com/posts/${params.id}`
+    )
+    .then(res => {
+      setAttributes(res.data)
+    })
+    .catch(error => console.log(error))
+    .finally(() => setIsLoading(false))
 
     window.scrollTo(0, 0)
   }, []);
@@ -21,7 +36,11 @@ function Post() {
     document.title = `Pair Care | ${attributes?.title || ''}`;
   }, [attributes])
 
-  if (!attributes?.title) {
+  if (isLoading) {
+    return  null
+  }
+
+  if (!attributes?.title && !isLoading) {
     document.title = `Pair Care | Oops`;
     return (
       <div className="blog page-container" style={{maxWidth: '600px'}}>
@@ -40,13 +59,28 @@ function Post() {
   return (
     <div className="blog page-container" style={{maxWidth: '600px'}}>
       <h1>{attributes.title}</h1>
-      <img src={attributes.img} alt={attributes.title} style={{width: '100%'}} />
-      <h3 className="secondary-color">{attributes.date} - {attributes.time} read</h3>
+      <img src={attributes.post_thumbnail.URL} alt={attributes.title} style={{width: '100%'}} />
+      <h3 className="secondary-color">{moment(attributes.date).format("MMMM DD, YYYY")}</h3>
 
-      <div dangerouslySetInnerHTML={{__html: attributes.html}} />
+      <div dangerouslySetInnerHTML={{__html: attributes.content}} />
 
+      <hr />
       <div className="mt-30">
-        <Link to="/blog">
+        <a href={`https://www.pinterest.com/pin/create/button/?url=https://www.pair-care.com/post/${attributes.ID}&media=${attributes.post_thumbnail.URL}&description=${attributes.title}`} style={{textDecoration: 'none'}}>
+          <Button style={{ backgroundColor: '#E50022', color: 'white', textTransform: 'capitalize', textDecoration: 'none' }}>
+            <Pinterest fontSize="medium" />&nbsp;&nbsp;Pin
+          </Button>
+        </a>
+
+        <a href={`https://www.facebook.com/sharer/sharer.php?u=https://www.pair-care.com/post/${attributes.ID}`} style={{textDecoration: 'none'}}>
+          <Button style={{ backgroundColor: '#3A589E', color: 'white', textTransform: 'capitalize', marginLeft: '15px' }}>
+            <Facebook fontSize="medium" />&nbsp;&nbsp;Share
+          </Button>
+        </a>
+
+        <br />
+        <br />
+        <Link to="/blog" className="pt-15">
           &#8249; Back to Blog List
         </Link>
       </div>
