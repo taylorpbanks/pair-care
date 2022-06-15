@@ -15,7 +15,7 @@ function BlogList() {
 
     axios
     .get(
-      "http://public-api.wordpress.com/rest/v1/sites/paircare131120833.wordpress.com/posts"
+      "https://public-api.wordpress.com/rest/v1/sites/paircare131120833.wordpress.com/posts"
     )
     .then(res => {
       setBlog(res.data)
