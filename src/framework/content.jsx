@@ -21,6 +21,7 @@ import QuickRecs from '../pages/quick-recs/quick-recs';
 import Splash from '../pages/splash/index';
 import BlogList from '../pages/blog/index';
 import Post from '../pages/blog/post';
+import Pick from '../pages/pick/index';
 // import App from '../NotesTest';
 
 export default function Content({authState, onStateChange}) {
@@ -75,6 +76,10 @@ export default function Content({authState, onStateChange}) {
 
         <Route path="/quick-recommendations">
           <QuickRecs />
+        </Route>
+
+        <Route path="/make-your-pick">
+          <Pick />
         </Route>
 
         <Route path="/profile">

@@ -152,6 +152,10 @@ a {
   margin-bottom: 0;
 }
 
+.mb-60 {
+  margin-bottom: 60px;
+}
+
 .mb-100 {
   margin-bottom: 100px;
 }
