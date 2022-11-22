@@ -135,5 +135,23 @@ export default {
     },
 
   ]
-}
-  
+}, {
+    id: 8,
+    title: 'Hospital Bag',
+    img: 'https://github.com/taylorpbanks/pair-care/blob/master/src/img/blog/maternity-bag.jpg',
+    category: 'pregnancy',
+    date: 'November 22, 2022',
+    time: '1 minute',
+    html: <p><strong>Lip Moisturizer </strong></p>
+<p>&lt;a href="https://www.amazon.com/dp/B07XXPHQZK?amp=&amp;crid=12KVMUZ1IG2SY&amp;amp=&amp;sprefix=linage&amp;linkCode=li2&amp;tag=paircare06-20&amp;linkId=803c1ce511dfefef43f36a7625300699&amp;language=en_US&amp;ref_=as_li_ss_il" target="_blank"&gt;&lt;img border="0" src="//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&amp;ASIN=B07XXPHQZK&amp;Format=_SL160_&amp;ID=AsinImage&amp;MarketPlace=US&amp;ServiceVersion=20070822&amp;WS=1&amp;tag=paircare06-20&amp;language=en_US" &gt;&lt;/a&gt;&lt;img src="https://ir-na.amazon-adsystem.com/e/ir?t=paircare06-20&amp;language=en_US&amp;l=li2&amp;o=1&amp;a=B07XXPHQZK" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" /&gt;</p>
+<p><strong>Slippers </strong></p>
+<p>&lt;a href="https://www.amazon.com/ULTRAIDEAS-Womens-Plush-Fleece-Slippers/dp/B074M7ZSBW?keywords=slippers&amp;qid=1669137943&amp;sr=8-8&amp;linkCode=li2&amp;tag=paircare06-20&amp;linkId=98056399794a77a79d4a9aea4fe7e891&amp;language=en_US&amp;ref_=as_li_ss_il" target="_blank"&gt;&lt;img border="0" src="//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&amp;ASIN=B074M7ZSBW&amp;Format=_SL160_&amp;ID=AsinImage&amp;MarketPlace=US&amp;ServiceVersion=20070822&amp;WS=1&amp;tag=paircare06-20&amp;language=en_US" &gt;&lt;/a&gt;&lt;img src="https://ir-na.amazon-adsystem.com/e/ir?t=paircare06-20&amp;language=en_US&amp;l=li2&amp;o=1&amp;a=B074M7ZSBW" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" /&gt;</p>
+<p><strong>Long Cord Phone Charger</strong></p>
+<p>&lt;a href="https://www.amazon.com/Certified-Charger-Charging-Lightning-Compatible/dp/B0B1PR3TMD?crid=1KI6PDOAP9CP4&amp;keywords=phone+charger+long+cord&amp;qid=1669138013&amp;sprefix=phone+charger+long+cor%2Caps%2C118&amp;sr=8-3&amp;linkCode=li2&amp;tag=paircare06-20&amp;linkId=2a679d7170ff3a815fa334cb6bddb5ed&amp;language=en_US&amp;ref_=as_li_ss_il" target="_blank"&gt;&lt;img border="0" src="//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&amp;ASIN=B0B1PR3TMD&amp;Format=_SL160_&amp;ID=AsinImage&amp;MarketPlace=US&amp;ServiceVersion=20070822&amp;WS=1&amp;tag=paircare06-20&amp;language=en_US" &gt;&lt;/a&gt;&lt;img src="https://ir-na.amazon-adsystem.com/e/ir?t=paircare06-20&amp;language=en_US&amp;l=li2&amp;o=1&amp;a=B0B1PR3TMD" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" /&gt;</p>
+<p><strong>Robe</strong></p>
+<p>&lt;a href="https://www.amazon.com/MAXMODA-Kimono-Bathrobe-Sleepwear-Loungewear/dp/B087TY4SZ6?crid=3NEEF7RPC4U5L&amp;keywords=striped+bathrobe+for+hospital&amp;qid=1669138244&amp;sprefix=stripped+bath+robe+for+hospital%2Caps%2C110&amp;sr=8-18&amp;linkCode=li2&amp;tag=paircare06-20&amp;linkId=22f9a44d16697ab68336ff1814ce3ab9&amp;language=en_US&amp;ref_=as_li_ss_il" target="_blank"&gt;&lt;img border="0" src="//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&amp;ASIN=B087TY4SZ6&amp;Format=_SL160_&amp;ID=AsinImage&amp;MarketPlace=US&amp;ServiceVersion=20070822&amp;WS=1&amp;tag=paircare06-20&amp;language=en_US" &gt;&lt;/a&gt;&lt;img src="https://ir-na.amazon-adsystem.com/e/ir?t=paircare06-20&amp;language=en_US&amp;l=li2&amp;o=1&amp;a=B087TY4SZ6" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" /&gt;</p>
+<p><strong>Hair Scrunchie</strong></p>
+<p>https://www.walmartcreator.com/l/222G/102487</p>
+},
+  posts: [
+    { 
